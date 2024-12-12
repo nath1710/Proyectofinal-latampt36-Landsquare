@@ -7,6 +7,7 @@ from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 from email_validator import validate_email, EmailNotValidError
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
 api = Blueprint('api', __name__)
 
@@ -25,11 +26,11 @@ def create_user():
     try:
         validate_email(email)
     except EmailNotValidError as e:
-        return jsonify({"message": "Invalid email format", "error": str(e)}), 400
+        return jsonify({'message': 'Invalid email format', 'error': str(e)}), 400
     
     if '' in [email, password, name, country]:
         return jsonify({
-            'message: ': 'Sin vacíos!!!'
+            'message: ': 'No value can be empty'
         }), 400
 
     if None in [email, password, name, country]:
@@ -49,8 +50,8 @@ def create_user():
         db.session.add(new_user)
         db.session.commit()
     except Exception as error:
-        db.session.rollback()  # Rollback the session in case of error
-        print(f"Error creating user: {error}")  # Log the specific error
+        db.session.rollback()  # Rollback en case of error
+        print(f"Error creating user: {error}")  # Imprime el error específico
         return jsonify({
             'message': f'Database error: {str(error)}'
         }), 500
@@ -58,3 +59,49 @@ def create_user():
     return jsonify({
             'user: ': new_user.serialize()
         }), 200
+
+@api.route('/token', methods=['POST'])
+def login():
+    # Validación de datos de entrada
+    if not request.is_json:
+        return jsonify({'message': 'Invalid request. JSON required'}), 400
+
+    data = request.json
+    email = data.get('email')
+    password = data.get('password')
+
+    # Validación de campos requeridos
+    if not email or not password:
+        return jsonify({'message': 'Email and password are required'}), 400
+
+    try:
+        # Búsqueda de usuario
+        email_exists = db.session.execute(db.select(User).filter_by(email=email)).first()
+
+        # Validación de existencia de usuario
+        if not email_exists:
+            return jsonify({'message': 'Invalid email or password'}), 401
+
+        # Extracción del usuario
+        user = email_exists[0]
+
+        # Verificación de contraseña
+        if not check_password_hash(user.password, password):
+            return jsonify({'message': 'Invalid email or password'}), 401
+
+        # Generación de token
+        token = create_access_token(identity=user.email)
+        
+        return jsonify({
+            'token': token,
+            'user': {
+                'id': user.id,
+                'email': user.email,
+                'name': user.name
+            }
+        }), 200
+
+    except Exception as e:
+        # Logging del error
+        print(f"Login error: {str(e)}")
+        return jsonify({'message': 'An unexpected error occurred'}), 500
