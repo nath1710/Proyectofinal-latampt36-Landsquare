@@ -1,3 +1,81 @@
 /* 
     General Styles used on every website (Don't Repeat Yourself)
 */
+body{
+    width: 100%;
+    height: 100vh;  
+    margin: 0; 
+    background-image: linear-gradient(to top right, rgb(23, 75, 64), rgb(76, 118, 81), rgb(156,201,140,255));
+    background-attachment: fixed;
+}
+
+.box-form {
+    width: 450px;
+    padding: 5.5%;
+    border-radius: 1.5rem;
+    border: 1px solid rgba(238, 233, 233, 0.2);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    background-color: rgba(225, 225, 225, 0.1);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.box-form:hover {
+    border-color: rgba(238, 233, 233, 0.5);
+    box-shadow: 1.3rem 1.3rem 1.3rem rgba(0, 0, 0, 0.25);
+}
+
+.signup-button, .login-button {
+    display: inline-block;
+    padding: 0.75rem 1.25rem;
+    border-radius: 10rem;
+    border: none;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: 0.15rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.signup-button:after, .login-button:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(23, 75, 64);
+    border-radius: 10rem;
+    z-index: -2;
+}
+
+.signup-button:before, .login-button:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background-color: rgb(241,178,74,255);
+    transition: all 0.3s;
+    border-radius: 10rem;
+    z-index: -1;
+}
+
+.signup-button:hover, .login-button:hover {
+    color: #fff;
+}
+
+.signup-button:hover:before, .login-button:hover:before{
+    width: 100%;
+}
+
+@media (max-width: 576px) {
+    .box-form {
+        width: 95%;
+        padding: 2.5rem 1.5rem;
+    }
+}
