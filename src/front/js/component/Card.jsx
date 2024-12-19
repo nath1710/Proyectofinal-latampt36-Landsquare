@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { Context } from "../store/appContext";
+import React from "react";
 
 const Card = (props) => {
     return (        

@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { Context } from "../store/appContext.js";
-
+import React from "react";
 import Card from "./Card.jsx";
 
+
 const data = [
-    {   
+    {  
         img: 'https://picsum.photos/400/225?random=1',
         price: '10,000',
         size: '357',
@@ -82,12 +80,12 @@ const data = [
 const CardSlider = () => {
 
     return (
-        <div className='d-flex flex-column gap-3 align-items-center justify-content-center bg-light text-dark py-4'>
+        <div className=' cardslider d-flex flex-column gap-3 align-items-center justify-content-center bg-light text-dark py-4'>
             <h2 className='mb-3'>Terrenos en venta en Latam</h2>
             <div className='d-flex flex-wrap gap-2 align-items-center justify-content-center'>
                 
-                {data.map((d) => (
-                    <Card imgURL={d.img} price={d.price} size={d.size} address={d.address} imgOwner={d.imgOwner} owner={d.owner} info={d.info} />
+                {data.map((d, index) => (
+                    <Card key={index} imgURL={d.img} price={d.price} size={d.size} address={d.address} imgOwner={d.imgOwner} owner={d.owner} info={d.info} />
                 ))}
             </div >                
         </div>

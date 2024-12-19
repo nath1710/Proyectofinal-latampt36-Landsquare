@@ -13,7 +13,7 @@ const imgStyle = {
 const HeroImage = () => {
     
     return (
-        <div className='d-flex flex-column gap-3 vh-100 align-items-center justify-content-center' style={imgStyle}>
+        <div className='imagehome d-flex flex-column gap-3 vh-100 align-items-center justify-content-center' style={imgStyle}>
             
             <div className=''>
                 <img src={logoLS}/>
