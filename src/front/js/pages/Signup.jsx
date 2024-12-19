@@ -62,7 +62,7 @@ const Signup = () => {
     }, [formStatus.ready, navigate]);
 
     return (
-        <main className="d-flex flex-column gap-3 vh-100 align-items-center justify-content-center">
+        <main className=" auth-background d-flex flex-column gap-3 vh-100 align-items-center justify-content-center">
             <h1>Sign up</h1>
             <form onSubmit={registerUser}>
                 <div className="box-form">

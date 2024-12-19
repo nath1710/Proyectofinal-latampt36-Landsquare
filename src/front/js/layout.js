@@ -10,8 +10,8 @@ import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
-import Signup from "./component/Signup.jsx";
-import Login from "./component/Login.jsx";
+import Signup from "./pages/Signup.jsx";
+import Login from "./pages/Login.jsx";
 import Private from "./component/Private.jsx";
 
 //create your first component
