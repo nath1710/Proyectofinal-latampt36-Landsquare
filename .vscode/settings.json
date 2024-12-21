@@ -9,5 +9,8 @@
     },
     "[python]": {
         "editor.defaultFormatter": "ms-python.autopep8"
+    },
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
     }
 }

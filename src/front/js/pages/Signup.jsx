@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
+import landsImage from '../../img/lands.jpg';
+import logoLS from '../../img/LandSquare-small.png';
 
 
 
@@ -62,11 +64,12 @@ const Signup = () => {
     }, [formStatus.ready, navigate]);
 
     return (
-        <main className=" auth-background d-flex flex-column gap-3 vh-100 align-items-center justify-content-center">
-            <h1>Sign up</h1>
+        <main className=" imageform d-flex flex-column gap-3 vh-100 align-items-center justify-content-center">
             <form onSubmit={registerUser}>
                 <div className="box-form">
                     <div className="cd1">
+                        <img src={logoLS} />
+                        <h1>Sign up</h1>
                         <p style={{ color: "rgba(178,35,35,255)", fontWeight: "bold" }}>Fields marked with an * are mandatory</p>
                         <div className="mb-3">
                             <label htmlFor="InputEmail1" className="form-label">Email address &nbsp;
@@ -144,6 +147,9 @@ const Signup = () => {
                                 {formStatus.message}
                             </div>
                         )}
+                    </div>
+                    <div className="landsimage-container">
+                        <img className="landsimage" src={landsImage} alt="lands" />
                     </div>
                 </div>
             </form>

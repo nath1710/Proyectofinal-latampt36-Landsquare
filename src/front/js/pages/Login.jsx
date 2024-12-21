@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
+import landsImage from '../../img/lands.jpg';
+import logoLS from '../../img/LandSquare-small.png';
 
 
 const Login = () => {
@@ -44,46 +46,52 @@ const Login = () => {
     }, [formStatus.ready])
 
     return (
-        <main className="d-flex flex-column gap-3 vh-100 align-items-center justify-content-center">
-            <h1>Log in</h1>
+        <main className="imageform d-flex flex-column gap-3 vh-100 align-items-center justify-content-center">
             <form onSubmit={loginUser}>
                 <div className="box-form">
-                    <div className="mb-3">
-                        <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="form-control"
-                            id="exampleInputEmail1"
-                            aria-describedby="emailHelp"
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="form-control"
-                            id="exampleInputPassword1"
-                        />
-                    </div>
-                    {formStatus.loading ? (
-                        <div className="spinner-border text-primary" role="status">
-                            <span className="visually-hidden">Loading...</span>
+                    <div className="cd1">
+                        <img src={logoLS} />
+                        <h1>Log in</h1>
+                        <div className="mb-3">
+                            <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
+                            <input
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="form-control"
+                                id="exampleInputEmail1"
+                                aria-describedby="emailHelp"
+                            />
                         </div>
-                    ) : (
-                        <button type="submit" className="login-button btn btn-primary">Submit</button>
-                    )}
-                    {formStatus.message && (
-                        <div
-                            className={`alert mt-3 ${formStatus.message.includes("successfully") ? "alert-success" : "alert-danger"}`}
-                            role="alert"
-                        >
-                            {formStatus.message}
+                        <div className="mb-3">
+                            <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
+                            <input
+                                type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="form-control"
+                                id="exampleInputPassword1"
+                            />
                         </div>
-                    )}
+                        {formStatus.loading ? (
+                            <div className="spinner-border text-primary" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </div>
+                        ) : (
+                            <button type="submit" className="login-button btn btn-primary">Submit</button>
+                        )}
+                        {formStatus.message && (
+                            <div
+                                className={`alert mt-3 ${formStatus.message.includes("successfully") ? "alert-success" : "alert-danger"}`}
+                                role="alert"
+                            >
+                                {formStatus.message}
+                            </div>
+                        )}
+                    </div>
+                    <div className="landsimage-container">
+                        <img className="landsimage" src={landsImage} alt="lands" />
+                    </div>
                 </div>
             </form>
         </main>
