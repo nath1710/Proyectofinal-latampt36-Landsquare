@@ -13,7 +13,7 @@ from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identi
 api = Blueprint('api', __name__)
 
 # Allow CORS requests to this API
-CORS(api)
+CORS(api, resources={r"/*": {"origins": "https://vigilant-palm-tree-76qw4vjw76qhrvqq-3000.app.github.dev"}})
 
 
 @api.route('/user', methods=['POST'])

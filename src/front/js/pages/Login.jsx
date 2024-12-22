@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import landsImage from '../../img/lands.jpg';
 import logoLS from '../../img/LandSquare-small.png';
@@ -40,7 +40,7 @@ const Login = () => {
 
     useEffect(() => {
         if (formStatus.ready === true) {
-            navigate("/private")
+            navigate("/")
 
         }
     }, [formStatus.ready])
@@ -72,6 +72,9 @@ const Login = () => {
                                 className="form-control"
                                 id="exampleInputPassword1"
                             />
+                            <Link to="/Signup" className="p-1">
+                                <p>Don't have an account yet? Register</p>
+                            </Link>
                         </div>
                         {formStatus.loading ? (
                             <div className="spinner-border text-primary" role="status">

@@ -1,6 +1,7 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
+			token: undefined,
 			countries: [
 				{ code: "AF", name: "Afganistán" },
 				{ code: "AL", name: "Albania" },
@@ -71,7 +72,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const country = store.countries.find(c => c.code === code);
 				return country || { code: "", name: "Not found" };
 			},
-			setToken: (token) => {
+			setToken:(token) =>{
 				setStore({ token: token })
 				localStorage.setItem("token", token)
 			},

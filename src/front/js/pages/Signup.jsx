@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import landsImage from '../../img/lands.jpg';
 import logoLS from '../../img/LandSquare-small.png';
@@ -131,6 +131,9 @@ const Signup = () => {
                                 className="form-control"
                                 id="exampleInputAddress1"
                             />
+                            <Link to="/Login" className="p-1">
+                                <p>Already have an account? Sign in</p>
+                            </Link>
                         </div>
                         {formStatus.loading ? (
                             <div className="spinner-border text-primary" role="status">

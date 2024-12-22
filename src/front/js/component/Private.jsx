@@ -10,7 +10,7 @@ const Private = () => {
     const handlePrivateData = async () => {
     {
         try {
-            const response = await fetch(process.env.BACKEND_URL + "/api/user", {
+            const response = await fetch('https://silver-invention-9rvw47gw5743pw4-3001.app.github.dev/api/users', {
                 method: "GET",
                 headers: {
                     "Content-type": "Application/json",
