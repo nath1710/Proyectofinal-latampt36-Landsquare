@@ -39,6 +39,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				{ code: "VE", name: "Venezuela" }
 			],
 			token: undefined,
+			preset_name: 'landsquare',
+			cloud_name: 'dgbakagwe'
 		},
 		actions: {
 			// Use getActions to call a function within a fuction

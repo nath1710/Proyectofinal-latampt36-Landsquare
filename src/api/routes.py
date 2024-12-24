@@ -1,7 +1,7 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-from flask import request, jsonify, Blueprint
+from flask import request, jsonify, Blueprint, make_response
 from sqlalchemy.exc import SQLAlchemyError
 from api.models import db, User, Announcement
 from api.utils import generate_sitemap, APIException
@@ -13,8 +13,14 @@ from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identi
 api = Blueprint('api', __name__)
 
 # Allow CORS requests to this API
-CORS(api, resources={r"/*": {"origins": "https://vigilant-palm-tree-76qw4vjw76qhrvqq-3000.app.github.dev"}})
+CORS(api, resources={r"/*": {"origins": "https://organic-carnival-pjg4j7wgrvj62969j-3000.app.github.dev"}})
 
+def _build_cors_preflight_response():
+    response = make_response()
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add("Access-Control-Allow-Headers", "*")
+    response.headers.add("Access-Control-Allow-Methods", "*")
+    return response
 
 @api.route('/user', methods=['POST'])
 def create_user():
@@ -113,6 +119,13 @@ def login():
         print(f"Unexpected error: {str(e)}")
         return jsonify({'message': 'An unexpected error occurred', 'error': str(e)}), 500
 
+@api.route('/user', methods=['GET'])
+@jwt_required()
+def get_private_data():
+    user_mail = get_jwt_identity()
+    user = db.session.execute(db.select(User).filter_by(email=user_mail)).scalar_one()
+    return jsonify(user.serialize()), 200
+
 
 @api.route('/lands-post', methods=['POST'])
 @jwt_required()
@@ -190,11 +203,15 @@ def update_user(user_id):
     current_user_email = get_jwt_identity()
     user = User.query.get(user_id)
 
+    if request.method == "OPTIONS": # CORS preflight
+        return _build_cors_preflight_response()
+
     if not user:
         return jsonify({"message": "User not found"}), 404
 
     if user.email != current_user_email:
         return jsonify({"message": "You are not authorized to update this user's information"}), 403
+        
 
     data = request.json
 
