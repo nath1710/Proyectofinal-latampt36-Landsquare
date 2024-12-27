@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import logoLS from '../../img/LandSquare-small.png';
 import { Context } from "../store/appContext";
@@ -8,28 +8,50 @@ export const Navbar = () => {
 	const { store, actions } = useContext(Context);
 	const navigate = useNavigate();
 	const location = useLocation();
+	const [isScrolled, setIsScrolled] = useState(false);
 
 	const shouldShowSignOutButton = store.token && location.pathname === "/";
 
+	useEffect(() => {
+		const handleScroll = () => {
+			setIsScrolled(window.scrollY > 0);
+		};
+
+		window.addEventListener("scroll", handleScroll);
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+		};
+	}, []);
+
 	return (
-		<nav className="navbar navbar-light bg-light">
+		<nav className={`navbar ${isScrolled ? "down" : ""}`}>
 			<div className="container">
 				<Link to="/">
-					<img src={logoLS} alt="Logo" />
+					<img className="logo" src={logoLS} alt="Logo" />
 				</Link>
-				<div className="ml-auto">
-					{!store.token && (
-						<button onClick={() => navigate("/login")} className="btn btn-primary">
-							Log in
-						</button>
-					)}
-					{shouldShowSignOutButton && (
-						<button onClick={() => { actions.clearToken(); navigate("/login"); }} className="btn btn-danger">
-							Sign out
-						</button>
-					)}
+				<div className="ml-auto d-flex justify-content-around align-items-baseline">
+					<div className="sections">
+						<Link to="/">Buy Land </Link>
+						<Link to="/">Find an Agent</Link>
+						<Link to="/">Contact us</Link>
+						{!store.token && (
+							<Link to="/Signup">
+								Sign Up
+							</Link>
+						)}
+						{shouldShowSignOutButton && (
+							<Link
+								to="/login"
+								onClick={() => {
+									actions.clearToken();
+								}}
+							>
+								Sign out
+							</Link>
+						)}
+					</div>
 				</div>
 			</div>
-		</nav>
+		</nav >
 	);
 };
