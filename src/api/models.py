@@ -20,6 +20,7 @@ class User(db.Model):
     is_active = db.Column(db.Boolean(), default=True, nullable=False)
 
     announcements = db.relationship('Announcement', back_populates='user')
+    favorite = db.relationship('Favorite', back_populates='user')
 
     def __init__(self, email, password, name, country, address, phone_number="", photo_profile=None):
         self.email = email
@@ -58,6 +59,7 @@ class Announcement(db.Model):
     creation_date = db.Column(
         db.DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
     user = db.relationship('User', back_populates='announcements')
+    favorite = db.relationship('Favorite', back_populates='announcement')
 
     def serialize(self):
         return {
@@ -69,4 +71,30 @@ class Announcement(db.Model):
             'location': self.location,
             'size': self.size,
             'creation_date': self.creation_date.isoformat()
+        }
+
+class Favorite(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    announcement_id = db.Column(db.Integer, db.ForeignKey('announcement.id'), nullable=False)
+    creation_date = db.Column(
+        db.DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
+    
+    user = db.relationship('User', back_populates='favorite')
+    announcement = db.relationship('Announcement', back_populates='favorite')
+
+    def __init__(self, user_id, announcement_id):
+        self.user_id = user_id #Creo que esto no es necesario porque viene en el token
+        self.announcement_id = announcement_id
+
+    def __repr__(self):
+        return '<Favorite %r>' % self.id
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'announcement_id': self.announcement_id,
+            'creation_date': self.creation_date.isoformat(),
+            'announcement': self.announcement.serialize()
         }
