@@ -46,7 +46,7 @@ const Login = () => {
     }, [formStatus.ready])
 
     return (
-        <main className="imageform d-flex flex-column gap-3 vh-100 align-items-center justify-content-center">
+        <main className="imageformLogin d-flex flex-column gap-3 vh-100 align-items-center justify-content-center">
             <form onSubmit={loginUser}>
                 <div className="box-form">
                     <div className="cd1">
@@ -72,7 +72,7 @@ const Login = () => {
                                 className="form-control"
                                 id="exampleInputPassword1"
                             />
-                            <Link to="/Signup" className="p-1">
+                            <Link to="/signup" className="p-1">
                                 <p>Don't have an account yet? Register</p>
                             </Link>
                         </div>

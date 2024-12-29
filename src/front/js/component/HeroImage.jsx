@@ -19,14 +19,18 @@ const HeroImage = () => {
                 backgroundImage: `url(${hImage})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
-                minHeight: 'calc(100vh - 56px)', // Altura total menos el tamaño del navbar (56px)
-                position: 'relative', // Para que los elementos estén por encima
+                minHeight: 'calc(100vh - 56px)',
+                position: 'relative',
                 zIndex: 1
             }}
         >
 
             <div className="text-center text-light">
-                <img src={logoLS} />
+                <img
+                    style={{ filter: "drop-shadow(0 0 10px rgba(255, 255, 255, 0.8))" }}
+                    src={logoLS}
+                    alt="Logo"
+                />
                 <h2 className='text-center text-light'>The place where your dreams find their land</h2>
             </div>
 

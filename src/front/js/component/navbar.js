@@ -12,6 +12,8 @@ export const Navbar = () => {
 
 	const shouldShowSignOutButton = store.token && location.pathname === "/";
 
+	const shouldBeAbsolute = location.pathname === "/signup" || location.pathname === "/login";
+
 	useEffect(() => {
 		const handleScroll = () => {
 			setIsScrolled(window.scrollY > 0);
@@ -24,7 +26,7 @@ export const Navbar = () => {
 	}, []);
 
 	return (
-		<nav className={`navbar ${isScrolled ? "down" : ""}`}>
+		<nav className={`navbar ${isScrolled ? "down" : ""} ${shouldBeAbsolute ? "absolute" : ""}`}>
 			<div className="container">
 				<Link to="/">
 					<img className="logo" src={logoLS} alt="Logo" />
@@ -35,7 +37,7 @@ export const Navbar = () => {
 						<Link to="/">Find an Agent</Link>
 						<Link to="/">Contact us</Link>
 						{!store.token && (
-							<Link to="/Signup">
+							<Link to="/signup">
 								Sign Up
 							</Link>
 						)}
