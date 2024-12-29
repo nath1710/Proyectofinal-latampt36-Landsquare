@@ -3,7 +3,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 from flask import request, jsonify, Blueprint, make_response
 from sqlalchemy.exc import SQLAlchemyError
-from api.models import db, User, Announcement
+from api.models import db, User, Announcement, Favorite
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -232,3 +232,153 @@ def update_user(user_id):
 
     except ValueError as e:
         return jsonify({"message": str(e)}), 400
+
+
+@api.route('/favorites', methods=['POST'])
+@jwt_required()
+def create_favorite():
+    current_user_email = get_jwt_identity()
+    user = db.session.execute(db.select(User).filter_by(
+        email=current_user_email)).scalar_one_or_none()
+    
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+
+    try:
+        data = request.json
+        announcement_id = data.get('announcement_id')
+
+        if not announcement_id:
+            return jsonify({"error": "announcement_id is required"}), 400
+
+        # Verifica si el anuncio existe
+        announcement = db.session.execute(db.select(Announcement).filter_by(
+            id=announcement_id)).scalar_one_or_none()
+        
+        if not announcement:
+            return jsonify({"error": "Announcement not found"}), 404
+
+        # Verifica si ya existe el favorito
+        existing_favorite = db.session.execute(db.select(Favorite).filter_by(
+                user_id=user.id,
+                announcement_id=announcement_id
+            )).scalar_one_or_none()
+
+        if existing_favorite:
+            return jsonify({"error": "Announcement already in favorites"}), 400
+
+        new_favorite = Favorite(
+            user_id=user.id,
+            announcement_id=announcement_id
+        )
+
+        db.session.add(new_favorite)
+        db.session.commit()
+
+        return jsonify({
+            "message": "Favorite created successfully",
+            "favorite": new_favorite.serialize()
+        }), 201
+
+    except SQLAlchemyError as db_error:
+        db.session.rollback()
+        print(f"Database error: {str(db_error)}")
+        return jsonify({'message': 'Database error occurred', 'error': str(db_error)}), 500
+
+    except Exception as e:
+        print(f"Unexpected error: {str(e)}")
+        return jsonify({'message': 'An unexpected error occurred', 'error': str(e)}), 500
+
+@api.route('/favorites/<int:favorite_id>', methods=['GET'])
+@jwt_required()
+def get_favorite(favorite_id):
+    current_user_email = get_jwt_identity()
+    user = db.session.execute(db.select(User).filter_by(
+        email=current_user_email)).scalar_one_or_none()
+    
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+
+    try:
+        favorite = db.session.execute(db.select(Favorite).filter_by(
+                id=favorite_id,
+                user_id=user.id
+            )).scalar_one_or_none()
+
+        if not favorite:
+            return jsonify({"error": "Favorite not found"}), 404
+
+        return jsonify(favorite.serialize()), 200
+
+    except SQLAlchemyError as db_error:
+        print(f"Database error: {str(db_error)}")
+        return jsonify({'message': 'Database error occurred', 'error': str(db_error)}), 500
+
+    except Exception as e:
+        print(f"Unexpected error: {str(e)}")
+        return jsonify({'message': 'An unexpected error occurred', 'error': str(e)}), 500
+
+@api.route('/favorites', methods=['GET'])
+@jwt_required()
+def get_user_favorites():
+    current_user_email = get_jwt_identity()
+    user = db.session.execute(db.select(User).filter_by(
+        email=current_user_email)).scalar_one_or_none()
+    
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+
+    try:
+        favorites = db.session.execute(db.select(Favorite)
+            .filter_by(user_id=user.id)
+            .order_by(Favorite.creation_date.desc())
+        ).scalars().all()
+
+        return jsonify({
+            "favorites": [favorite.serialize() for favorite in favorites]
+        }), 200
+
+    except SQLAlchemyError as db_error:
+        print(f"Database error: {str(db_error)}")
+        return jsonify({'message': 'Database error occurred', 'error': str(db_error)}), 500
+
+    except Exception as e:
+        print(f"Unexpected error: {str(e)}")
+        return jsonify({'message': 'An unexpected error occurred', 'error': str(e)}), 500
+
+@api.route('/favorites/<int:favorite_id>', methods=['DELETE'])
+@jwt_required()
+def delete_favorite(favorite_id):
+    current_user_email = get_jwt_identity()
+    user = db.session.execute(db.select(User).filter_by(
+        email=current_user_email)).scalar_one_or_none()
+    
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+
+    try:
+        favorite = db.session.execute(
+            db.select(Favorite).filter_by(
+                id=favorite_id,
+                user_id=user.id
+            )).scalar_one_or_none()
+
+        if not favorite:
+            return jsonify({"error": "Favorite not found or unauthorized"}), 404
+
+        db.session.delete(favorite)
+        db.session.commit()
+
+        return jsonify({
+            "message": "Favorite deleted successfully",
+            "deleted_favorite_id": favorite_id
+        }), 200
+
+    except SQLAlchemyError as db_error:
+        db.session.rollback()
+        print(f"Database error: {str(db_error)}")
+        return jsonify({'message': 'Database error occurred', 'error': str(db_error)}), 500
+
+    except Exception as e:
+        print(f"Unexpected error: {str(e)}")
+        return jsonify({'message': 'An unexpected error occurred', 'error': str(e)}), 500
