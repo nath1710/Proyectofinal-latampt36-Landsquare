@@ -71,7 +71,7 @@ const Signup = () => {
                         <img src={logoLS} />
                         <h1>Sign up</h1>
                         <p style={{ color: "rgba(178,35,35,255)", fontWeight: "bold" }}>Fields marked with an * are mandatory</p>
-                        <div className="mb-3">
+                        <div className="mb-2">
                             <label htmlFor="InputEmail1" className="form-label">Email address &nbsp;
                                 <span style={{ color: "rgba(178,35,35,255)", fontWeight: "bold" }} >*</span></label>
                             <input

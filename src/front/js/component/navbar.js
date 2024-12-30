@@ -10,9 +10,10 @@ export const Navbar = () => {
 	const location = useLocation();
 	const [isScrolled, setIsScrolled] = useState(false);
 
-	const shouldShowSignOutButton = store.token && location.pathname === "/";
+	const shouldShowSignOutButton = store.token;
+	const shouldShowFavoritesButton = store.token;
 
-	const shouldBeAbsolute = location.pathname === "/signup" || location.pathname === "/login";
+	const shouldBeAbsolute = location.pathname === "/signup" || location.pathname === "/login" || location.pathname === "/favorites";
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -33,9 +34,17 @@ export const Navbar = () => {
 				</Link>
 				<div className="ml-auto d-flex justify-content-around align-items-baseline">
 					<div className="sections">
-						<Link to="/">Buy Land </Link>
+						<Link to="/lands">Buy Land </Link>
 						<Link to="/">Find an Agent</Link>
 						<Link to="/">Contact us</Link>
+						{!store.token && ("")}
+						{shouldShowFavoritesButton && (
+							<Link
+								to="/favorites"
+							>
+								Favorites
+							</Link>
+						)}
 						{!store.token && (
 							<Link to="/signup">
 								Sign Up

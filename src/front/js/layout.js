@@ -16,6 +16,7 @@ import Private from "./component/Private.jsx";
 import Post from "./pages/Post.jsx";
 import Favorites from "./pages/Favorites.jsx";
 import EditProfile from "./pages/EditProfile.jsx";
+import Lands from "./pages/Lands.jsx";
 
 //create your first component
 const Layout = () => {
@@ -34,12 +35,13 @@ const Layout = () => {
                         <Route element={<Home />} path="/" />
                         <Route element={<Signup />} path="/signup" />
                         <Route element={<Login />} path="/login" />
-                        <Route element={<Private />} path="/private" />
+                        <Route element={<Lands />} path="/lands" />
                         <Route element={<Favorites />} path="/favorites" />
+                        <Route element={<EditProfile />} path="/settings" />
                         <Route element={<Post />} path="/post" />
-                        <Route element={<EditProfile />} path="/edit_profile" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
+                        <Route element={<Private />} path="/private" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />

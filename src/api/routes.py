@@ -13,7 +13,8 @@ from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identi
 api = Blueprint('api', __name__)
 
 # Allow CORS requests to this API
-CORS(api, resources={r"/*": {"origins": "https://organic-carnival-pjg4j7wgrvj62969j-3000.app.github.dev"}})
+CORS(api, resources={r"/*": {"origins": "*"}})
+
 
 def _build_cors_preflight_response():
     response = make_response()
@@ -21,6 +22,7 @@ def _build_cors_preflight_response():
     response.headers.add("Access-Control-Allow-Headers", "*")
     response.headers.add("Access-Control-Allow-Methods", "*")
     return response
+
 
 @api.route('/user', methods=['POST'])
 def create_user():
@@ -119,11 +121,13 @@ def login():
         print(f"Unexpected error: {str(e)}")
         return jsonify({'message': 'An unexpected error occurred', 'error': str(e)}), 500
 
+
 @api.route('/user', methods=['GET'])
 @jwt_required()
 def get_private_data():
     user_mail = get_jwt_identity()
-    user = db.session.execute(db.select(User).filter_by(email=user_mail)).scalar_one()
+    user = db.session.execute(
+        db.select(User).filter_by(email=user_mail)).scalar_one()
     return jsonify(user.serialize()), 200
 
 
@@ -197,13 +201,52 @@ def create_announcement():
         return jsonify({'message': 'An unexpected error occurred', 'error': str(e)}), 500
 
 
+@api.route('/lands', methods=['GET'])
+@jwt_required()
+def get_announcements():
+    current_user_email = get_jwt_identity()
+    user = db.session.execute(db.select(User).filter_by(
+        email=current_user_email)).scalar_one_or_none()
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+
+    try:
+        announcements = db.session.execute(
+            db.select(Announcement).filter_by(user_id=user.id)
+        ).scalars().all()
+
+        announcements_data = [
+            {
+                "id": announcement.id,
+                "images": announcement.images,
+                "title": announcement.title,
+                "description": announcement.description,
+                "price": announcement.price,
+                "location": announcement.location,
+                "size": announcement.size,
+                "creation_date": announcement.creation_date.isoformat()
+            }
+            for announcement in announcements
+        ]
+
+        return jsonify({"announcements": announcements_data}), 200
+
+    except SQLAlchemyError as db_error:
+        print(f"Database error: {str(db_error)}")
+        return jsonify({'message': 'Database error occurred', 'error': str(db_error)}), 500
+
+    except Exception as e:
+        print(f"Unexpected error: {str(e)}")
+        return jsonify({'message': 'An unexpected error occurred', 'error': str(e)}), 500
+
+
 @api.route('/settings/<int:user_id>', methods=['PUT'])
 @jwt_required()
 def update_user(user_id):
     current_user_email = get_jwt_identity()
     user = User.query.get(user_id)
 
-    if request.method == "OPTIONS": # CORS preflight
+    if request.method == "OPTIONS":  # CORS preflight
         return _build_cors_preflight_response()
 
     if not user:
@@ -211,7 +254,6 @@ def update_user(user_id):
 
     if user.email != current_user_email:
         return jsonify({"message": "You are not authorized to update this user's information"}), 403
-        
 
     data = request.json
 
@@ -240,7 +282,7 @@ def create_favorite():
     current_user_email = get_jwt_identity()
     user = db.session.execute(db.select(User).filter_by(
         email=current_user_email)).scalar_one_or_none()
-    
+
     if not user:
         return jsonify({"error": "User not found"}), 404
 
@@ -254,15 +296,15 @@ def create_favorite():
         # Verifica si el anuncio existe
         announcement = db.session.execute(db.select(Announcement).filter_by(
             id=announcement_id)).scalar_one_or_none()
-        
+
         if not announcement:
             return jsonify({"error": "Announcement not found"}), 404
 
         # Verifica si ya existe el favorito
         existing_favorite = db.session.execute(db.select(Favorite).filter_by(
-                user_id=user.id,
-                announcement_id=announcement_id
-            )).scalar_one_or_none()
+            user_id=user.id,
+            announcement_id=announcement_id
+        )).scalar_one_or_none()
 
         if existing_favorite:
             return jsonify({"error": "Announcement already in favorites"}), 400
@@ -289,21 +331,22 @@ def create_favorite():
         print(f"Unexpected error: {str(e)}")
         return jsonify({'message': 'An unexpected error occurred', 'error': str(e)}), 500
 
+
 @api.route('/favorites/<int:favorite_id>', methods=['GET'])
 @jwt_required()
 def get_favorite(favorite_id):
     current_user_email = get_jwt_identity()
     user = db.session.execute(db.select(User).filter_by(
         email=current_user_email)).scalar_one_or_none()
-    
+
     if not user:
         return jsonify({"error": "User not found"}), 404
 
     try:
         favorite = db.session.execute(db.select(Favorite).filter_by(
-                id=favorite_id,
-                user_id=user.id
-            )).scalar_one_or_none()
+            id=favorite_id,
+            user_id=user.id
+        )).scalar_one_or_none()
 
         if not favorite:
             return jsonify({"error": "Favorite not found"}), 404
@@ -318,21 +361,22 @@ def get_favorite(favorite_id):
         print(f"Unexpected error: {str(e)}")
         return jsonify({'message': 'An unexpected error occurred', 'error': str(e)}), 500
 
+
 @api.route('/favorites', methods=['GET'])
 @jwt_required()
 def get_user_favorites():
     current_user_email = get_jwt_identity()
     user = db.session.execute(db.select(User).filter_by(
         email=current_user_email)).scalar_one_or_none()
-    
+
     if not user:
         return jsonify({"error": "User not found"}), 404
 
     try:
         favorites = db.session.execute(db.select(Favorite)
-            .filter_by(user_id=user.id)
-            .order_by(Favorite.creation_date.desc())
-        ).scalars().all()
+                                       .filter_by(user_id=user.id)
+                                       .order_by(Favorite.creation_date.desc())
+                                       ).scalars().all()
 
         return jsonify({
             "favorites": [favorite.serialize() for favorite in favorites]
@@ -346,13 +390,14 @@ def get_user_favorites():
         print(f"Unexpected error: {str(e)}")
         return jsonify({'message': 'An unexpected error occurred', 'error': str(e)}), 500
 
+
 @api.route('/favorites/<int:favorite_id>', methods=['DELETE'])
 @jwt_required()
 def delete_favorite(favorite_id):
     current_user_email = get_jwt_identity()
     user = db.session.execute(db.select(User).filter_by(
         email=current_user_email)).scalar_one_or_none()
-    
+
     if not user:
         return jsonify({"error": "User not found"}), 404
 
