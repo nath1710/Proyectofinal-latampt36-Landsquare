@@ -162,7 +162,7 @@ const EditProfile = () => {
     }, [])
 
     return (
-        <main className=' auth-background d-flex flex-column gap-3 align-items-center justify-content-center'>
+        <main className=' auth-background d-flex flex-column gap-3 align-items-center justify-content-center text-dark'>
             <h1>Editar Perfil</h1>
             <form onSubmit={editUser}>
                 <div className='box-form'>

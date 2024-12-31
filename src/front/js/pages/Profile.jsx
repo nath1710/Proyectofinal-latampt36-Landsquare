@@ -92,7 +92,7 @@ const Profile = () => {
         <main className='d-flex flex-column gap-3 align-items-center justify-content-center mt-5'>
             <div className='container d-flex align-items-center justify-content-between'>
                 <h3 className='m-0'>Profile</h3>
-                <Link to="/edit_profile" className="p-1">
+                <Link to="/settings" className="p-1">
                     <button type="button" className="btn btn-success">Editar Perfil</button>
                 </Link>
             </div>
@@ -110,7 +110,7 @@ const Profile = () => {
                         <Link to="/favorites" className='mb-2'>
                             <button type="button" className="btn btn-danger">Favoritos <i className="fa-regular fa-heart"></i></button>
                         </Link>
-                        <Link to="/post" className=''>
+                        <Link to="/publish-land" className=''>
                             <button type="button" className="btn btn-success">Publicar <i className="fa-regular fa-square-plus"></i></button>
                         </Link>
                     </div>

@@ -503,7 +503,7 @@ def get_random_announcements():
         }), 500
 
 @api.route('/user/<int:user_id>/announcements', methods=['GET'])
-def get_user_announcements(user_id):
+def get_user_announcements_profile(user_id):
     try:
         # Verificar si el usuario existe
         user = db.session.execute(

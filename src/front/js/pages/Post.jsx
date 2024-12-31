@@ -221,7 +221,7 @@ const Post = () => {
     }, [])
 
     return (
-        <main className=' auth-background d-flex flex-column gap-3 align-items-center justify-content-center'>
+        <main className=' auth-background d-flex flex-column gap-3 align-items-center justify-content-center text-dark'>
             <h1>Publicar un Terreno</h1>
             <form onSubmit={createAnnouncement}>
                 <div className='box-form'>

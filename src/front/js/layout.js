@@ -13,6 +13,7 @@ import { Footer } from "./component/footer";
 import Signup from "./pages/Signup.jsx";
 import Login from "./pages/Login.jsx";
 import Profile from "./pages/Profile.jsx";
+import Private from "./pages/Private.jsx";
 import Post from "./pages/Post.jsx";
 import Favorites from "./pages/Favorites.jsx";
 import EditProfile from "./pages/EditProfile.jsx";
