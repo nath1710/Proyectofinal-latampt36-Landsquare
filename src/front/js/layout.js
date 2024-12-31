@@ -12,7 +12,8 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import Signup from "./pages/Signup.jsx";
 import Login from "./pages/Login.jsx";
-import Private from "./component/Private.jsx";
+import Profile from "./pages/Profile.jsx";
+import Private from "./pages/Private.jsx";
 import Post from "./pages/Post.jsx";
 import Favorites from "./pages/Favorites.jsx";
 import EditProfile from "./pages/EditProfile.jsx";
@@ -36,6 +37,7 @@ const Layout = () => {
                         <Route element={<Signup />} path="/signup" />
                         <Route element={<Login />} path="/login" />
                         <Route element={<Lands />} path="/lands" />
+                        <Route element={<Profile />} path="/profile" />
                         <Route element={<Favorites />} path="/favorites" />
                         <Route element={<EditProfile />} path="/settings" />
                         <Route element={<Post />} path="/publish-land" />

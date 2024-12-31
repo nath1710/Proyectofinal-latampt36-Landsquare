@@ -74,14 +74,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const country = store.countries.find(c => c.code === code);
 				return country || { code: "", name: "Not found" };
 			},
-			setToken:(token) =>{
+			setToken: (token) => {
 				setStore({ token: token })
 				localStorage.setItem("token", token)
 			},
 			clearToken: () => {
 				setStore({ token: undefined })
 				localStorage.removeItem("token")
-			}
+			},
+			reloadToken: () => {
+				if (localStorage.getItem('token')) {
+					setStore({ token: localStorage.getItem('token') })
+				}
+			},
 		}
 	};
 };

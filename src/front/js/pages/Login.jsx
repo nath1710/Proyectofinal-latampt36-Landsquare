@@ -40,7 +40,7 @@ const Login = () => {
 
     useEffect(() => {
         if (formStatus.ready === true) {
-            navigate("/")
+            navigate("/Profile")
 
         }
     }, [formStatus.ready])

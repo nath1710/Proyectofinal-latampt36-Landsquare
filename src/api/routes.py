@@ -9,6 +9,7 @@ from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 from email_validator import validate_email, EmailNotValidError
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from sqlalchemy.sql import func
 
 api = Blueprint('api', __name__)
 
@@ -458,3 +459,92 @@ def delete_favorite(favorite_id):
     except Exception as e:
         print(f"Unexpected error: {str(e)}")
         return jsonify({'message': 'An unexpected error occurred', 'error': str(e)}), 500
+
+
+@api.route('/random-announcements', methods=['GET'])
+def get_random_announcements():
+    try:
+        # Usando func.random() de SQLAlchemy para obtener registros aleatorios
+        # Incluimos un join con User para asegurar que cargamos los datos del usuario
+        random_announcements = db.session.execute(
+            db.select(Announcement)
+            .join(Announcement.user)  # Aseguramos que se carguen los datos del usuario
+            .order_by(func.random())
+            .limit(10)
+        ).scalars().all()
+
+        if not random_announcements:
+            return jsonify({
+                'message': 'No announcements found in the database',
+                'announcements': []
+            }), 200
+
+        # El serialize actualizado ya incluirá la información del usuario
+        announcements_data = [announcement.serialize() for announcement in random_announcements]
+
+        return jsonify({
+            'message': 'Random announcements retrieved successfully',
+            'total': len(announcements_data),
+            'announcements': announcements_data
+        }), 200
+
+    except SQLAlchemyError as db_error:
+        print(f'Database error: {str(db_error)}')
+        return jsonify({
+            'message': 'Database error occurred', 
+            'error': str(db_error)
+        }), 500
+
+    except Exception as e:
+        print(f'Unexpected error: {str(e)}')
+        return jsonify({
+            'message': 'An unexpected error occurred', 
+            'error': str(e)
+        }), 500
+
+@api.route('/user/<int:user_id>/announcements', methods=['GET'])
+def get_user_announcements_profile(user_id):
+    try:
+        # Verificar si el usuario existe
+        user = db.session.execute(
+            db.select(User).filter_by(id=user_id)
+        ).scalar_one_or_none()
+
+        if not user:
+            return jsonify({
+                "error": "User not found"
+            }), 404
+
+        # Obtener todos los anuncios del usuario
+        announcements = db.session.execute(
+            db.select(Announcement)
+            .filter_by(user_id=user_id)
+            .order_by(Announcement.creation_date.desc())  # Ordenados por fecha de creación, más recientes primero
+        ).scalars().all()
+
+        return jsonify({
+            "message": "User announcements retrieved successfully",
+            "user": {
+                "id": user.id,
+                "name": user.name,
+                "email": user.email,
+                "country": user.country,
+                "photo_profile": user.photo_profile
+            },
+            "total_announcements": len(announcements),
+            "announcements": [announcement.serialize() for announcement in announcements]
+        }), 200
+
+    except SQLAlchemyError as db_error:
+        print(f"Database error: {str(db_error)}")
+        return jsonify({
+            'message': 'Database error occurred', 
+            'error': str(db_error)
+        }), 500
+
+    except Exception as e:
+        print(f"Unexpected error: {str(e)}")
+        return jsonify({
+            'message': 'An unexpected error occurred', 
+            'error': str(e)
+        }), 500
