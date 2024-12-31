@@ -86,24 +86,24 @@ const EditProfile = () => {
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
-        
+
         if (!file) { // Valida que se haya seleccionado un archivo
             setPhotoProfile('');
             return;
         }
-        
+
         if (!file.type.startsWith('image/')) { // Valida que sea una imagen
             setError('Por favor selecciona un archivo de imagen válido (jpg, png, etc)');
             setPhotoProfile('');
             return;
         }
-        
+
         if (file.size > 5 * 1024 * 1024) { // Valida el tamaño (ejemplo: máximo 5MB)
             setError('La imagen no debe superar los 5MB');
             setPhotoProfile('');
             return;
         }
-        
+
         const reader = new FileReader(); // Crea la previsualización
         reader.onloadend = () => {
             setPhotoProfile(reader.result);
@@ -112,7 +112,7 @@ const EditProfile = () => {
         reader.readAsDataURL(file);
     };
 
-    const uploadCloudinary = async (e)=>{            //2 Preparamos para recibir el evento al ejecutarse la función async
+    const uploadCloudinary = async (e) => {            //2 Preparamos para recibir el evento al ejecutarse la función async
         const files = e.target.files            //3 recuperamos el array de e.target.files
         const data = new FormData()             //4 Creamos/Instanciamos un FormData objeto con nombre data
         data.append('file', files[0])           //5 Utilizando metodo append() agregamos al data el archivo desde files[0]
@@ -137,7 +137,7 @@ const EditProfile = () => {
 
     useEffect(() => {
         if (formStatus.ready) {
-            const timer = setTimeout(() => navigate('/private'), 1000);
+            const timer = setTimeout(() => navigate('/profile'), 1000);
             return () => clearTimeout(timer);
         }
     }, [formStatus.ready, navigate]);
@@ -182,16 +182,16 @@ const EditProfile = () => {
 
                         <div className="mb-3">
                             <div className="mb-3">
-                                <label htmlFor='inputPhotoProfile' className='form-label'>Foto de Perfil</label>                                
-                                <input 
+                                <label htmlFor='inputPhotoProfile' className='form-label'>Foto de Perfil</label>
+                                <input
                                     type='file'
-                                    className='form-control'                          
+                                    className='form-control'
                                     accept='image/*'
                                     onChange={(e) => {
                                         uploadCloudinary(e)
                                         handleFileChange()
                                     }}
-                                    
+
                                 />
                             </div>
                             {error && (
@@ -201,9 +201,9 @@ const EditProfile = () => {
                             )}
                             {photo_profile && (
                                 <div className="preview-container mt-3">
-                                    <img 
-                                        src={photo_profile} 
-                                        alt="Preview" 
+                                    <img
+                                        src={photo_profile}
+                                        alt="Preview"
                                         className="img-preview"
                                     />
                                 </div>
@@ -257,7 +257,7 @@ const EditProfile = () => {
                             </div>
                         ) : (
                             <div>
-                                <Link to="/Private">
+                                <Link to="/Profile">
                                     <button className="btn btn-danger">Cancelar</button>
                                 </Link>
                                 <button type='submit' className='signup-button btn btn-primary'>Enviar</button>

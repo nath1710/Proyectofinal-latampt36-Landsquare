@@ -201,7 +201,7 @@ const Post = () => {
 
     useEffect(() => {
         if (formStatus.ready) {
-            const timer = setTimeout(() => navigate('/private'), 1000);
+            const timer = setTimeout(() => navigate('/profile'), 1000);
             return () => clearTimeout(timer);
         }
     }, [formStatus.ready, navigate]);
@@ -350,7 +350,7 @@ const Post = () => {
                             </div>
                         ) : (
                             <div>
-                                <Link to="/Private">
+                                <Link to="/Profile">
                                     <button className="btn btn-danger">Cancelar</button>
                                 </Link>
                                 <button

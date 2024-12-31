@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Card from "./Card.jsx";
-
-
-const data = [
-    {  
+/*
+const data2 = [
+    {
         img: 'https://picsum.photos/400/225?random=1',
         price: '10,000',
         size: '357',
@@ -12,7 +11,7 @@ const data = [
         owner: 'Propietario 1',
         info: 'Más información...'
     },
-    {   
+    {
         img: 'https://picsum.photos/400/225?random=2',
         price: '20,132',
         size: '5433',
@@ -21,7 +20,7 @@ const data = [
         owner: 'Propietario 2',
         info: 'Más información...'
     },
-    {   
+    {
         img: 'https://picsum.photos/400/225?random=3',
         price: '432',
         size: '98',
@@ -30,7 +29,7 @@ const data = [
         owner: 'Propietario 3',
         info: 'Más información...'
     },
-    {   
+    {
         img: 'https://picsum.photos/400/225?random=4',
         price: '10,000',
         size: '357',
@@ -39,7 +38,7 @@ const data = [
         owner: 'Propietario 4',
         info: 'Más información...'
     },
-    {   
+    {
         img: 'https://picsum.photos/400/225?random=5',
         price: '10,000',
         size: '357',
@@ -48,7 +47,7 @@ const data = [
         owner: 'Propietario 5',
         info: 'Más información...'
     },
-    {   
+    {
         img: 'https://picsum.photos/400/225?random=6',
         price: '10,000',
         size: '357',
@@ -57,7 +56,7 @@ const data = [
         owner: 'Propietario 6',
         info: 'Más información...'
     },
-    {   
+    {
         img: 'https://picsum.photos/400/225?random=7',
         price: '10,000',
         size: '357',
@@ -66,7 +65,7 @@ const data = [
         owner: 'Propietario 7',
         info: 'Más información...'
     },
-    {   
+    {
         img: 'https://picsum.photos/400/225?random=8',
         price: '10,000',
         size: '357',
@@ -75,21 +74,84 @@ const data = [
         owner: 'Propietario 8',
         info: 'Más información...'
     }
-]
+]*/
 
 const CardSlider = () => {
+    const [data, setData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    const getRandomAnnouncements = async () => {
+        try {
+            setIsLoading(true);
+            setError(null);
+
+            const response = await fetch(process.env.BACKEND_URL + '/api/random-announcements', {
+                method: 'GET'
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al cargar los anuncios');
+            }
+
+            const body = await response.json();
+            setData(body.announcements);
+
+        } catch (error) {
+            console.error('Error fetching announcements:', error);
+            setError(error.message);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        getRandomAnnouncements();
+    }, []);
+
+    if (isLoading) {
+        return (
+            <div className="cardslider d-flex justify-content-center align-items-center py-4">
+                <div className="spinner-border text-primary" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="cardslider d-flex justify-content-center align-items-center py-4">
+                <div className="alert alert-danger" role="alert">
+                    {error}
+                </div>
+            </div>
+        );
+    }
 
     return (
-        <div className=' cardslider d-flex flex-column gap-3 align-items-center justify-content-center bg-light text-dark py-4'>
-            <h2 className='mb-3'>Terrenos en venta en Latam</h2>
-            <div className='d-flex flex-wrap gap-2 align-items-center justify-content-center'>
-                
-                {data.map((d, index) => (
-                    <Card key={index} imgURL={d.img} price={d.price} size={d.size} address={d.address} imgOwner={d.imgOwner} owner={d.owner} info={d.info} />
-                ))}
-            </div >                
+        <div className="cardslider d-flex flex-column gap-3 align-items-center justify-content-center bg-light text-dark py-4">
+            <h2 className="mb-3">Terrenos en venta en Latam</h2>
+            {data.length === 0 ? (
+                <p>No hay anuncios disponibles</p>
+            ) : (
+                <div className="d-flex flex-wrap gap-2 align-items-center justify-content-center">
+                    {data.map((item) => (
+                        <Card
+                            key={item.id}
+                            imgURL={item.images?.[0] || '/placeholder-image.jpg'}
+                            price={item.price}
+                            size={item.size}
+                            address={item.location}
+                            imgOwner={item.user?.photo_profile || '/placeholder-profile.jpg'}
+                            owner={item.user?.name || 'Usuario'}
+                            info={item.description}
+                        />
+                    ))}
+                </div>
+            )}
         </div>
-    )
+    );
 }
 
 export default CardSlider;

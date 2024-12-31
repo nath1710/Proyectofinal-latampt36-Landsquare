@@ -71,7 +71,16 @@ class Announcement(db.Model):
             'price': str(self.price),
             'location': self.location,
             'size': self.size,
-            'creation_date': self.creation_date.isoformat()
+            'creation_date': self.creation_date.isoformat(),
+            'images': self.images,
+            'user': {
+                'id': self.user.id,
+                'name': self.user.name,
+                'email': self.user.email,
+                'country': self.user.country,
+                'photo_profile': self.user.photo_profile,
+                'phone_number': self.user.phone_number
+            }
         }
 
 
