@@ -5,6 +5,28 @@ import LandCard from "../component/LandCard.jsx";
 
 const Lands = () => {
     const [lands, setLands] = useState([]);
+
+    const fetchLands = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            if (!token) throw new Error("Usuario no autenticado");
+
+            const response = await fetch(process.env.BACKEND_URL + "/api/lands");
+
+            if (!response.ok) throw new Error("Error al cargar terrenos");
+
+            const data = await response.json();
+            console.log(data)
+            setLands(data.announcements);
+            console.log(data.announcements)
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+    useEffect(() => {
+        fetchLands()
+    }, []);
+
     return (
         <main className="fav-section d-flex h-100 gap-3">
             <GoogleMaps />
@@ -15,8 +37,6 @@ const Lands = () => {
                         <LandCard
                             key={land.id}
                             land={land}
-                            toggleFavorite={toggleFavorite}
-                            isFavorite={favorites.includes(land.id)}
                         />
                     ))}
                 </div>

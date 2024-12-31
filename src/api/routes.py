@@ -201,9 +201,9 @@ def create_announcement():
         return jsonify({'message': 'An unexpected error occurred', 'error': str(e)}), 500
 
 
-@api.route('/lands', methods=['GET'])
+@api.route('/userlands', methods=['GET'])
 @jwt_required()
-def get_announcements():
+def get_user_announcements():
     current_user_email = get_jwt_identity()
     user = db.session.execute(db.select(User).filter_by(
         email=current_user_email)).scalar_one_or_none()
@@ -214,6 +214,37 @@ def get_announcements():
         announcements = db.session.execute(
             db.select(Announcement).filter_by(user_id=user.id)
         ).scalars().all()
+
+        announcements_data = [
+            {
+                "id": announcement.id,
+                "images": announcement.images,
+                "title": announcement.title,
+                "description": announcement.description,
+                "price": announcement.price,
+                "location": announcement.location,
+                "size": announcement.size,
+                "creation_date": announcement.creation_date.isoformat()
+            }
+            for announcement in announcements
+        ]
+
+        return jsonify({"announcements": announcements_data}), 200
+
+    except SQLAlchemyError as db_error:
+        print(f"Database error: {str(db_error)}")
+        return jsonify({'message': 'Database error occurred', 'error': str(db_error)}), 500
+
+    except Exception as e:
+        print(f"Unexpected error: {str(e)}")
+        return jsonify({'message': 'An unexpected error occurred', 'error': str(e)}), 500
+
+
+@api.route('/lands', methods=['GET'])
+def get_announcements():
+    try:
+        announcements = db.session.execute(
+            db.select(Announcement)).scalars().all()
 
         announcements_data = [
             {
