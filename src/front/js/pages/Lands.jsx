@@ -2,7 +2,9 @@ import React, { useState, useEffect, useContext } from "react";
 import GoogleMaps from "../component/GoogleMaps.jsx";
 import LandCard from "../component/LandCard.jsx";
 
+
 const Lands = () => {
+    const [lands, setLands] = useState([]);
     return (
         <main className="fav-section d-flex h-100 gap-3">
             <GoogleMaps />

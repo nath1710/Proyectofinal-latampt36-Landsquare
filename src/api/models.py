@@ -66,6 +66,7 @@ class Announcement(db.Model):
             'id': self.id,
             'user_id': self.user_id,
             'title': self.title,
+            'images': self.images,
             'description': self.description,
             'price': str(self.price),
             'location': self.location,
@@ -73,18 +74,20 @@ class Announcement(db.Model):
             'creation_date': self.creation_date.isoformat()
         }
 
+
 class Favorite(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    announcement_id = db.Column(db.Integer, db.ForeignKey('announcement.id'), nullable=False)
+    announcement_id = db.Column(db.Integer, db.ForeignKey(
+        'announcement.id'), nullable=False)
     creation_date = db.Column(
         db.DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
-    
+
     user = db.relationship('User', back_populates='favorite')
     announcement = db.relationship('Announcement', back_populates='favorite')
 
     def __init__(self, user_id, announcement_id):
-        self.user_id = user_id #Creo que esto no es necesario porque viene en el token
+        self.user_id = user_id  # Creo que esto no es necesario porque viene en el token
         self.announcement_id = announcement_id
 
     def __repr__(self):

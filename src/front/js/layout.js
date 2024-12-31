@@ -38,7 +38,7 @@ const Layout = () => {
                         <Route element={<Lands />} path="/lands" />
                         <Route element={<Favorites />} path="/favorites" />
                         <Route element={<EditProfile />} path="/settings" />
-                        <Route element={<Post />} path="/post" />
+                        <Route element={<Post />} path="/publish-land" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<Private />} path="/private" />

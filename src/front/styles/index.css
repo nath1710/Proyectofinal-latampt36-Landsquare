@@ -4,8 +4,7 @@
 
 body {
     margin: 0;
-    height: 100vh;
-    width: 100vw;
+    min-height: 100%;
     background-image: linear-gradient(to top right, rgb(23, 75, 64), rgb(76, 118, 81), rgba(156, 201, 140, 1));
     background-attachment: fixed;
     font-family: "Pridi", serif;
@@ -162,9 +161,11 @@ h1 {
 .land-card {
     border: 1px solid #ccc;
     padding: 10px;
-    margin: 10px;
+    margin: 10px 15px 10px 0;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    color: black;
 }
 
 .imagehome{
