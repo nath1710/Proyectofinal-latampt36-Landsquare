@@ -13,7 +13,7 @@ export const Navbar = () => {
 	const shouldShowSignOutButton = store.token;
 	const shouldShowFavoritesButton = store.token;
 
-	const shouldBeAbsolute = location.pathname === "/signup" || location.pathname === "/login" || location.pathname === "/favorites";
+	const shouldBeAbsolute = location.pathname != "/";
 
 	useEffect(() => {
 		const handleScroll = () => {

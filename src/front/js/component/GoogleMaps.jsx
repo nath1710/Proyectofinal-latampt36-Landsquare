@@ -40,13 +40,13 @@ const GoogleMaps = () => {
     };
 
     return (
-        <div style={{width: "100%" }}>
+        <div style={{ width: "100%" }}>
             {isLoaded ? (
                 <GoogleMap
                     center={{ lat: 40.3947365, lng: 49.6898045 }}
                     zoom={10}
                     onClick={() => setActiveMarker(null)}
-                    mapContainerStyle={{ width: "100%", height: "100%" }}
+                    mapContainerStyle={{ width: "100%", minHeight: "100%" }}
                 >
                     {markers.map(({ id, name, position }) => (
                         <MarkerF

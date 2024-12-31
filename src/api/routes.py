@@ -315,7 +315,7 @@ def create_favorite():
         email=current_user_email)).scalar_one_or_none()
 
     if not user:
-        return jsonify({"error": "User not found"}), 404
+        return jsonify({"error": "User not found", "redirect": "/signup"}), 404
 
     try:
         data = request.json

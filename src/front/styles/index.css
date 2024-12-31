@@ -161,7 +161,7 @@ h1 {
 .land-card {
     border: 1px solid #ccc;
     padding: 10px;
-    margin: 10px 15px 10px 0;
+    /* margin: 10px 15px 10px 0; */
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     background-color: white;
@@ -231,5 +231,8 @@ h1 {
 }
 
 .fav-section{
-    margin-top: 120px;
+    margin-top: 88.5px;
+}
+.land-section{
+    margin-top: 88.5px;
 }

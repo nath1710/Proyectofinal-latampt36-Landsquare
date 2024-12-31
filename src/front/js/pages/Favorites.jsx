@@ -3,6 +3,7 @@ import GoogleMaps from "../component/GoogleMaps.jsx";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import LandCard from "../component/LandCard.jsx";
+import { Footer } from "../component/footer.js";
 
 const Favorites = () => {
     const { store } = useContext(Context);
@@ -66,11 +67,11 @@ const Favorites = () => {
     };
 
     return (
-        <main className="fav-section d-flex h-100 gap-3">
+        <main className="fav-section d-flex h-100 overflow-hidden">
             <GoogleMaps />
-            <div className="app" style={{ width: "70%" }}>
-                <h2>Mis Favoritos</h2>
-                <div className="favorites-list">
+            <div className="app p-3" style={{ width: "90%", overflowY: "auto" }}>
+                <h1>Mis Favoritos</h1>
+                <div className="favorites-list d-flex flex-column gap-3">
                     {favorites.length > 0 ? (
                         favorites
                             .map(land => (
@@ -85,6 +86,7 @@ const Favorites = () => {
                         <p>No tienes terrenos favoritos.</p>
                     )}
                 </div>
+                <Footer overrideHide={true} />
             </div>
         </main>
     );
