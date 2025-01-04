@@ -139,11 +139,11 @@ const CardSlider = () => {
                     {data.map((item) => (
                         <Card
                             key={item.id}
-                            imgURL={item.images?.[0] || '/placeholder-image.jpg'}
+                            imgURL={item.images?.[0] || '../../img/placeholder-image.jpg'}
                             price={item.price}
                             size={item.size}
                             address={item.location}
-                            imgOwner={item.user?.photo_profile || '/placeholder-profile.jpg'}
+                            imgOwner={item.user?.photo_profile || '../../img/placeholder-profile.jpg'}
                             owner={item.user?.name || 'Usuario'}
                             info={item.description}
                         />

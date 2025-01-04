@@ -256,16 +256,16 @@ const EditProfile = () => {
                                 <span className='visually-hidden'>Loading...</span>
                             </div>
                         ) : (
-                            <div>
+                            <div className='d-flex justify-content-evenly'>
                                 <Link to="/Profile">
-                                    <button className="btn btn-danger">Cancelar</button>
+                                    <button className="cancel-button btn btn-danger">Cancelar</button>
                                 </Link>
                                 <button type='submit' className='signup-button btn btn-primary'>Enviar</button>
                             </div>
                         )}
                         {formStatus.message && (
                             <div
-                                className={`alert mt-3 ${formStatus.message.includes('successfully') ? 'alert-success' : 'alert-danger'}`}
+                                className={`alert mt-3 ${formStatus.message.includes('successfull') ? 'alert-success' : 'alert-danger'}`}
                                 role='alert'
                             >
                                 {formStatus.message}

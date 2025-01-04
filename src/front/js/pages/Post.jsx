@@ -349,9 +349,9 @@ const Post = () => {
                                 <span>{isUploading ? 'Subiendo imágenes...' : 'Creando publicación...'}</span>
                             </div>
                         ) : (
-                            <div>
+                            <div className='d-flex justify-content-evenly'>
                                 <Link to="/Profile">
-                                    <button className="btn btn-danger">Cancelar</button>
+                                    <button className="cancel-button btn btn-danger">Cancelar</button>
                                 </Link>
                                 <button
                                     type='submit'
@@ -364,7 +364,7 @@ const Post = () => {
                         )}
                         {formStatus.message && (
                             <div
-                                className={`mt-3 ${formStatus.message.includes('successfully') ? 'alert-success' : 'alert-danger'}`}
+                                className={`mt-3 alert ${formStatus.message.includes('successfull') ? 'alert-success' : 'alert-danger'}`}
                                 role='alert'
                             >
                                 {formStatus.message}
