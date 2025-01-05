@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import logoLS from '../../img/LandSquare-small.png';
 import { Context } from "../store/appContext";
+import Search from "../component/Search.jsx";
 
 
 export const Navbar = () => {
@@ -10,8 +11,7 @@ export const Navbar = () => {
 	const location = useLocation();
 	const [isScrolled, setIsScrolled] = useState(false);
 
-	const shouldShowSignOutButton = store.token;
-	const shouldShowFavoritesButton = store.token;
+	const shouldShowPrivateButtons = store.token;
 
 	const shouldBeAbsolute = location.pathname != "/";
 
@@ -38,21 +38,37 @@ export const Navbar = () => {
 						<Link to="/">Find an Agent</Link>
 						<Link to="/">Contact us</Link>
 						{!store.token && ("")}
-						{shouldShowFavoritesButton && (
+						{shouldShowPrivateButtons && (
 							<Link
 								to="/favorites"
 							>
 								Favorites
 							</Link>
 						)}
-						{!store.token && (
-							<Link to="/signup">
-								Sign Up
+						{!store.token && ("")}
+						{shouldShowPrivateButtons && (
+							<Link
+								to="/publish-land"
+							>
+								Post
 							</Link>
 						)}
-						{shouldShowSignOutButton && (
+						{!store.token && ("")}
+						{shouldShowPrivateButtons && (
 							<Link
-								to="/login"
+								to="/profile"
+							>
+								Account
+							</Link>
+						)}
+						{!store.token && (
+							<Link to="/login">
+								Log in
+							</Link>
+						)}
+						{shouldShowPrivateButtons && (
+							<Link
+								to="/"
 								onClick={() => {
 									actions.clearToken();
 								}}

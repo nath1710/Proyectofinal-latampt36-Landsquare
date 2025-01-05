@@ -3,24 +3,22 @@ import { useNavigate, Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import landsImage from '../../img/lands.jpg';
 import logoLS from '../../img/LandSquare-small.png';
-
-
+import formPhoto from '../../img/form-photo.jpg'
 
 const Signup = () => {
-    const { actions } = useContext(Context);
+    const { actions, store } = useContext(Context);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [country, setCountry] = useState('');
     const [address, setAddress] = useState('');
     const [formStatus, setFormStatus] = useState({ loading: false, ready: false, message: null });
-    const [countries, setCountries] = useState([]);
     const navigate = useNavigate();
+    const countries = store.countries || [];
 
     useEffect(() => {
-        const loadedCountries = actions.getCountries();
-        setCountries(loadedCountries);
-    }, [actions]);
+        actions.getCountries();
+    }, []);
 
     const isFormValid = () => {
         if (!email || !password || !name || !country) {
@@ -64,9 +62,10 @@ const Signup = () => {
     }, [formStatus.ready, navigate]);
 
     return (
-        <main className=" imageformSignup d-flex flex-column gap-3 vh-100 align-items-center justify-content-center">
+        <main className=" imageformSignup d-flex flex-column gap-3 vh-100 align-items-center justify-content-center"
+            style={{ backgroundImage: `url(${formPhoto}` }}>
             <form onSubmit={registerUser}>
-                <div className="box-form">
+                <div className="box-register box-form">
                     <div className="cd1">
                         <img src={logoLS} />
                         <h1>Sign up</h1>

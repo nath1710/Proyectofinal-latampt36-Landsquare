@@ -9,7 +9,7 @@ const EditProfile = () => {
     const [id, setId] = useState(0);
     const [name, setName] = useState('');
     const [country, setCountry] = useState('');
-    const [countries, setCountries] = useState([]);
+    const countries = store.countries || [];
     const [address, setAddress] = useState('');
     const [phone_number, setPhoneNumber] = useState('');
     const [photo_profile, setPhotoProfile] = useState('');
@@ -143,9 +143,9 @@ const EditProfile = () => {
     }, [formStatus.ready, navigate]);
 
     useEffect(() => {
-        const loadedCountries = actions.getCountries();
-        setCountries(loadedCountries);
-    }, [actions]);
+        actions.getCountries();
+    }, []);
+
 
     useEffect(() => {
         if (store.token === undefined && localStorage.getItem('token') == undefined) {
@@ -162,10 +162,10 @@ const EditProfile = () => {
     }, [])
 
     return (
-        <main className=' auth-background d-flex flex-column gap-3 align-items-center justify-content-center text-dark'>
+        <main className=' edit-section auth-background d-flex flex-column gap-3 align-items-center justify-content-center text-dark'>
             <h1>Editar Perfil</h1>
             <form onSubmit={editUser}>
-                <div className='box-form'>
+                <div className='edit-form box-form'>
                     <div className='cd1'>
                         <p style={{ color: 'rgba(178,35,35,255)', fontWeight: 'bold' }}>Los campos marcados con un * son obligatorios</p>
                         <div className='mb-3'>

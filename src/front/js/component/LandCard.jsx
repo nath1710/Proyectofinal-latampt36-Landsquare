@@ -41,7 +41,6 @@ const LandCard = ({ land, toggleFavorite, isFavorite }) => {
                 </button>
             </div>
 
-            <p>{land.images}</p>
             {/* <span>${Number(land.price).toLocaleString('en-US')}</span>
             <span> • </span>
             <span>{land.size} m<sup>2</sup></span> */}

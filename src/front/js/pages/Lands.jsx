@@ -5,6 +5,7 @@ import { Footer } from "../component/footer.js";
 import { useNavigate } from "react-router-dom";
 
 
+
 const Lands = () => {
     const [lands, setLands] = useState([]);
     const navigate = useNavigate();
@@ -32,7 +33,7 @@ const Lands = () => {
             const token = localStorage.getItem("token");
             if (!token) {
                 console.error("Please register/login to access your favorites.");
-                navigate("/signup");
+                navigate("/login");
                 return;
             }
 
@@ -75,21 +76,28 @@ const Lands = () => {
 
 
     return (
-        <main className="land-section d-flex h-100 overflow-hidden">
-            <GoogleMaps />
-            <div className="app p-3" style={{ width: "90%", overflowY: "auto" }}>
-                <h1>Lista de Terrenos</h1>
-                <div className="land-list d-flex flex-column gap-3">
-                    {lands.map(land => (
-                        <LandCard
-                            key={land.id}
-                            land={land}
-                            isFavorite={false}
-                            toggleFavorite={toggleFavorite}
-                        />
-                    ))}
+        <main className="land-section d-flex flex-column h-100 overflow-hidden" style={{ maxHeight: "100vh" }}>
+            <div>
+                <div><div role="button" tabindex="0" class="_14578" data-qa-searchlocation="true"
+                    aria-label="Enter new location">Enter a State, County, City, or ID</div></div>
+                <p>Buscador</p>
+            </div>
+            <div className="d-flex h-100 overflow-hidden">
+                <GoogleMaps />
+                <div className="app p-3" style={{ width: "90%", overflowY: "auto" }}>
+                    <h1>Lista de Terrenos</h1>
+                    <div className="land-list d-flex flex-column gap-3">
+                        {lands.map(land => (
+                            <LandCard
+                                key={land.id}
+                                land={land}
+                                isFavorite={false}
+                                toggleFavorite={toggleFavorite}
+                            />
+                        ))}
+                    </div>
+                    <Footer overrideHide={true} />
                 </div>
-                <Footer overrideHide={true} />
             </div>
         </main>
     );

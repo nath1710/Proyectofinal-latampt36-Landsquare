@@ -40,36 +40,41 @@ const GoogleMaps = () => {
     };
 
     return (
-        <div style={{ width: "100%" }}>
-            {isLoaded ? (
-                <GoogleMap
-                    center={{ lat: 40.3947365, lng: 49.6898045 }}
-                    zoom={10}
-                    onClick={() => setActiveMarker(null)}
-                    mapContainerStyle={{ width: "100%", minHeight: "100%" }}
-                >
-                    {markers.map(({ id, name, position }) => (
-                        <MarkerF
-                            key={id}
-                            position={position}
-                            onClick={() => handleActiveMarker(id)}
-                        // icon={{
-                        //   url:"https://t4.ftcdn.net/jpg/02/85/33/21/360_F_285332150_qyJdRevcRDaqVluZrUp8ee4H2KezU9CA.jpg",
-                        //   scaledSize: { width: 50, height: 50 }
-                        // }}
-                        >
-                            {activeMarker === id ? (
-                                <InfoWindowF onCloseClick={() => setActiveMarker(null)}>
-                                    <div>
-                                        <p>{name}</p>
-                                    </div>
-                                </InfoWindowF>
-                            ) : null}
-                        </MarkerF>
-                    ))}
-                </GoogleMap>
-            ) : null}
-        </div>
+        <div style={{
+            width: "100%", minHeight: "100%"
+        }}>
+            {
+                isLoaded ? (
+                    <GoogleMap
+                        center={{ lat: 40.3947365, lng: 49.6898045 }}
+                        zoom={10}
+                        onClick={() => setActiveMarker(null)}
+                        mapContainerStyle={{ width: "100%", minHeight: "100%" }}
+                    >
+                        {
+                            markers.map(({ id, name, position }) => (
+                                <MarkerF
+                                    key={id}
+                                    position={position}
+                                    onClick={() => handleActiveMarker(id)}
+                                // icon={{
+                                //   url:"https://t4.ftcdn.net/jpg/02/85/33/21/360_F_285332150_qyJdRevcRDaqVluZrUp8ee4H2KezU9CA.jpg",
+                                //   scaledSize: { width: 50, height: 50 }
+                                // }}
+                                >
+                                    {activeMarker === id ? (
+                                        <InfoWindowF onCloseClick={() => setActiveMarker(null)}>
+                                            <div>
+                                                <p>{name}</p>
+                                            </div>
+                                        </InfoWindowF>
+                                    ) : null}
+                                </MarkerF>
+                            ))
+                        }
+                    </GoogleMap >
+                ) : null}
+        </div >
     );
 }
 

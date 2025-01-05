@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Context } from '../store/appContext';
 import { Link } from "react-router-dom";
 import '../../styles/ImagePreview.css';
+import postPhoto from '../../img/Post-photo.jpg';
 
 const Post = () => {
     const { store, actions } = useContext(Context);
@@ -221,43 +222,44 @@ const Post = () => {
     }, [])
 
     return (
-        <main className=' auth-background d-flex flex-column gap-3 align-items-center justify-content-center text-dark'>
-            <h1>Publicar un Terreno</h1>
-            <form onSubmit={createAnnouncement}>
-                <div className='box-form'>
-                    <div className='cd1'>
-                        <p style={{ color: 'rgba(178,35,35,255)', fontWeight: 'bold' }}>Los campos marcados con un * son obligatorios</p>
-                        <div className='mb-3'>
-                            <label htmlFor='InputTitle' className='form-label'>Título &nbsp;
-                                <span style={{ color: 'rgba(178,35,35,255)', fontWeight: 'bold' }} >*</span> </label>
-                            <input
-                                type='text'
-                                onChange={(e) => setTitle(e.target.value)}
-                                className='form-control'
-                                id='InputTitle'
-                            />
-                        </div>
-
-                        <div className="mb-3">
-                            <div className="mb-3">
-                                <label htmlFor='inputImages' className='form-label'>Imágenes (Máximo 5)</label>
+        <main className='img-post py-5 auth-background d-flex flex-column gap-3 align-items-center justify-content-center text-dark' style={{ backgroundImage: `url(${postPhoto}` }}>
+            <div className='post-section'>
+                <form onSubmit={createAnnouncement}>
+                    <div className='form-post box-form'>
+                        <div className='cd1'>
+                            <h1>Publicar un Terreno</h1>
+                            <p style={{ color: 'rgba(178,35,35,255)', fontWeight: 'bold' }}>Los campos marcados con un * son obligatorios</p>
+                            <div className='mb-3'>
+                                <label htmlFor='InputTitle' className='form-label'>Título &nbsp;
+                                    <span style={{ color: 'rgba(178,35,35,255)', fontWeight: 'bold' }} >*</span> </label>
                                 <input
-                                    type='file'
+                                    type='text'
+                                    onChange={(e) => setTitle(e.target.value)}
                                     className='form-control'
-                                    accept='image/*'
-                                    onChange={(e) => {
-                                        handleFileChange(e)
-                                        //uploadCloudinary(e)
-                                    }}
-                                    multiple
+                                    id='InputTitle'
                                 />
                             </div>
-                            {error && (
-                                <div className="alert alert-danger" role="alert">
-                                    {error}
+
+                            <div className="mb-3">
+                                <div className="mb-3">
+                                    <label htmlFor='inputImages' className='form-label'>Imágenes (Máximo 5)</label>
+                                    <input
+                                        type='file'
+                                        className='form-control'
+                                        accept='image/*'
+                                        onChange={(e) => {
+                                            handleFileChange(e)
+                                            //uploadCloudinary(e)
+                                        }}
+                                        multiple
+                                    />
                                 </div>
-                            )}
-                            {/*images && (
+                                {error && (
+                                    <div className="alert alert-danger" role="alert">
+                                        {error}
+                                    </div>
+                                )}
+                                {/*images && (
                                 <div className="preview-container mt-3">
                                     <img
                                         src={images}
@@ -265,114 +267,115 @@ const Post = () => {
                                     />
                                 </div>
                             )*/}
-                            {images.length > 0 && (
-                                <div className="preview-grid mt-3">
-                                    {images.map(preview => (
-                                        <div key={preview.id} className="preview-item">
-                                            <div className="preview-image-container">
-                                                <img
-                                                    src={preview.url}
-                                                    alt={preview.name}
-                                                    className="preview-image"
-                                                />
-                                                <button
-                                                    className="delete-btn btn btn-danger btn-sm"
-                                                    onClick={() => handleDelete(preview.id)}
-                                                >
-                                                    ×
-                                                </button>
+                                {images.length > 0 && (
+                                    <div className="preview-grid mt-3">
+                                        {images.map(preview => (
+                                            <div key={preview.id} className="preview-item">
+                                                <div className="preview-image-container">
+                                                    <img
+                                                        src={preview.url}
+                                                        alt={preview.name}
+                                                        className="preview-image"
+                                                    />
+                                                    <button
+                                                        className="delete-btn btn btn-danger btn-sm"
+                                                        onClick={() => handleDelete(preview.id)}
+                                                    >
+                                                        ×
+                                                    </button>
+                                                </div>
+                                                <small className="text-muted d-block mt-1">
+                                                    {preview.name}
+                                                </small>
                                             </div>
-                                            <small className="text-muted d-block mt-1">
-                                                {preview.name}
-                                            </small>
-                                        </div>
-                                    ))}
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+
+
+                            <div className='mb-3'>
+                                <label htmlFor='InputLocation' className='form-label'>Localización</label>
+                                <input
+                                    type='text'
+                                    onChange={(e) => setLocation(e.target.value)}
+                                    className='form-control'
+                                    id='InputLocation'
+                                />
+                            </div>
+
+                            <div className='mb-3'>
+                                <label htmlFor='InputPrice' className='form-label'>Precio</label>
+                                <div className="input-group mb-3">
+                                    <span className="input-group-text">$</span>
+                                    <input
+                                        type='number'
+                                        min='1'
+                                        onChange={(e) => setPrice(e.target.value)}
+                                        className='form-control'
+                                        id='InputPrice'
+                                    />
+                                </div>
+                            </div>
+
+                            <div className='mb-3'>
+                                <label htmlFor='InputSize' className='form-label'>Tamaño</label>
+                                <div className="input-group mb-3">
+                                    <input
+                                        type='number'
+                                        min='1'
+                                        onChange={(e) => setSize(e.target.value)}
+                                        className='form-control'
+                                        id='InputSize'
+                                    />
+                                    <span className="input-group-text">m<sup>2</sup></span>
+                                </div>
+                            </div>
+
+                            <div className='mb-3'>
+                                <label htmlFor='InputDescription' className='form-label'>Descripción del Terreno &nbsp;
+                                    <span style={{ color: 'rgba(178,35,35,255)', fontWeight: 'bold' }} >*</span> </label>
+                                <textarea
+                                    onChange={(e) => setDescription(e.target.value)}
+                                    className='form-control'
+                                    id='InputDescription'
+                                    rows="3">
+                                </textarea>
+                            </div>
+
+                            {(formStatus.loading || isUploading) ? (
+                                <div className='d-flex align-items-center gap-2'>
+                                    <div className='spinner-border text-primary' role='status'>
+                                        <span className='visually-hidden'>Loading...</span>
+                                    </div>
+                                    <span>{isUploading ? 'Subiendo imágenes...' : 'Creando publicación...'}</span>
+                                </div>
+                            ) : (
+                                <div>
+                                    <Link className='cancel' to="/Profile">
+                                        <button className="btn btn-danger">Cancelar</button>
+                                    </Link>
+                                    <button
+                                        type='submit'
+                                        className='signup-button btn btn-primary'
+                                        disabled={images.length === 0}
+                                    >
+                                        Enviar
+                                    </button>
+                                </div>
+                            )}
+                            {formStatus.message && (
+                                <div
+                                    className={`mt-3 ${formStatus.message.includes('successfully') ? 'alert-success' : 'alert-danger'}`}
+                                    role='alert'
+                                >
+                                    {formStatus.message}
                                 </div>
                             )}
                         </div>
-
-
-                        <div className='mb-3'>
-                            <label htmlFor='InputLocation' className='form-label'>Localización</label>
-                            <input
-                                type='text'
-                                onChange={(e) => setLocation(e.target.value)}
-                                className='form-control'
-                                id='InputLocation'
-                            />
-                        </div>
-
-                        <div className='mb-3'>
-                            <label htmlFor='InputPrice' className='form-label'>Precio</label>
-                            <div className="input-group mb-3">
-                                <span className="input-group-text">$</span>
-                                <input
-                                    type='number'
-                                    min='1'
-                                    onChange={(e) => setPrice(e.target.value)}
-                                    className='form-control'
-                                    id='InputPrice'
-                                />
-                            </div>
-                        </div>
-
-                        <div className='mb-3'>
-                            <label htmlFor='InputSize' className='form-label'>Tamaño</label>
-                            <div className="input-group mb-3">
-                                <input
-                                    type='number'
-                                    min='1'
-                                    onChange={(e) => setSize(e.target.value)}
-                                    className='form-control'
-                                    id='InputSize'
-                                />
-                                <span className="input-group-text">m<sup>2</sup></span>
-                            </div>
-                        </div>
-
-                        <div className='mb-3'>
-                            <label htmlFor='InputDescription' className='form-label'>Descripción del Terreno &nbsp;
-                                <span style={{ color: 'rgba(178,35,35,255)', fontWeight: 'bold' }} >*</span> </label>
-                            <textarea
-                                onChange={(e) => setDescription(e.target.value)}
-                                className='form-control'
-                                id='InputDescription'
-                                rows="3">
-                            </textarea>
-                        </div>
-
-                        {(formStatus.loading || isUploading) ? (
-                            <div className='d-flex align-items-center gap-2'>
-                                <div className='spinner-border text-primary' role='status'>
-                                    <span className='visually-hidden'>Loading...</span>
-                                </div>
-                                <span>{isUploading ? 'Subiendo imágenes...' : 'Creando publicación...'}</span>
-                            </div>
-                        ) : (
-                            <div>
-                                <Link to="/Profile">
-                                    <button className="btn btn-danger">Cancelar</button>
-                                </Link>
-                                <button
-                                    type='submit'
-                                    className='signup-button btn btn-primary'
-                                    disabled={images.length === 0}
-                                >
-                                    Enviar
-                                </button>
-                            </div>
-                        )}
-                        {formStatus.message && (
-                            <div
-                                className={`mt-3 ${formStatus.message.includes('successfully') ? 'alert-success' : 'alert-danger'}`}
-                                role='alert'
-                            >
-                                {formStatus.message}
-                            </div>
-                        )}
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </main >
     );
 };

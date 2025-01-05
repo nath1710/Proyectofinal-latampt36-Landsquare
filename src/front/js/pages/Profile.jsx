@@ -90,7 +90,7 @@ const Profile = () => {
     */
     return (
         <main className='d-flex flex-column gap-3 align-items-center justify-content-center mt-5'>
-            <div className='container d-flex align-items-center justify-content-between'>
+            <div className='profile-section container d-flex align-items-center justify-content-between'>
                 <h3 className='m-0'>Profile</h3>
                 <Link to="/settings" className="p-1">
                     <button type="button" className="btn btn-success">Editar Perfil</button>

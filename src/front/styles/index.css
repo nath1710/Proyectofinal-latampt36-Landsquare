@@ -19,7 +19,6 @@ body {
     background-size: cover;
 }
 .imageformLogin {
-    background-image: url('https://assets.land.com/resizedimages/690/960/h/80/w/1-5300058700');
     background-repeat: no-repeat;
     background-position: center center;
     background-attachment: fixed;
@@ -30,7 +29,6 @@ body {
 }
 
 .imageformSignup {
-    background-image: url('https://assets.land.com/resizedimages/690/960/h/80/w/1-5300058700');
     background-repeat: no-repeat;
     background-position: center center;
     background-attachment: fixed;
@@ -61,10 +59,15 @@ body {
     transition: box-shadow 0.3s ease, border-color 0.3s ease;
     display: flex;
     align-items: center;
-    margin-top: 88px;
+    
 
 }
-
+.box-log{
+    margin-top: 88px;
+}
+.box-register{
+    margin-top: 88px;
+}
 .box-form:hover {
     border-color: rgba(238, 233, 233, 0.5);
     box-shadow: 1.3rem 1.3rem 1.3rem rgba(0, 0, 0, 0.25);
@@ -234,5 +237,31 @@ h1 {
     margin-top: 88.5px;
 }
 .land-section{
+    /* margin-top: 88.5px; */
+    padding-top: 88.5px;
+}
+.profile-section{
+    margin-top: 45px;
+}
+
+.edit-section{
     margin-top: 88.5px;
+}
+.img-post{
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+    position: relative;
+    min-height: 120vh;
+}
+.post-section{
+    margin-top: 88px;
+}
+
+.form-post{
+    width: 750px !important;
+}
+.cancel{
+    margin: 20px;
 }

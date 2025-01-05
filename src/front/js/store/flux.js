@@ -2,42 +2,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			token: undefined,
-			countries: [
-				{ code: "AF", name: "Afganistán" },
-				{ code: "AL", name: "Albania" },
-				{ code: "DE", name: "Alemania" },
-				{ code: "AD", name: "Andorra" },
-				{ code: "AO", name: "Angola" },
-				{ code: "AR", name: "Argentina" },
-				{ code: "AM", name: "Armenia" },
-				{ code: "AU", name: "Australia" },
-				{ code: "AT", name: "Austria" },
-				{ code: "BE", name: "Bélgica" },
-				{ code: "BR", name: "Brasil" },
-				{ code: "CA", name: "Canadá" },
-				{ code: "CL", name: "Chile" },
-				{ code: "CN", name: "China" },
-				{ code: "CO", name: "Colombia" },
-				{ code: "CR", name: "Costa Rica" },
-				{ code: "CU", name: "Cuba" },
-				{ code: "DK", name: "Dinamarca" },
-				{ code: "EG", name: "Egipto" },
-				{ code: "ES", name: "España" },
-				{ code: "US", name: "Estados Unidos" },
-				{ code: "FR", name: "Francia" },
-				{ code: "IT", name: "Italia" },
-				{ code: "JP", name: "Japón" },
-				{ code: "MX", name: "México" },
-				{ code: "PE", name: "Perú" },
-				{ code: "PT", name: "Portugal" },
-				{ code: "GB", name: "Reino Unido" },
-				{ code: "RU", name: "Rusia" },
-				{ code: "ZA", name: "Sudáfrica" },
-				{ code: "SE", name: "Suecia" },
-				{ code: "CH", name: "Suiza" },
-				{ code: "UY", name: "Uruguay" },
-				{ code: "VE", name: "Venezuela" }
-			],
+			countries: [],
 			token: undefined,
 			preset_name: 'landsquare',
 			cloud_name: 'dgbakagwe'
@@ -63,12 +28,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ demo: demo });
 			},
 
-			getCountries: () => {
-				const store = getStore();
-				console.log("Countries available:", store.countries);
-				return store.countries;
-			},
-
 			findCountryByCode: (code) => {
 				const store = getStore();
 				const country = store.countries.find(c => c.code === code);
@@ -87,8 +46,43 @@ const getState = ({ getStore, getActions, setStore }) => {
 					setStore({ token: localStorage.getItem('token') })
 				}
 			},
+			getCountries: () => {
+				fetch("https://restfulcountries.com/api/v1/countries", {
+					headers: {
+						"Authorization": "Bearer 1903|TB1KfaeQjwRLKcXFoKcxpvqLprsinKWYy2F9GS45",
+						"Accept": "application/json",
+					},
+				})
+					.then((res) => {
+						if (!res.ok) {
+							if (res.status === 401) {
+								throw new Error("Unauthorized: Check your API token.");
+							}
+							throw new Error(`HTTP error! Status: ${res.status}`);
+						}
+						return res.json();
+					})
+					.then((data) => {
+						if (!Array.isArray(data.data)) {
+							throw new Error("Invalid response format: Expected an array of results");
+						}
+						const transformedCountries = data.data.map((country) => ({
+							name: country.name,
+							currency: country.currency,
+							flag: country.href.flag,
+							iso3: country.iso3,
+						}));
+						setStore({ countries: transformedCountries });
+					})
+					.catch((err) => {
+						console.error("Could not load countries", err);
+						setStore({ countries: [] }); // Evitar que el componente falle.
+					});
+			},
+
 		}
-	};
+	}
 };
+
 
 export default getState;

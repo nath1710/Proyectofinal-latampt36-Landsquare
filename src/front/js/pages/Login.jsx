@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import landsImage from '../../img/lands.jpg';
 import logoLS from '../../img/LandSquare-small.png';
-
+import formPhoto from '../../img/form-photo.jpg'
 
 const Login = () => {
     const { actions } = useContext(Context)
@@ -46,9 +46,10 @@ const Login = () => {
     }, [formStatus.ready])
 
     return (
-        <main className="imageformLogin d-flex flex-column gap-3 vh-100 align-items-center justify-content-center">
+        <main className="imageformLogin d-flex flex-column gap-3 vh-100 align-items-center justify-content-center"
+            style={{ backgroundImage: `url(${formPhoto}` }}>
             <form onSubmit={loginUser}>
-                <div className="box-form">
+                <div className="box-log box-form">
                     <div className="cd1">
                         <img src={logoLS} />
                         <h1>Log in</h1>
