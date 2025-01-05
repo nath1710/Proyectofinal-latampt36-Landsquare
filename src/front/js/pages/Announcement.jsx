@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Card from '../component/Card.jsx';
 import '../../styles/randomStyles.css';
 
-const Profile = () => {
+const Announcement = () => {
     const { store, actions } = useContext(Context)
     const navigate = useNavigate()
     const [userData, setUserData] = useState({ id: null, email: '', isActive: false, name: '', photoProfile: '', phoneNumber: '', country: '', address: '' })
@@ -90,7 +90,7 @@ const Profile = () => {
     */
     return (
         <main className='d-flex flex-column gap-3 align-items-center justify-content-center mt-5'>
-            <div className='profile-section container d-flex align-items-center justify-content-between'>
+            <div className='container d-flex align-items-center justify-content-between'>
                 <h3 className='m-0'>Profile</h3>
                 <Link to='/settings' className='p-1'>
                     <button type='button' className='btn btn-success'>Editar Perfil</button>
@@ -181,4 +181,4 @@ const Profile = () => {
     );
 };
 
-export default Profile;
+export default Announcement;

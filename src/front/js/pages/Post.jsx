@@ -376,6 +376,38 @@ const Post = () => {
                     </div>
                 </form>
             </div>
+            {(formStatus.loading || isUploading) ? (
+                <div className='d-flex align-items-center gap-2'>
+                    <div className='spinner-border text-primary' role='status'>
+                        <span className='visually-hidden'>Loading...</span>
+                    </div>
+                    <span>{isUploading ? 'Subiendo imágenes...' : 'Creando publicación...'}</span>
+                </div>
+            ) : (
+                <div className='d-flex justify-content-evenly'>
+                    <Link to="/Profile">
+                        <button className="cancel-button btn btn-danger">Cancelar</button>
+                    </Link>
+                    <button
+                        type='submit'
+                        className='signup-button btn btn-primary'
+                        disabled={images.length === 0}
+                    >
+                        Enviar
+                    </button>
+                </div>
+            )}
+            {formStatus.message && (
+                <div
+                    className={`mt-3 alert ${formStatus.message.includes('successfull') ? 'alert-success' : 'alert-danger'}`}
+                    role='alert'
+                >
+                    {formStatus.message}
+                </div>
+            )}
+        </div>
+                </div >
+            </form >
         </main >
     );
 };
