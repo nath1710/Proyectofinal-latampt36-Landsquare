@@ -49,8 +49,8 @@ const Login = () => {
         <main className="imageformLogin d-flex flex-column gap-3 vh-100 align-items-center justify-content-center"
             style={{ backgroundImage: `url(${formPhoto}` }}>
             <form onSubmit={loginUser}>
-                <div className="box-log box-form">
-                    <div className="cd1">
+                <div className="box-log">
+                    <div className="left-form">
                         <img src={logoLS} />
                         <h1>Log in</h1>
                         <div className="mb-3">

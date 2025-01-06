@@ -36,7 +36,6 @@
 
 .preview-image-container {
     position: relative;
-    padding-bottom: 100%; /* Aspecto cuadrado */
     border-radius: 8px;
     overflow: hidden;
     background-color: #f8f9fa;

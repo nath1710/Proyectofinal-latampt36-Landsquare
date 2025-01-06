@@ -1,3 +1,4 @@
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -5,7 +6,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			countries: [],
 			token: undefined,
 			preset_name: 'landsquare',
-			cloud_name: 'dgbakagwe'
+			cloud_name: 'dgbakagwe',
+			favorites: [],
+			userId: null
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -79,7 +82,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 						setStore({ countries: [] }); // Evitar que el componente falle.
 					});
 			},
-
+			addFavorite: (id, land) => {
+				setStore((prevStore) => {
+					// Verifica si el terreno ya está en favoritos
+					if (!prevStore.favorites.some((fav) => fav.id === id)) {
+						return {
+							...prevStore,
+							favorites: [...prevStore.favorites, { id, land }],
+						};
+					}
+					return prevStore;
+				});
+			},
+			removeFavorite: (id) => {
+				setStore((prevStore) => ({
+					...prevStore,
+					favorites: prevStore.favorites.filter((fav) => fav.id !== id),
+				}));
+			},
 		}
 	}
 };

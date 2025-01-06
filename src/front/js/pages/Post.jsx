@@ -4,6 +4,7 @@ import { Context } from '../store/appContext';
 import { Link } from "react-router-dom";
 import '../../styles/ImagePreview.css';
 import postPhoto from '../../img/Post-photo.jpg';
+import GoogleMaps from "../component/GoogleMaps.jsx";
 
 const Post = () => {
     const { store, actions } = useContext(Context);
@@ -225,8 +226,8 @@ const Post = () => {
         <main className='img-post py-5 auth-background d-flex flex-column gap-3 align-items-center justify-content-center text-dark' style={{ backgroundImage: `url(${postPhoto}` }}>
             <div className='post-section'>
                 <form onSubmit={createAnnouncement}>
-                    <div className='form-post box-form'>
-                        <div className='cd1'>
+                    <div className='box-post'>
+                        <div className='w-100'>
                             <h1>Publicar un Terreno</h1>
                             <p style={{ color: 'rgba(178,35,35,255)', fontWeight: 'bold' }}>Los campos marcados con un * son obligatorios</p>
                             <div className='mb-3'>
@@ -268,14 +269,15 @@ const Post = () => {
                                 </div>
                             )*/}
                                 {images.length > 0 && (
-                                    <div className="preview-grid mt-3">
+                                    <div className="mt-3 text-nowrap d-flex gap-3" style={{ overflowX: "auto" }}>
                                         {images.map(preview => (
-                                            <div key={preview.id} className="preview-item">
+                                            <div key={preview.id} className="">
                                                 <div className="preview-image-container">
                                                     <img
                                                         src={preview.url}
                                                         alt={preview.name}
-                                                        className="preview-image"
+                                                        className="preview-item"
+                                                        style={{ height: "200px" }}
                                                     />
                                                     <button
                                                         className="delete-btn btn btn-danger btn-sm"
@@ -285,7 +287,7 @@ const Post = () => {
                                                     </button>
                                                 </div>
                                                 <small className="text-muted d-block mt-1">
-                                                    {preview.name}
+                                                    {/* {preview.name} */}
                                                 </small>
                                             </div>
                                         ))}
@@ -303,6 +305,9 @@ const Post = () => {
                                     id='InputLocation'
                                 />
                             </div>
+
+                            <div className='d-flex' style={{ height: "200px" }}><GoogleMaps /></div>
+
 
                             <div className='mb-3'>
                                 <label htmlFor='InputPrice' className='form-label'>Precio</label>

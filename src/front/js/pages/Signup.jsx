@@ -65,8 +65,8 @@ const Signup = () => {
         <main className=" imageformSignup d-flex flex-column gap-3 vh-100 align-items-center justify-content-center"
             style={{ backgroundImage: `url(${formPhoto}` }}>
             <form onSubmit={registerUser}>
-                <div className="box-register box-form">
-                    <div className="cd1">
+                <div className="box-register">
+                    <div className="left-form">
                         <img src={logoLS} />
                         <h1>Sign up</h1>
                         <p style={{ color: "rgba(178,35,35,255)", fontWeight: "bold" }}>Fields marked with an * are mandatory</p>

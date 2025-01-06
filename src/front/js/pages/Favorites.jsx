@@ -31,7 +31,7 @@ const Favorites = () => {
         if (store.token) {
             fetchFavorites();
         } else {
-            navigate("/login");
+            navigate("/");
         }
     }, [store.token, navigate]);
 
@@ -67,7 +67,7 @@ const Favorites = () => {
     };
 
     return (
-        <main className="fav-section d-flex h-100 overflow-hidden">
+        <main className="fav-section d-flex h-100 overflow-hidden" style={{ maxHeight: "100vh" }}>
             <GoogleMaps />
             <div className="app p-3" style={{ width: "90%", overflowY: "auto" }}>
                 <h1>Mis Favoritos</h1>

@@ -163,10 +163,11 @@ const EditProfile = () => {
 
     return (
         <main className=' edit-section auth-background d-flex flex-column gap-3 align-items-center justify-content-center text-dark'>
-            <h1>Editar Perfil</h1>
+
             <form onSubmit={editUser}>
-                <div className='edit-form box-form'>
-                    <div className='cd1'>
+                <div className='edit-form d-flex flex-column'>
+                    <h1>Editar Perfil</h1>
+                    <div className='w-100'>
                         <p style={{ color: 'rgba(178,35,35,255)', fontWeight: 'bold' }}>Los campos marcados con un * son obligatorios</p>
                         <div className='mb-3'>
                             <label htmlFor='InputName' className='form-label'>Nombre &nbsp;
