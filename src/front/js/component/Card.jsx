@@ -1,9 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Context } from '../store/appContext';
+import '../../styles/randomStyles.css';
 
 const Card = (props) => {
+    const { store, actions } = useContext(Context)
+    const navigate = useNavigate();
+
+    const handleDelete = () => {
+        alert('Closeeee')
+    };
+
     return (
-        <div className='card border shadow' style={{ width: '18rem', height: '21rem' }}>
-            <img src={props.imgURL} className='card-img-top' alt='...' style={{ height: '12rem', objectFit: 'cover' }} />
+        <div className='card border shadow container-card-options' style={{ width: '18rem', height: '21rem' }}>
+            <img
+                src={props.imgURL}
+                className='card-img-top'
+                alt='...'
+                style={{ height: '12rem', objectFit: 'cover' }}
+                onClick=''
+            />
+
+            {store.token ?
+                <div className='btn-group card-options'>
+                    <button type='button' className='btn btn-warning dropdown-toggle' data-bs-toggle='dropdown' aria-expanded='false'>
+                        <i className='fa-solid fa-ellipsis-vertical'></i>
+                    </button>
+                    <ul className='dropdown-menu dropdown-menu-end'>
+                        <li><Link to='/'><button className='dropdown-item' type='button'>Editar</button></Link></li>
+                        <li><button className='dropdown-item' type='button' onClick={handleDelete}>Eliminar</button></li>
+                    </ul>
+                </div>
+                :
+                <button className='btn btn-danger' type='button' >No hay token!!!</button>
+            }
+
+
             <div className='card-body'>
                 <div className='d-flex justify-content-between mb-2'>
                     <div className='d-flex flex-column'>
