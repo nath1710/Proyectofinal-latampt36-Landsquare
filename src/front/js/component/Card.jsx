@@ -19,7 +19,6 @@ const Card = (props) => {
                 className='card-img-top'
                 alt='...'
                 style={{ height: '12rem', objectFit: 'cover' }}
-                onClick=''
             />
 
             {store.token ?
@@ -33,7 +32,7 @@ const Card = (props) => {
                     </ul>
                 </div>
                 :
-                <button className='btn btn-danger' type='button' >No hay token!!!</button>
+                <button className='btn btn-danger' type='button' ></button>
             }
 
 
@@ -58,7 +57,7 @@ const Card = (props) => {
                             className='my-1 me-2' />
                         <div className='d-flex flex-column'>
                             <span className='fw-medium'>{props.owner}</span>
-                            <spam className='text-overflow-ellipsis'>{props.info}</spam>
+                            <span className='text-overflow-ellipsis'>{props.info}</span>
                         </div>
                     </div>
                     <div className='d-flex justify-content-center align-items-center fs-5 ms-2'><i className='fa-regular fa-envelope'></i></div>

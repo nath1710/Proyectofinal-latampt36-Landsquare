@@ -66,19 +66,21 @@ const LandCard = ({ land }) => {
     };
 
     const handleFavoriteClick = () => {
+        if (!store.token) {
+            navigate("/login");
+            return;
+        }
+
         if (!isFavorite) {
             addFavorite();
         } else {
             removeFavorite();
         }
-        setIsFavorite(!isFavorite);
     };
 
     useEffect(() => {
         if (store.token) {
             fetchFavorites();
-        } else {
-            navigate("/login");
         }
     }, [store.token, navigate]);
 
@@ -102,15 +104,17 @@ const LandCard = ({ land }) => {
                     )}
                 </span>
             </div>
-            <p>{land.location}</p>
-            <div id={`carouselControls${land.id}`} className="carousel slide" data-bs-ride="carousel">
+            <p>{land.location}</p><div id={`carouselControls${land.id}`} className="carousel slide" data-bs-ride="carousel">
                 <div className="carousel-inner">
                     {land.images.map((image, idx) => (
-                        <div className={`carousel-item ${idx == 1 ? "active" : ""} `}>
+                        <div
+                            key={`${land.id}-image-${idx}`} // Agregar la propiedad key con un valor único
+                            className={`carousel-item ${idx === 0 ? "active" : ""}`} // Usa `idx === 0` para marcar el primer item como activo
+                        >
                             <img style={{ height: "400px" }}
                                 className="d-block w-100"
                                 src={image}
-                                alt="First slide"
+                                alt={`Slide ${idx + 1}`} // Usar un texto alternativo único
                             />
                         </div>
                     ))}
@@ -160,7 +164,7 @@ const LandCard = ({ land }) => {
                 <div className="vr mx-3"></div>
                 <div>{land.description}</div>
             </div>
-        </div>
+        </div >
     );
 };
 

@@ -36,7 +36,7 @@ export const Navbar = () => {
 					<div className="sections">
 						<Link to="/lands">Buy Land </Link>
 						<Link to="/">Find an Agent</Link>
-						<Link to="/">Contact us</Link>
+						<Link to="/aboutUs">About us</Link>
 						{!store.token && ("")}
 						{shouldShowPrivateButtons && (
 							<Link

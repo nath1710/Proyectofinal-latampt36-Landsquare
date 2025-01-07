@@ -19,6 +19,7 @@ import Favorites from "./pages/Favorites.jsx";
 import EditProfile from "./pages/EditProfile.jsx";
 import Lands from "./pages/Lands.jsx";
 import Announcement from "./pages/Announcement.jsx";
+import AboutUs from "./pages/AboutUs.jsx";
 
 //create your first component
 const Layout = () => {
@@ -43,6 +44,7 @@ const Layout = () => {
                         <Route element={<EditProfile />} path="/settings" />
                         <Route element={<Post />} path="/publish-land" />
                         <Route element={<Announcement />} path="/announcement/:id" />
+                        <Route element={<AboutUs />} path="/aboutUs" />
                         {/*<Route element={<EditAnnouncement />} path="/land-settings/:id" />*/}
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />

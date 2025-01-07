@@ -53,7 +53,7 @@ const GoogleMaps = ({ location, markers = [] }) => {
                         mapContainerStyle={{ width: "100%", minHeight: "100%" }}
                     >
                         {
-                            markers.map(({ id, title, latitude, longitude, images }) => (
+                            markers.map(({ id, title, location, latitude, longitude, images, price, size }) => (
                                 <MarkerF
                                     key={id}
                                     position={{ lat: latitude, lng: longitude }}
@@ -71,11 +71,19 @@ const GoogleMaps = ({ location, markers = [] }) => {
                                                         <img
                                                             src={images[0]}
                                                             alt="Preview"
-                                                            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                                                            style={{ width: "100%", height: "170px", objectFit: "cover" }}
                                                         />
                                                     </div>
                                                 )}
-                                                <p>{title}</p>
+
+                                                <div className="p-3 d-flex flex-column gap-1">
+                                                    <div className="text-nowrap fw-bold "><span>${Number(price).toLocaleString('en-US')}</span>
+                                                        <span> • </span>
+                                                        <span>{size} m<sup>2</sup></span></div>
+                                                    <span>{location}</span>
+                                                    <span>{title}</span>
+
+                                                </div>
                                             </div>
                                         </InfoWindowF>
                                     ) : null}
