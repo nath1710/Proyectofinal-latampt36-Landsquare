@@ -139,6 +139,7 @@ const CardSlider = () => {
                     {data.map((item) => (
                         <Card
                             key={item.id}
+                            announcementID={item.id}
                             imgURL={item.images?.[0] || '../../img/placeholder-image.jpg'}
                             price={item.price}
                             size={item.size}
