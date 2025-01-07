@@ -161,7 +161,7 @@ const Profile = () => {
             ) : (
                 <div className='bg-white vw-100 pb-3 px-5'>
                     <h1 className='text-secondary text-center my-2'>Tus Publicaciones</h1>
-                    <div className='d-flex flex-wrap gap-2 align-items-center justify-content-start'>
+                    <div className='d-flex flex-wrap gap-2 align-items-center justify-content-evenly'>
                         {userAnnouncements.map((item) => (
                             <Card
                                 key={item.id}

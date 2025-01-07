@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Context } from '../store/appContext';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Card from '../component/Card.jsx';
 import '../../styles/randomStyles.css';
 
@@ -8,33 +8,85 @@ const Announcement = () => {
     const { store, actions } = useContext(Context)
     const navigate = useNavigate()
     const [userData, setUserData] = useState({ id: null, email: '', isActive: false, name: '', photoProfile: '', phoneNumber: '', country: '', address: '' })
+    const [announcementData, setAnnouncementData] = useState({
+        creation_date: '',
+        description: '',
+        id: 0,
+        images: [],
+        location: '',
+        price: '',
+        size: 0,
+        title: '',
+        user: {},
+        user_id: 0
+    })
+
+    const [title, setTitle] = useState('')
+    const [images, setImages] = useState([])
+    const [price, setPrice] = useState(0)
+    const [size, setSize] = useState(0)
+    const [location, setLocation] = useState('')
+    const [description, setDescription] = useState('')
+    const [user, setUser] = useState({})
+    const [userID, setUserID] = useState(null)
+
     const [userAnnouncements, setUserAnnouncements] = useState([])
+    const params = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const handlePrivateData = async () => {
+    const getAnnouncement = async () => {
         try {
-            const response = await fetch(process.env.BACKEND_URL + '/api/user', {
-                method: 'GET',
-                headers: {
-                    'Content-type': 'Application/json',
-                    Authorization: `Bearer ${store.token}`
-                }
-            })
-            const body = await response.json()
-            setUserData({
+            setIsLoading(true);
+            setError(null);
+
+            const response = await fetch(process.env.BACKEND_URL + `/api/announcement/${params.id}`, {
+                method: 'GET'
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al cargar la publicación');
+            }
+
+            const body = await response.json();
+            setAnnouncementData({
+                creation_date: body.creation_date,
+                description: body.description,
                 id: body.id,
-                email: body.email,
-                name: body.name,
-                isActive: body.is_active,
-                photoProfile: body.photo_profile,
-                phoneNumber: body.phone_number,
-                country: body.country,
-                address: body.address
-            })
+                images: body.images,
+                location: body.location,
+                price: body.price,
+                size: body.size,
+                title: body.title,
+                user: body.user,
+                user_id: body.user_id
+            });
+            setTitle(body.title)
+            setImages(body.images)
+            setPrice(body.price)
+            setSize(body.size)
+            setLocation(body.location)
+            setDescription(body.description)
+            setUser(body.user)
+            setUserID(body.user_id)
+
+            console.log('BODYYYYYYY', body)
+            console.log('ANNOUNCEMENT', announcementData)
+            console.log('bbbbbtitle', body.title)
+            console.log('title', title)
+            console.log('bbbbbimages', body.images)
+            console.log('images', images)
+            console.log('bbbbUSERIDDD', body.user_id)
+            console.log('USERIDDD', userID)
+
         } catch (error) {
-            console.log(error)
+            console.error('Error fetching announcement:', error);
+            setError(error.message);
+        } finally {
+            setIsLoading(false);
         }
+
+        getUserAnnouncements()
     }
 
     const getUserAnnouncements = async () => {
@@ -42,11 +94,10 @@ const Announcement = () => {
             setIsLoading(true);
             setError(null);
 
-            const response = await fetch(process.env.BACKEND_URL + `/api/user/${userData.id}/announcements`, {
+            const response = await fetch(process.env.BACKEND_URL + `/api/user/${userID}/announcements`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'Application/json',
-                    Authorization: `Bearer ${store.token}`
                 }
             });
 
@@ -56,6 +107,7 @@ const Announcement = () => {
 
             const body = await response.json();
             setUserAnnouncements(body.announcements);
+            console.log('USER ANNOUNCEMENTSSSS', userAnnouncements)
 
         } catch (error) {
             console.error('Error fetching announcements:', error);
@@ -66,34 +118,15 @@ const Announcement = () => {
     }
 
     useEffect(() => {
-        if (store.token === undefined && localStorage.getItem('token') == undefined) {
-            navigate('/login')
-            return;
-        } if (store.token) {
-            handlePrivateData()
-            console.log('TOKENNNNN', store.token)
-            console.log('USER IDDD', userData.id)
-        }
-    }, [store.token])
+        getAnnouncement()
+    }, [])
 
-    useEffect(() => {
-        console.log('TOKENNNNN', store.token)
-        console.log('USER IDDD', userData.id)
-        getUserAnnouncements()
-    }, [userData])
-    /*
-        useEffect(() => {
-            if (localStorage.getItem('token')) {
-                actions.setToken(localStorage.getItem('token'))
-            }
-        }, [])
-    */
     return (
         <main className='d-flex flex-column gap-3 align-items-center justify-content-center mt-5'>
             <div className='container d-flex align-items-center justify-content-between'>
-                <h3 className='m-0'>Profile</h3>
-                <Link to='/settings' className='p-1'>
-                    <button type='button' className='btn btn-success'>Editar Perfil</button>
+                <h3 className='m-0'>Publicación</h3>
+                <Link to='/land-settings' className='p-1'>
+                    <button type='button' className='btn btn-success'>Editar Publicación</button>
                 </Link>
             </div>
 

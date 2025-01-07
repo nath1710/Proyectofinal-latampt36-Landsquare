@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Context } from '../store/appContext';
 import { Link } from "react-router-dom";
 import '../../styles/ImagePreview.css';
-import postPhoto from '../../img/post-photo.jpg';
 import GoogleMaps from "../component/GoogleMaps.jsx";
+import postPhoto from '../../img/post-photo.jpg';
 
 const Post = () => {
     const { store, actions } = useContext(Context);
