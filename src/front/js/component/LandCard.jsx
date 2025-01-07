@@ -11,7 +11,7 @@ const LandCard = ({ land }) => {
     const { store } = useContext(Context);
     const navigate = useNavigate();
 
-    // Función para obtener los favoritos del usuario desde la base de datos
+
     const fetchFavorites = async () => {
         try {
             const response = await fetch(`${process.env.BACKEND_URL}/api/favorites`, {
@@ -28,7 +28,6 @@ const LandCard = ({ land }) => {
         }
     };
 
-    // Función para agregar un favorito a la base de datos
     const addFavorite = async () => {
         try {
             const response = await fetch(`${process.env.BACKEND_URL}/api/favorites`, {
@@ -48,7 +47,6 @@ const LandCard = ({ land }) => {
         }
     };
 
-    // Función para eliminar un favorito de la base de datos
     const removeFavorite = async () => {
         try {
             const response = await fetch(`${process.env.BACKEND_URL}/api/favorites/${land.id}`, {
@@ -67,7 +65,6 @@ const LandCard = ({ land }) => {
         }
     };
 
-    // Cambiar estado de favorito
     const handleFavoriteClick = () => {
         if (!isFavorite) {
             addFavorite();
@@ -77,7 +74,6 @@ const LandCard = ({ land }) => {
         setIsFavorite(!isFavorite);
     };
 
-    // Verificar si el anuncio está en los favoritos del usuario
     useEffect(() => {
         if (store.token) {
             fetchFavorites();

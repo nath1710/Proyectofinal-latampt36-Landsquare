@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Context } from '../store/appContext';
 import { Link } from "react-router-dom";
 import '../../styles/ImagePreview.css';
-import postPhoto from '../../img/Post-photo.jpg';
+import postPhoto from '../../img/post-photo.jpg';
 import GoogleMaps from "../component/GoogleMaps.jsx";
 
 const Post = () => {
@@ -13,6 +13,8 @@ const Post = () => {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState(0);
     const [location, setLocation] = useState('');
+    const [latitude, setLatitude] = useState(0);
+    const [longitude, setLongitude] = useState(0);
     const [size, setSize] = useState(0);
     const [images, setImages] = useState([]);
 
@@ -87,6 +89,8 @@ const Post = () => {
                     description,
                     price: parseFloat(price),
                     location,
+                    latitude: parseFloat(latitude),
+                    longitude: parseFloat(longitude),
                     size: parseFloat(size),
                     images: uploadedUrls // Enviamos las URLs de Cloudinary
                 })
@@ -113,6 +117,27 @@ const Post = () => {
                 ready: false,
                 message: 'Error del servidor. Por favor intenta más tarde.'
             });
+        }
+    };
+
+    const handleGeocode = async (address) => {
+        try {
+            const response = await fetch(
+                `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=AIzaSyAPeDUU2nXnDk3pF4Xa2d3dOuNbPABkPzg`
+            );
+            const data = await response.json();
+
+            if (data.results.length > 0) {
+                const locationData = data.results[0].geometry.location;
+                setLatitude(locationData.lat)
+                setLongitude(locationData.lng)
+                console.log(locationData)
+            } else {
+                setFormStatus({ ...formStatus, message: "No se encontraron resultados para esta dirección." });
+            }
+        } catch (error) {
+            console.error("Error al geocodificar la dirección:", error);
+            setFormStatus({ ...formStatus, message: "Error al procesar la dirección. Intente nuevamente." });
         }
     };
 
@@ -298,15 +323,27 @@ const Post = () => {
 
                             <div className='mb-3'>
                                 <label htmlFor='InputLocation' className='form-label'>Localización</label>
-                                <input
-                                    type='text'
-                                    onChange={(e) => setLocation(e.target.value)}
-                                    className='form-control'
-                                    id='InputLocation'
-                                />
+                                <div className="input-group">
+                                    <input
+                                        type='text'
+                                        onChange={(e) => setLocation(e.target.value)}
+                                        className='form-control'
+                                        placeholder="Ingresa una dirección"
+                                        id='InputLocation'
+                                    />
+                                    <button
+                                        type="button"
+                                        className="btn btn-outline-secondary"
+                                        onClick={() => handleGeocode(location)}
+                                    >
+                                        Validar Dirección
+                                    </button>
+                                </div>
+                                <small className="form-text text-muted">
+                                    Ingresa una dirección y presiona "Validar Dirección" para obtener las coordenadas.
+                                </small>
                             </div>
-
-                            <div className='d-flex' style={{ height: "200px" }}><GoogleMaps /></div>
+                            <div className='d-flex' style={{ height: "200px" }}><GoogleMaps location={{ lat: latitude, lng: longitude }} /></div>
 
 
                             <div className='mb-3'>
@@ -370,7 +407,7 @@ const Post = () => {
                             )}
                             {formStatus.message && (
                                 <div
-                                    className={`mt-3 alert ${formStatus.message.includes('successfull') ? 'alert-success' : 'alert-danger'}`}
+                                    className={`mt-3 alert ${formStatus.message.includes('successfull') ? 'alert-danger' : 'alert-success'}`}
                                     role='alert'
                                 >
                                     {formStatus.message}

@@ -7,25 +7,26 @@ import {
     useLoadScript,
 } from "@react-google-maps/api";
 
-const markers = [
-    {
-        id: 1,
-        name: "Qobustan",
-        position: { lat: 40.0709493, lng: 49.3694411 },
-    },
-    {
-        id: 2,
-        name: "Sumqayit",
-        position: { lat: 40.5788843, lng: 49.5485073 },
-    },
-    {
-        id: 3,
-        name: "Baku",
-        position: { lat: 40.3947365, lng: 49.6898045 },
-    }
-];
+// const markers = [
+//     {
+//         id: 1,
+//         title: "Qobustan",
+//         latitude: 40.0709493,
+//         longitude: 49.3694411,
+//     },
+//     {
+//         id: 2,
+//         name: "Sumqayit",
+//         position: { lat: 40.5788843, lng: 49.5485073 },
+//     },
+//     {
+//         id: 3,
+//         name: "Baku",
+//         position: { lat: 40.3947365, lng: 49.6898045 },
+//     }
+// ];
 
-const GoogleMaps = () => {
+const GoogleMaps = ({ location, markers = [] }) => {
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: "AIzaSyAPeDUU2nXnDk3pF4Xa2d3dOuNbPABkPzg",
     });
@@ -46,16 +47,16 @@ const GoogleMaps = () => {
             {
                 isLoaded ? (
                     <GoogleMap
-                        center={{ lat: 40.3947365, lng: 49.6898045 }}
-                        zoom={10}
+                        center={location ? { lat: location.lat, lng: location.lng } : { lat: 4.1347644, lng: -73.6201517 }}
+                        zoom={location ? 15 : 4}
                         onClick={() => setActiveMarker(null)}
                         mapContainerStyle={{ width: "100%", minHeight: "100%" }}
                     >
                         {
-                            markers.map(({ id, name, position }) => (
+                            markers.map(({ id, title, latitude, longitude, images }) => (
                                 <MarkerF
                                     key={id}
-                                    position={position}
+                                    position={{ lat: latitude, lng: longitude }}
                                     onClick={() => handleActiveMarker(id)}
                                 // icon={{
                                 //   url:"https://t4.ftcdn.net/jpg/02/85/33/21/360_F_285332150_qyJdRevcRDaqVluZrUp8ee4H2KezU9CA.jpg",
@@ -64,14 +65,27 @@ const GoogleMaps = () => {
                                 >
                                     {activeMarker === id ? (
                                         <InfoWindowF onCloseClick={() => setActiveMarker(null)}>
-                                            <div>
-                                                <p>{name}</p>
+                                            <div className="text-black">
+                                                {images && images.length > 0 && (
+                                                    <div className="image-preview" style={{ width: "100%", height: "100%" }}>
+                                                        <img
+                                                            src={images[0]}
+                                                            alt="Preview"
+                                                            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                                                        />
+                                                    </div>
+                                                )}
+                                                <p>{title}</p>
                                             </div>
                                         </InfoWindowF>
                                     ) : null}
                                 </MarkerF>
                             ))
                         }
+                        {location ? <MarkerF
+                            position={{ lat: location.lat, lng: location.lng }}
+                        >
+                        </MarkerF> : null}
                     </GoogleMap >
                 ) : null}
         </div >

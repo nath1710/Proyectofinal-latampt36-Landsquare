@@ -83,7 +83,7 @@ const Lands = () => {
                 <p>Buscador</p>
             </div>
             <div className="d-flex h-100 overflow-hidden">
-                <GoogleMaps />
+                <GoogleMaps markers={lands} />
                 <div className="app p-3" style={{ width: "90%", overflowY: "auto" }}>
                     <h1>Lista de Terrenos</h1>
                     <div className="land-list d-flex flex-column gap-3">

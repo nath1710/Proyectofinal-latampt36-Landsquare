@@ -10,6 +10,7 @@ const Favorites = () => {
     const navigate = useNavigate();
 
     const [favorites, setFavorites] = useState([]);
+    const [announcements, setAnnouncements] = useState([]);
 
     const fetchFavorites = async () => {
         try {
@@ -22,11 +23,15 @@ const Favorites = () => {
             if (!response.ok) throw new Error("Error al cargar favoritos");
             const data = await response.json();
             console.log(data)
+            const favannouncements = data.favorites.map(favorite => favorite.announcement)
+            setAnnouncements(favannouncements)
+            console.log(favannouncements)
             setFavorites(data.favorites);
         } catch (error) {
             console.error(error);
         }
     };
+
     useEffect(() => {
         if (store.token) {
             fetchFavorites();
@@ -68,7 +73,7 @@ const Favorites = () => {
 
     return (
         <main className="fav-section d-flex h-100 overflow-hidden" style={{ maxHeight: "100vh" }}>
-            <GoogleMaps />
+            <GoogleMaps markers={announcements} />
             <div className="app p-3" style={{ width: "90%", overflowY: "auto" }}>
                 <h1>Mis Favoritos</h1>
                 <div className="favorites-list d-flex flex-column gap-3">

@@ -148,13 +148,15 @@ def create_announcement():
         missing_fields = [
             field for field in required_fields if not data.get(field)]
         if missing_fields:
-            return jsonify({"error": f"Required fields are missing: {', '.join(missing_fields)}"}), 400
+            return jsonify({"error": "Required fields are missing: {', '.join(missing_fields)}"}), 400
 
         title = data.get('title')
         images = data.get('images')
         description = data.get('description')
         price = data.get('price')
         location = data.get('location')
+        latitude = data.get('latitude')
+        longitude = data.get('longitude')
         size = data.get('size')
 
         if len(images) > 5:
@@ -173,6 +175,8 @@ def create_announcement():
             description=description,
             price=price,
             location=location,
+            latitude=latitude,
+            longitude=longitude,
             size=size
         )
 
@@ -188,6 +192,8 @@ def create_announcement():
                 "description": new_announcement.description,
                 "price": new_announcement.price,
                 "location": new_announcement.location,
+                "latitude": new_announcement.latitude,
+                "longitude": new_announcement.longitude,
                 "size": new_announcement.size,
                 "creation_date": new_announcement.creation_date.isoformat()
             }
@@ -256,6 +262,8 @@ def get_announcements():
                 "description": announcement.description,
                 "price": announcement.price,
                 "location": announcement.location,
+                "latitude": announcement.latitude,
+                "longitude": announcement.longitude,
                 "size": announcement.size,
                 "creation_date": announcement.creation_date.isoformat(),
                 "owner": announcement.user.name,
@@ -413,8 +421,33 @@ def get_user_favorites():
                                        .order_by(Favorite.creation_date.desc())
                                        ).scalars().all()
 
+        favorites_data = [
+            {
+                "announcement": {
+                    "id": favorite.announcement.id,
+                    "user_id": favorite.announcement.user_id,
+                    "images": favorite.announcement.images,
+                    "title": favorite.announcement.title,
+                    "description": favorite.announcement.description,
+                    "price": favorite.announcement.price,
+                    "location": favorite.announcement.location,
+                    "latitude": favorite.announcement.latitude,
+                    "longitude": favorite.announcement.longitude,
+                    "size": favorite.announcement.size,
+                    "creation_date": favorite.announcement.creation_date.isoformat(),
+                    "owner": favorite.announcement.user.name,
+                    "ownerImg": favorite.announcement.user.photo_profile
+                },
+                "announcement_id": favorite.announcement_id,
+                "creation_date": favorite.creation_date.isoformat(),
+                "id": favorite.id,
+                "user_id": favorite.user_id,
+            }
+            for favorite in favorites
+        ]
+
         return jsonify({
-            "favorites": [favorite.serialize() for favorite in favorites]
+            "favorites": favorites_data
         }), 200
 
     except SQLAlchemyError as db_error:

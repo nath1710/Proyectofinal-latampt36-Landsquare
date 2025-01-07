@@ -55,6 +55,8 @@ class Announcement(db.Model):
     description = db.Column(db.String(1000))
     price = db.Column(db.Integer)
     location = db.Column(db.String(250))
+    latitude = db.Column(db.Float)
+    longitude = db.Column(db.Float)
     size = db.Column(db.Integer)
     creation_date = db.Column(
         db.DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
@@ -70,6 +72,8 @@ class Announcement(db.Model):
             'description': self.description,
             'price': str(self.price),
             'location': self.location,
+            'latitude': self.latitude,
+            'longitude': self.longitude,
             'size': self.size,
             'creation_date': self.creation_date.isoformat(),
             'images': self.images,
