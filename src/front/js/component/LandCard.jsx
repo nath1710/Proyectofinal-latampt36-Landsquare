@@ -108,13 +108,13 @@ const LandCard = ({ land }) => {
                 <div className="carousel-inner">
                     {land.images.map((image, idx) => (
                         <div
-                            key={`${land.id}-image-${idx}`} // Agregar la propiedad key con un valor único
-                            className={`carousel-item ${idx === 0 ? "active" : ""}`} // Usa `idx === 0` para marcar el primer item como activo
+                            key={`${land.id}-image-${idx}`}
+                            className={`carousel-item ${idx === 0 ? "active" : ""}`}
                         >
                             <img style={{ height: "400px" }}
                                 className="d-block w-100"
                                 src={image}
-                                alt={`Slide ${idx + 1}`} // Usar un texto alternativo único
+                                alt={`Slide ${idx + 1}`}
                             />
                         </div>
                     ))}

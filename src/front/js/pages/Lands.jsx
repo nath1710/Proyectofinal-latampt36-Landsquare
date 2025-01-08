@@ -28,18 +28,14 @@ const Lands = () => {
         }
     }
 
-    // Llamada inicial para cargar los terrenos
     useEffect(() => {
         fetchLands();
     }, []);
 
-    // Función para manejar la adición/eliminación de favoritos
     const toggleFavorite = async (announcementId, isFavorite) => {
         try {
-            // Solo verificar el token cuando el usuario intenta modificar los favoritos
             const token = localStorage.getItem("token");
 
-            // Si no hay token, redirigir al login solo cuando se intente modificar favoritos
             if (!token) {
                 console.error("Please register/login to access your favorites.");
                 navigate("/login");

@@ -65,8 +65,8 @@ const Filters = ({ announcements, setFilteredAnnouncements }) => {
                                 type="text"
                                 className="form-control"
                                 placeholder="Min Price"
-                                value={minPrice} // Mostrar el valor del estado en el input
-                                readOnly // Evitar que el usuario escriba manualmente
+                                value={minPrice}
+
                             />
                             <button
                                 className="values-item dropdown-item"
@@ -99,8 +99,7 @@ const Filters = ({ announcements, setFilteredAnnouncements }) => {
                                 type="text"
                                 className="form-control"
                                 placeholder="Max Price"
-                                value={maxPrice} // Mostrar el valor del estado en el input
-                                readOnly // Evitar que el usuario escriba manualmente
+                                value={maxPrice}
                             />
                             <button
                                 className="values-item dropdown-item"
