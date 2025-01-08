@@ -12,14 +12,19 @@ const Card = (props) => {
         alert('Closeeee')
     };
 
+    const navToAnnouncement = (id) => {
+        //console.log('IDDDDDDDDDD', id)
+        //navigate(`/announcement/${id}`)
+    }
+
     return (
         <div className='card border shadow container-card-options' style={{ width: '18rem', height: '21rem' }}>
-            <img
+            <Link to={`/announcement/${props.announcementID}`}> <img
                 src={props.imgURL}
                 className='card-img-top'
                 alt='...'
                 style={{ height: '12rem', objectFit: 'cover' }}
-            />
+            /></Link>
 
             {store.token ?
                 <div className='btn-group card-options'>
@@ -31,10 +36,8 @@ const Card = (props) => {
                         <li><button className='dropdown-item' type='button' onClick={handleDelete}>Eliminar</button></li>
                     </ul>
                 </div>
-                :
-                <button className='btn btn-danger' type='button' ></button>
+                : null
             }
-
 
             <div className='card-body'>
                 <div className='d-flex justify-content-between mb-2'>
@@ -54,7 +57,9 @@ const Card = (props) => {
                     <div className='d-flex align-items-center' >
                         <img src={props.imgOwner}
                             style={{ width: '35px', height: '35px' }}
-                            className='my-1 me-2' />
+                            className='my-1 me-2'
+                            onClick={navToAnnouncement(props.announcementID)}
+                        />
                         <div className='d-flex flex-column'>
                             <span className='fw-medium'>{props.owner}</span>
                             <span className='text-overflow-ellipsis'>{props.info}</span>
