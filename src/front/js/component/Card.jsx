@@ -26,19 +26,6 @@ const Card = (props) => {
                 style={{ height: '12rem', objectFit: 'cover' }}
             /></Link>
 
-            {store.token ?
-                <div className='btn-group card-options'>
-                    <button type='button' className='btn btn-warning dropdown-toggle' data-bs-toggle='dropdown' aria-expanded='false'>
-                        <i className='fa-solid fa-ellipsis-vertical'></i>
-                    </button>
-                    <ul className='dropdown-menu dropdown-menu-end'>
-                        <li><Link to='/'><button className='dropdown-item' type='button'>Editar</button></Link></li>
-                        <li><button className='dropdown-item' type='button' onClick={handleDelete}>Eliminar</button></li>
-                    </ul>
-                </div>
-                : null
-            }
-
             <div className='card-body'>
                 <div className='d-flex justify-content-between mb-2'>
                     <div className='d-flex flex-column'>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Context } from '../store/appContext';
 import { Link, useNavigate } from 'react-router-dom';
-import Card from '../component/Card.jsx';
+import CardUser from '../component/CardUser.jsx';
 import '../../styles/randomStyles.css';
 
 const Profile = () => {
@@ -71,23 +71,13 @@ const Profile = () => {
             return;
         } if (store.token) {
             handlePrivateData()
-            // console.log('TOKENNNNN', store.token)
-            // console.log('USER IDDD', userData.id)
         }
     }, [store.token])
 
     useEffect(() => {
-        // console.log('TOKENNNNN', store.token)
-        // console.log('USER IDDD', userData.id)
         getUserAnnouncements()
     }, [userData])
-    /*
-        useEffect(() => {
-            if (localStorage.getItem('token')) {
-                actions.setToken(localStorage.getItem('token'))
-            }
-        }, [])
-    */
+
     return (
         <main className='d-flex flex-column gap-3 align-items-center justify-content-center mt-5'>
             <div className='profile-section container d-flex align-items-center justify-content-between'>
@@ -163,8 +153,9 @@ const Profile = () => {
                     <h1 className='text-secondary text-center my-2'>Tus Publicaciones</h1>
                     <div className='d-flex flex-wrap gap-2 align-items-center justify-content-evenly'>
                         {userAnnouncements.map((item) => (
-                            <Card
+                            <CardUser
                                 key={item.id}
+                                announcementID={item.id}
                                 imgURL={item.images?.[0] || '/placeholder-image.jpg' /* Falta cambiar esta ruta*/}
                                 price={item.price}
                                 size={item.size}

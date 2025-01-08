@@ -15,6 +15,8 @@ const Announcement = () => {
         id: 0,
         images: [],
         location: '',
+        longitude: 0,
+        latitude: 0,
         price: '',
         size: 0,
         title: '',
@@ -47,6 +49,8 @@ const Announcement = () => {
                 id: body.id,
                 images: body.images,
                 location: body.location,
+                longitude: body.longitude,
+                latitude: body.latitude,
                 price: body.price,
                 size: body.size,
                 title: body.title,
@@ -106,7 +110,7 @@ const Announcement = () => {
             <div className='container d-flex align-items-center justify-content-between'>
                 <h3 className='m-0'>Publicación</h3>
                 {store.token ?
-                    <Link to='/land-settings' className='p-1'>
+                    <Link to={`/land-settings/${announcementData.id}`} className='p-1'>
                         <button type='button' className='btn btn-success'>Editar Publicación</button>
                     </Link>
                     : null

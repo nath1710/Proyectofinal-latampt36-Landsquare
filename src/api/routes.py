@@ -652,7 +652,7 @@ def delete_announcement(announcement_id):
         print(f"Unexpected error: {str(e)}")
         return jsonify({'message': 'An unexpected error occurred', 'error': str(e)}), 500
 
-@api.route('/announcement/<int:announcement_id>', methods=['PUT'])
+@api.route('/land-settings/<int:announcement_id>', methods=['PUT'])
 @jwt_required()
 def update_announcement(announcement_id):
     current_user_email = get_jwt_identity()
@@ -687,6 +687,13 @@ def update_announcement(announcement_id):
         if data.get('images') is not None and len(data['images']) > 5:
             return jsonify({"error": "The number of images cannot exceed 5"}), 400
 
+        if data.get('latitude') is not None and (not isinstance(data['latitude'], (int, float))):
+            return jsonify({"error": "Latitude must be a number"}), 400
+
+        if data.get('longitude') is not None and (not isinstance(data['longitude'], (int, float))):
+            return jsonify({"error": "Longitude must be a number"}), 400
+
+
         # Actualizar los campos si están presentes en la solicitud
         if 'title' in data:
             announcement.title = data['title']
@@ -700,6 +707,10 @@ def update_announcement(announcement_id):
             announcement.location = data['location']
         if 'size' in data:
             announcement.size = data['size']
+        if 'latitude' in data:
+            announcement.latitude = data['latitude']
+        if 'longitude' in data:
+            announcement.longitude = data['longitude']
 
         db.session.commit()
 
