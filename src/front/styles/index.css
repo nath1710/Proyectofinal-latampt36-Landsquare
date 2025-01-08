@@ -236,7 +236,7 @@ h1 {
     background-color: white;
     
 }
-.down .sections a {
+.down .sections .nav-link {
     color: black;
     
 }
@@ -247,9 +247,11 @@ h1 {
 }
 .sections{
     text-align: center;
+    width: 500px;
+    display: flex;
 
 }
-.sections a{
+.sections .nav-link{
     display: inline-block;
     text-decoration: none;
     color: #fff;
@@ -257,26 +259,26 @@ h1 {
     font-size: 15px;
     letter-spacing: 2px;
     font-weight: 400;
-    padding: 25px;
+    padding: 15px;
     transition: all ease 0.5s;
 }
-.sections a:hover{
+.sections .nav-link:hover{
     background-color: #211b4385;
 }
 
 .fav-section{
-    padding-top: 88.5px;
+    padding-top: 68.5px;
 }
 .land-section{
     /* margin-top: 88.5px; */
-    padding-top: 88.5px;
+    padding-top: 68.5px;
 }
 .profile-section{
     margin-top: 45px;
 }
 
 .edit-section{
-    margin-top: 88.5px;
+    margin-top: 68.5px;
 }
 .img-post{
     background-repeat: no-repeat;
@@ -307,4 +309,60 @@ h1 {
 }
 .gm-style .gm-style-iw-d {
     overflow: auto !important;
+}
+
+
+.values{
+    position: relative;
+}
+
+.range-values {
+    padding: 10px 15px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.values-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    padding: 10px;
+    width: 200px;
+    border-radius: 5px;
+}
+
+.values-section {
+    margin-bottom: 10px;
+}
+
+.dropdown-section h4 {
+    margin: 0 0 5px 0;
+    font-size: 14px;
+}
+
+.values-item {
+    display: block;
+    padding: 8px;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    font-size: 14px;
+}
+
+.values-item:hover {
+    background-color: #f0f0f0;
+}
+
+.values-menu.show {
+    display: block;
 }

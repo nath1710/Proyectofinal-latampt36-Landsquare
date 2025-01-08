@@ -3,12 +3,15 @@ import GoogleMaps from "../component/GoogleMaps.jsx";
 import LandCard from "../component/LandCard.jsx";
 import { Footer } from "../component/footer.js";
 import { useNavigate } from "react-router-dom";
+import Filters from "../component/Filters.jsx";
 
 
 
 const Lands = () => {
     const [lands, setLands] = useState([]);
     const navigate = useNavigate();
+
+    const [filteredAnnouncements, setFilteredAnnouncements] = useState([]);
 
     const fetchLands = async () => {
         try {
@@ -19,6 +22,7 @@ const Lands = () => {
             const data = await response.json();
             console.log(data);
             setLands(data.announcements);
+            setFilteredAnnouncements(data.announcements)
         } catch (error) {
             console.error(error.message);
         }
@@ -78,16 +82,14 @@ const Lands = () => {
     return (
         <main className="land-section d-flex flex-column h-100 overflow-hidden" style={{ maxHeight: "100vh" }}>
             <div>
-                <div><div role="button" tabIndex="0" className="_14578" data-qa-searchlocation="true"
-                    aria-label="Enter new location">Enter a State, County, City, or ID</div></div>
-                <p>Buscador</p>
+                <Filters announcements={lands} setFilteredAnnouncements={setFilteredAnnouncements} />
             </div>
             <div className="d-flex h-100 overflow-hidden">
-                <GoogleMaps markers={lands} />
+                <GoogleMaps markers={filteredAnnouncements} />
                 <div className="app p-3" style={{ width: "90%", overflowY: "auto" }}>
                     <h1>Lista de Terrenos</h1>
                     <div className="land-list d-flex flex-column gap-3">
-                        {lands.map(land => (
+                        {filteredAnnouncements.map(land => (
                             <LandCard
                                 key={land.id}
                                 land={land}

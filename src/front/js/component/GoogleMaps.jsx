@@ -47,7 +47,7 @@ const GoogleMaps = ({ location, markers = [] }) => {
             {
                 isLoaded ? (
                     <GoogleMap
-                        center={location ? { lat: location.lat, lng: location.lng } : { lat: 4.1347644, lng: -73.6201517 }}
+                        center={location ? { lat: location.lat, lng: location.lng } : markers.length > 0 ? { lat: markers[0].latitude, lng: markers[0].longitude } : { lat: 4.1347644, lng: -73.6201517 }}
                         zoom={location ? 15 : 4}
                         onClick={() => setActiveMarker(null)}
                         mapContainerStyle={{ width: "100%", minHeight: "100%" }}

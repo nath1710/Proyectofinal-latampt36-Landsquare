@@ -34,47 +34,62 @@ export const Navbar = () => {
 				</Link>
 				<div className="ml-auto d-flex justify-content-around align-items-baseline">
 					<div className="sections">
-						<Link to="/lands">Buy Land </Link>
-						<Link to="/">Find an Agent</Link>
-						<Link to="/aboutUs">About us</Link>
-						{!store.token && ("")}
-						{shouldShowPrivateButtons && (
-							<Link
-								to="/favorites"
-							>
-								Favorites
-							</Link>
-						)}
-						{!store.token && ("")}
-						{shouldShowPrivateButtons && (
-							<Link
-								to="/publish-land"
-							>
-								Post
-							</Link>
-						)}
-						{!store.token && ("")}
-						{shouldShowPrivateButtons && (
-							<Link
-								to="/profile"
-							>
-								Account
-							</Link>
-						)}
+						<Link className="nav-link rounded" to="/lands">Buy Land </Link>
+						<Link className="nav-link rounded" to="/">Find an Agent</Link>
+						<Link className="nav-link rounded" to="/aboutUs">About us</Link>
 						{!store.token && (
-							<Link to="/login">
+							<Link className="nav-link" to="/login">
 								Log in
 							</Link>
 						)}
+						{!store.token && ("")}
 						{shouldShowPrivateButtons && (
-							<Link
-								to="/"
-								onClick={() => {
-									actions.clearToken();
-								}}
-							>
-								Sign out
-							</Link>
+							<div className="dropdown w-25">
+								<button
+									className="btn dropdown-toggle border-0 nav-link"
+									type="button"
+									id="accountDropdown"
+									data-bs-toggle="dropdown"
+									aria-expanded="false"
+								>
+									Account
+								</button>
+								<ul className="dropdown-menu" aria-labelledby="accountDropdown">
+									{shouldShowPrivateButtons && (
+										<>
+											<li>
+												<Link className="dropdown-item" to="/favorites">
+													Favorites
+												</Link>
+											</li>
+											<li>
+												<Link className="dropdown-item" to="/publish-land">
+													Post
+												</Link>
+											</li>
+											<li>
+												<Link className="dropdown-item" to="/profile">
+													Profile
+												</Link>
+											</li>
+											<li>
+												<hr className="dropdown-divider" />
+											</li>
+											<li>
+												<button
+													className="dropdown-item"
+													onClick={() => {
+														actions.clearToken();
+														navigate("/");
+													}}
+												>
+													Sign out
+												</button>
+											</li>
+										</>
+									)}
+								</ul>
+							</div>
 						)}
 					</div>
 				</div>

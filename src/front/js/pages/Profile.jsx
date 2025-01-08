@@ -71,14 +71,14 @@ const Profile = () => {
             return;
         } if (store.token) {
             handlePrivateData()
-            console.log('TOKENNNNN', store.token)
-            console.log('USER IDDD', userData.id)
+            // console.log('TOKENNNNN', store.token)
+            // console.log('USER IDDD', userData.id)
         }
     }, [store.token])
 
     useEffect(() => {
-        console.log('TOKENNNNN', store.token)
-        console.log('USER IDDD', userData.id)
+        // console.log('TOKENNNNN', store.token)
+        // console.log('USER IDDD', userData.id)
         getUserAnnouncements()
     }, [userData])
     /*
