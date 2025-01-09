@@ -4,11 +4,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			token: undefined,
 			countries: [],
-			token: undefined,
 			preset_name: 'landsquare',
 			cloud_name: 'dgbakagwe',
 			favorites: [],
-			userId: null
+			userId: null,
+			user: null
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -36,17 +36,39 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const country = store.countries.find(c => c.code === code);
 				return country || { code: "", name: "Not found" };
 			},
-			setToken: (token) => {
+			setToken: async (token) => {
 				setStore({ token: token })
-				localStorage.setItem("token", token)
+				localStorage.setItem('token', token)
+
+				try {
+					const response = await fetch(process.env.BACKEND_URL + '/api/user', {
+						method: 'GET',
+						headers: {
+							'Authorization': `Bearer ${token}`,
+							'Content-Type': 'application/json'
+						}
+					})
+					if (response.ok) {
+						const userData = await response.json()
+						console.log('user dataaaaaaaaaaaaaa', userData)
+						getActions().setUser(userData)
+					} else {
+						console.error('Error fetching user data')
+					}
+				} catch (error) {
+					console.error('Error:', error)
+				}
 			},
 			clearToken: () => {
 				setStore({ token: undefined })
-				localStorage.removeItem("token")
+				localStorage.removeItem('token')
+				getActions().clearUser()
 			},
 			reloadToken: () => {
-				if (localStorage.getItem('token')) {
-					setStore({ token: localStorage.getItem('token') })
+				const token = localStorage.getItem('token')
+				if (token) {
+					setStore({ token: token })
+					getActions().reloadUser()
 				}
 			},
 			getCountries: () => {
@@ -100,9 +122,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 					favorites: prevStore.favorites.filter((fav) => fav.id !== id),
 				}));
 			},
+			setUser: (userData) => {
+				setStore({ user: userData, userId: userData.id })
+				localStorage.setItem('user', JSON.stringify(userData))
+			},
+			clearUser: () => {
+				setStore({ user: null, userId: null })
+				localStorage.removeItem('user')
+			},
+			reloadUser: () => {
+				const userStr = localStorage.getItem('user')
+				if (userStr) {
+					const userData = JSON.parse(userStr)
+					setStore({ user: userData, userId: userData.id })
+				}
+			},
 		}
 	}
 };
-
 
 export default getState;

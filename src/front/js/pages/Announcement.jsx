@@ -94,6 +94,10 @@ const Announcement = () => {
         }
     }
 
+    const isOwner = () => {
+        return store.token && store.user?.id === announcementData.user_id;
+    };
+
     useEffect(() => {
         getAnnouncement()
     }, [])
@@ -109,12 +113,11 @@ const Announcement = () => {
         <main className='d-flex flex-column gap-3 align-items-center justify-content-center mt-5'>
             <div className='container d-flex align-items-center justify-content-between'>
                 <h3 className='m-0'>Publicación</h3>
-                {store.token ?
+                {isOwner() && (
                     <Link to={`/land-settings/${announcementData.id}`} className='p-1'>
                         <button type='button' className='btn btn-success'>Editar Publicación</button>
                     </Link>
-                    : null
-                }
+                )}
             </div>
 
             {/* CAROUSEL */}
