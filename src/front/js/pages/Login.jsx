@@ -4,8 +4,8 @@ import { Context } from "../store/appContext";
 import landsImage from '../../img/lands.jpg';
 import logoLS from '../../img/LandSquare-small.png';
 import formPhoto from '../../img/form-photo.jpg'
-import GoogleLogin from "react-google-login";
-import { gapi } from "gapi-script"
+//import GoogleLogin from "react-google-login";
+//import { gapi } from "gapi-script"
 
 const Login = () => {
     const { actions } = useContext(Context)
