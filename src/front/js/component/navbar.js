@@ -58,8 +58,8 @@ export const Navbar = () => {
 									{shouldShowPrivateButtons && (
 										<>
 											<li>
-												<Link className="dropdown-item" to="/favorites">
-													Favorites
+												<Link className="dropdown-item" to="/profile">
+													Profile
 												</Link>
 											</li>
 											<li>
@@ -68,8 +68,8 @@ export const Navbar = () => {
 												</Link>
 											</li>
 											<li>
-												<Link className="dropdown-item" to="/profile">
-													Profile
+												<Link className="dropdown-item" to="/favorites">
+													Favorites
 												</Link>
 											</li>
 											<li>

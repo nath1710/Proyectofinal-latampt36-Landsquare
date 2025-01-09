@@ -49,7 +49,8 @@ const LandCard = ({ land }) => {
 
     const removeFavorite = async () => {
         try {
-            const response = await fetch(`${process.env.BACKEND_URL}/api/favorites/${land.id}`, {
+            const favorite = favorites.find((fav) => fav.announcement_id === land.id);
+            const response = await fetch(`${process.env.BACKEND_URL}/api/favorites/${favorite.id}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${store.token}`,
@@ -57,7 +58,7 @@ const LandCard = ({ land }) => {
             });
             if (response.ok) {
                 setFavorites((prevFavorites) =>
-                    prevFavorites.filter((fav) => fav.id !== land.id)
+                    prevFavorites.filter((fav) => fav.id !== favorite.id)
                 );
             }
         } catch (error) {
@@ -86,6 +87,7 @@ const LandCard = ({ land }) => {
 
     useEffect(() => {
         const favorite = favorites.find((fav) => fav.announcement_id === land.id);
+        console.log(favorites)
         setIsFavorite(!!favorite);
     }, [favorites, land.id]);
 

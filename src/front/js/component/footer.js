@@ -10,7 +10,7 @@ export const Footer = ({ overrideHide }) => {
 	const location = useLocation();
 
 	useEffect(() => {
-		setShouldShowFooter(location.pathname === "/lands" || location.pathname === "/favorites" ? false : true);
+		setShouldShowFooter(location.pathname === "/lands" || location.pathname === "/favorites" || location.pathname === "/aboutUs" ? false : true);
 	}, [location.pathname])
 
 	return (
@@ -23,7 +23,7 @@ export const Footer = ({ overrideHide }) => {
 				<div className="d-flex justify-content-center align-item-center gap-5">
 					<div className="d-flex justify-content-center gap-1">
 						<span>Yarom Vargas</span>
-						<a href="" className="icons" style={{ textDecoration: "none", color: "white" }}> <FontAwesomeIcon icon={faLinkedin} style={{ fontSize: "25px" }} /> </a>
+						<a href="https://www.linkedin.com/in/yaromvp/" className="icons" style={{ textDecoration: "none", color: "white" }}> <FontAwesomeIcon icon={faLinkedin} style={{ fontSize: "25px" }} /> </a>
 						<a href="https://github.com/yaromvp" className="icons" style={{ textDecoration: "none", color: "white" }}> <FontAwesomeIcon icon={faSquareGithub} style={{ fontSize: "25px" }} /> </a>
 
 					</div>

@@ -5,7 +5,7 @@
 body {
     margin: 0;
     height: 100vh;
-    background-image: linear-gradient(to top right, rgb(23, 75, 64), rgb(76, 118, 81), rgba(156, 201, 140, 1));
+    background-image: linear-gradient(to right top, rgb(76, 118, 81), rgba(156, 201, 140, 1), rgb(23, 75, 64));
     background-attachment: fixed;
     font-family: "Pridi", serif;
     font-weight: 400;

@@ -46,7 +46,7 @@ const Layout = () => {
                         <Route element={<Post />} path="/publish-land" />
                         <Route element={<Announcement />} path="/announcement/:id" />
                         <Route element={<AboutUs />} path="/aboutUs" />
-                        <Route element={<EditAnnouncement />} path="/land-settings/:id" />
+                        <Route element={<EditAnnouncement />} path="/land-settings/:id" /> {/* pendiente de proteger */}
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<Private />} path="/private" />

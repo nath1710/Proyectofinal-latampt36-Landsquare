@@ -1,8 +1,8 @@
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faEraser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 
-const Filters = ({ announcements, setFilteredAnnouncements }) => {
+const Filters = ({ announcements, setFilteredAnnouncements, setFilteredFavoritesAnnouncements }) => {
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
@@ -17,6 +17,16 @@ const Filters = ({ announcements, setFilteredAnnouncements }) => {
         } else if (type === 'max') {
             setMaxPrice(value);
         }
+    };
+    const clearFilters = () => {
+        setLocationInput('');
+        setMinPrice('');
+        setMaxPrice('');
+
+        setFilteredAnnouncements(announcements);
+        setFilteredFavoritesAnnouncements(announcements);
+
+        console.log("Filters cleared. All announcements reset.");
     };
 
     const filterAnnouncements = () => {
@@ -38,11 +48,11 @@ const Filters = ({ announcements, setFilteredAnnouncements }) => {
     return (
         <div className='d-flex bg-white'>
             <div className="input-group flex-nowrap p-1 w-25">
-                <input type="text" value={locationInput} onChange={(e) => setLocationInput(e.target.value)} className="form-control" placeholder="Enter a State, County, City, or ID" aria-label="Username" aria-describedby="addon-wrapping" />
+                <input type="text" onKeyDown={filterAnnouncements} value={locationInput} onChange={(e) => setLocationInput(e.target.value)} className="form-control" placeholder="Enter a State, County, City, or ID" aria-label="Username" aria-describedby="addon-wrapping" />
                 <span className="input-group-text" id="addon-wrapping"
-                    onClick={() => filterAnnouncements()}
+                    onClick={() => clearFilters()}
                     style={{ cursor: "pointer" }}>
-                    <FontAwesomeIcon icon={faMagnifyingGlass} />
+                    <FontAwesomeIcon icon={faEraser} />
                 </span>
             </div>
             <div className="values dropdown p-1">
@@ -66,7 +76,7 @@ const Filters = ({ announcements, setFilteredAnnouncements }) => {
                                 className="form-control"
                                 placeholder="Min Price"
                                 value={minPrice}
-
+                                onChange={(e) => setMinPrice(e.target.value)}
                             />
                             <button
                                 className="values-item dropdown-item"
@@ -100,6 +110,7 @@ const Filters = ({ announcements, setFilteredAnnouncements }) => {
                                 className="form-control"
                                 placeholder="Max Price"
                                 value={maxPrice}
+                                onChange={(e) => setMaxPrice(e.target.value)}
                             />
                             <button
                                 className="values-item dropdown-item"

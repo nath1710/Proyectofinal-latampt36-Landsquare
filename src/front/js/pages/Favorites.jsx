@@ -4,13 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import LandCard from "../component/LandCard.jsx";
 import { Footer } from "../component/footer.js";
+import Filters from "../component/Filters.jsx";
 
 const Favorites = () => {
     const { store } = useContext(Context);
     const navigate = useNavigate();
 
     const [favorites, setFavorites] = useState([]);
-    const [announcements, setAnnouncements] = useState([]);
+    const [favAnnouncements, setFavAnnouncements] = useState([]);
+    const [filteredFavAnnouncements, setFilteredFavAnnouncements] = useState([]);
 
     const fetchFavorites = async () => {
         try {
@@ -23,22 +25,23 @@ const Favorites = () => {
             if (!response.ok) throw new Error("Error al cargar favoritos");
             const data = await response.json();
             console.log(data)
-            const favannouncements = data.favorites.map(favorite => favorite.announcement)
-            setAnnouncements(favannouncements)
-            console.log(favannouncements)
+            const favAnnouncements = data.favorites.map(favorite => favorite.announcement)
+            setFavAnnouncements(favAnnouncements)
+            setFilteredFavAnnouncements(favAnnouncements)
+            console.log(favAnnouncements)
             setFavorites(data.favorites);
         } catch (error) {
             console.error(error);
         }
     };
-
     useEffect(() => {
-        if (store.token) {
-            fetchFavorites();
-        } else {
-            navigate("/");
+        if (store.token === undefined && localStorage.getItem('token') == undefined) {
+            navigate('/login')
+            return;
+        } if (store.token) {
+            fetchFavorites()
         }
-    }, [store.token, navigate]);
+    }, [store.token, navigate])
 
     const toggleFavorite = async (announcementId, isFavorite) => {
         try {
@@ -72,26 +75,31 @@ const Favorites = () => {
     };
 
     return (
-        <main className="fav-section d-flex h-100 overflow-hidden" style={{ maxHeight: "100vh" }}>
-            <GoogleMaps markers={announcements} />
-            <div className="app p-3" style={{ width: "90%", overflowY: "auto" }}>
-                <h1>Mis Favoritos</h1>
-                <div className="favorites-list d-flex flex-column gap-3">
-                    {favorites.length > 0 ? (
-                        favorites
-                            .map(land => (
-                                <LandCard
-                                    key={land.id}
-                                    land={land.announcement}
-                                    toggleFavorite={toggleFavorite}
-                                    isFavorite={true}
-                                />
-                            ))
-                    ) : (
-                        <p>No tienes terrenos favoritos.</p>
-                    )}
+        <main className="fav-section d-flex flex-column h-100 overflow-hidden" style={{ maxHeight: "100vh" }}>
+            <div>
+                <Filters announcements={favAnnouncements} setFilteredAnnouncements={setFilteredFavAnnouncements} />
+            </div>
+            <div className="d-flex h-100 overflow-hidden">
+                <GoogleMaps markers={filteredFavAnnouncements} />
+                <div className="app p-3" style={{ width: "90%", overflowY: "auto" }}>
+                    <h1>Mis Favoritos</h1>
+                    <div className="favorites-list d-flex flex-column gap-3">
+                        {filteredFavAnnouncements.length > 0 ? (
+                            filteredFavAnnouncements
+                                .map(land => (
+                                    <LandCard
+                                        key={land.id}
+                                        land={land}
+                                        toggleFavorite={toggleFavorite}
+                                        isFavorite={true}
+                                    />
+                                ))
+                        ) : (
+                            <p>No tienes terrenos favoritos.</p>
+                        )}
+                    </div>
+                    <Footer overrideHide={true} />
                 </div>
-                <Footer overrideHide={true} />
             </div>
         </main>
     );

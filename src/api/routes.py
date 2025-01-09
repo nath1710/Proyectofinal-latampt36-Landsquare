@@ -504,7 +504,8 @@ def get_random_announcements():
         # Incluimos un join con User para asegurar que cargamos los datos del usuario
         random_announcements = db.session.execute(
             db.select(Announcement)
-            .join(Announcement.user)  # Aseguramos que se carguen los datos del usuario
+            # Aseguramos que se carguen los datos del usuario
+            .join(Announcement.user)
             .order_by(func.random())
             .limit(10)
         ).scalars().all()
@@ -516,7 +517,8 @@ def get_random_announcements():
             }), 200
 
         # El serialize actualizado ya incluirá la información del usuario
-        announcements_data = [announcement.serialize() for announcement in random_announcements]
+        announcements_data = [announcement.serialize()
+                              for announcement in random_announcements]
 
         return jsonify({
             'message': 'Random announcements retrieved successfully',
@@ -527,16 +529,17 @@ def get_random_announcements():
     except SQLAlchemyError as db_error:
         print(f'Database error: {str(db_error)}')
         return jsonify({
-            'message': 'Database error occurred', 
+            'message': 'Database error occurred',
             'error': str(db_error)
         }), 500
 
     except Exception as e:
         print(f'Unexpected error: {str(e)}')
         return jsonify({
-            'message': 'An unexpected error occurred', 
+            'message': 'An unexpected error occurred',
             'error': str(e)
         }), 500
+
 
 @api.route('/user/<int:user_id>/announcements', methods=['GET'])
 def get_user_announcements_profile(user_id):
@@ -555,7 +558,8 @@ def get_user_announcements_profile(user_id):
         announcements = db.session.execute(
             db.select(Announcement)
             .filter_by(user_id=user_id)
-            .order_by(Announcement.creation_date.desc())  # Ordenados por fecha de creación, más recientes primero
+            # Ordenados por fecha de creación, más recientes primero
+            .order_by(Announcement.creation_date.desc())
         ).scalars().all()
 
         return jsonify({
@@ -574,16 +578,17 @@ def get_user_announcements_profile(user_id):
     except SQLAlchemyError as db_error:
         print(f"Database error: {str(db_error)}")
         return jsonify({
-            'message': 'Database error occurred', 
+            'message': 'Database error occurred',
             'error': str(db_error)
         }), 500
 
     except Exception as e:
         print(f"Unexpected error: {str(e)}")
         return jsonify({
-            'message': 'An unexpected error occurred', 
+            'message': 'An unexpected error occurred',
             'error': str(e)
         }), 500
+
 
 @api.route('/announcement/<int:announcement_id>', methods=['GET'])
 def get_announcement(announcement_id):
@@ -606,6 +611,7 @@ def get_announcement(announcement_id):
     except Exception as e:
         print(f"Unexpected error: {str(e)}")
         return jsonify({'message': 'An unexpected error occurred', 'error': str(e)}), 500
+
 
 @api.route('/announcement/<int:announcement_id>', methods=['DELETE'])
 @jwt_required()
@@ -632,9 +638,10 @@ def delete_announcement(announcement_id):
 
         # Eliminar primero los favoritos asociados al anuncio
         db.session.execute(
-            db.delete(Favorite).where(Favorite.announcement_id == announcement_id)
+            db.delete(Favorite).where(
+                Favorite.announcement_id == announcement_id)
         )
-        
+
         # Eliminar el anuncio
         db.session.delete(announcement)
         db.session.commit()
@@ -651,6 +658,7 @@ def delete_announcement(announcement_id):
     except Exception as e:
         print(f"Unexpected error: {str(e)}")
         return jsonify({'message': 'An unexpected error occurred', 'error': str(e)}), 500
+
 
 @api.route('/land-settings/<int:announcement_id>', methods=['PUT'])
 @jwt_required()
@@ -692,7 +700,6 @@ def update_announcement(announcement_id):
 
         if data.get('longitude') is not None and (not isinstance(data['longitude'], (int, float))):
             return jsonify({"error": "Longitude must be a number"}), 400
-
 
         # Actualizar los campos si están presentes en la solicitud
         if 'title' in data:
