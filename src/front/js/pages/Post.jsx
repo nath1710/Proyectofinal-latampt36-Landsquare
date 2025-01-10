@@ -49,11 +49,6 @@ const Post = () => {
             })
             const body = await response.json()
             setUserId(body.id)
-            /*setName(body.name)
-            setCountry(body.country)
-            setAddress(body.address)
-            setPhoneNumber(body.phone_number)
-            setPhotoProfile(body.photo_profile)*/ // En caso no funcione el setUserData
             setUserData({
                 id: body.id,
                 name: body.name,
@@ -239,11 +234,6 @@ const Post = () => {
             return;
         } if (store.token) {
             handlePrivateData()
-            /*setName(userData.name)
-            setCountry(userData.country)
-            setAddress(userData.address)
-            setPhoneNumber(userData.phone_number)
-            setPhotoProfile(userData.photo_profile)*/
         }
     }, [])
 
@@ -343,34 +333,34 @@ const Post = () => {
                                     Ingresa una dirección y presiona "Validar Dirección" para obtener las coordenadas.
                                 </small>
                             </div>
-                            <div className='d-flex' style={{ height: "200px" }}><GoogleMaps location={{ lat: latitude, lng: longitude }} /></div>
+                            <div className='d-flex mb-3 border border-light-subtle border-3 rounded' style={{ height: "300px" }}><GoogleMaps location={{ lat: latitude, lng: longitude }} /></div>
 
-
-                            <div className='mb-3'>
-                                <label htmlFor='InputPrice' className='form-label'>Precio</label>
-                                <div className="input-group mb-3">
-                                    <span className="input-group-text">$</span>
-                                    <input
-                                        type='number'
-                                        min='1'
-                                        onChange={(e) => setPrice(e.target.value)}
-                                        className='form-control'
-                                        id='InputPrice'
-                                    />
+                            <div className='d-flex flex-wrap row'>
+                                <div className='mb-3 col-md-6'>
+                                    <label htmlFor='InputPrice' className='form-label'>Precio</label>
+                                    <div className="input-group">
+                                        <span className="input-group-text">$</span>
+                                        <input
+                                            type='number'
+                                            min='1'
+                                            onChange={(e) => setPrice(e.target.value)}
+                                            className='form-control'
+                                            id='InputPrice'
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div className='mb-3'>
-                                <label htmlFor='InputSize' className='form-label'>Tamaño</label>
-                                <div className="input-group mb-3">
-                                    <input
-                                        type='number'
-                                        min='1'
-                                        onChange={(e) => setSize(e.target.value)}
-                                        className='form-control'
-                                        id='InputSize'
-                                    />
-                                    <span className="input-group-text">m<sup>2</sup></span>
+                                <div className='mb-3 col-md-6'>
+                                    <label htmlFor='InputSize' className='form-label'>Tamaño</label>
+                                    <div className="input-group">
+                                        <input
+                                            type='number'
+                                            min='1'
+                                            onChange={(e) => setSize(e.target.value)}
+                                            className='form-control'
+                                            id='InputSize'
+                                        />
+                                        <span className="input-group-text">m<sup>2</sup></span>
+                                    </div>
                                 </div>
                             </div>
 

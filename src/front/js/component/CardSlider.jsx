@@ -146,7 +146,10 @@ const CardSlider = () => {
                             address={item.location}
                             imgOwner={item.user?.photo_profile || '../../img/placeholder-profile.jpg'}
                             owner={item.user?.name || 'Usuario'}
+                            ownerPhoneNumber={item.user?.phone_number}
+                            ownerEmail={item.user?.email}
                             info={item.description}
+                            title={item.title}
                         />
                     ))}
                 </div>

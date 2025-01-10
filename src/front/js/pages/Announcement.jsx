@@ -121,11 +121,12 @@ const Announcement = () => {
             </div>
 
             {/* CAROUSEL */}
+            <h2 className='text-center'>{announcementData.title}</h2>
             <div id='announcementImages' className='carousel slide col-8' data-bs-ride='carousel'>
                 <div className='carousel-inner'>
                     {announcementData.images.map((item, index) => (
                         <div key={index} className={`carousel-item ${index == 0 ? 'active' : null}`}>
-                            <img src={item} className='d-block w-100 rounded' alt='...' />
+                            <img src={item} className='d-block w-100 rounded border border-light-subtle border-3 shadow' alt='...' style={{ maxHeight: '25rem', objectFit: 'contain' }} />
                         </div>
                     ))}
                 </div>
@@ -140,17 +141,19 @@ const Announcement = () => {
             </div>
 
             {/* DESCRIPCIÓN DEL TERRENO */}
-            <div className='row bg-white d-flex flex-wrap h-100 overflow-hidden' style={{ maxHeight: '100vh' }}>
-                <div className='col-md-6 mt-3 ps-3 bg-white text-dark d-flex flex-column' style={{ overflowY: "auto" }}>
-                    <h4 className=''>{announcementData.title}</h4>
-                    <h5 className=''>${announcementData.price} • {announcementData.size}m<sup>2</sup></h5>
-                    <h5 className=''>Localización: <small>{announcementData.location}</small></h5>
+            <div className='row bg-white d-flex flex-wrap overflow-hidden vw-100' style={{ maxHeight: '100vh' }}>
+                <div className='col-md-6 p-4 bg-white text-dark d-flex flex-column' style={{ overflowY: "auto" }}>
+                    <div className='d-flex flex-wrap row'>
+                        <h5 className='col-md-6'>Precio: ${announcementData.price}</h5>
+                        <h5 className='col-md-6'>Tamaño: {announcementData.size}m<sup>2</sup></h5>
+                    </div>
+                    <h5 className='fst-normal text-secondary-emphasis'><small>{announcementData.location}</small></h5>
                     <h6 className=''>Descripción:</h6>
                     <p className=''>{announcementData.description}</p>
                 </div>
 
                 {/* GoogleMaps */}
-                <div className='d-flex col-md-6' style={{ height: '400px' }}><GoogleMaps /></div>
+                <div className='d-flex col-md-6 p-0 m-0' style={{ height: '400px' }}><GoogleMaps /></div>
 
             </div>
 
@@ -162,13 +165,16 @@ const Announcement = () => {
                             <Card
                                 key={item.id}
                                 announcementID={item.id}
-                                imgURL={item.images?.[0] || '/placeholder-image.jpg' /* Falta cambiar esta ruta*/}
+                                imgURL={item.images?.[0] || '../../img/placeholder-image.jpg'}
                                 price={item.price}
                                 size={item.size}
                                 address={item.location}
-                                imgOwner={item.user?.photo_profile || '/placeholder-profile.jpg'}
+                                imgOwner={item.user?.photo_profile || '../../img/placeholder-profile.jpg'}
                                 owner={item.user?.name || 'Usuario'}
+                                ownerPhoneNumber={item.user?.phone_number}
+                                ownerEmail={item.user?.email}
                                 info={item.description}
+                                title={item.title}
                             />
                         ))}
                     </div>

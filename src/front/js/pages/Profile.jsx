@@ -113,8 +113,8 @@ const Profile = () => {
                     <div className='card' style={{ width: '18rem', height: '21rem' }}>
                         <div className='card-body d-flex flex-column align-items-center justify-content-center'>
                             <h5 className='card-title text-center text-secondary'>Haz tu primera Publicación</h5>
-                            <Link to='/post' className='d-flex justify-content-center'>
-                                <button type='button' className='btn btn-primary'>Publicar</button>
+                            <Link to='/publish-land' className='d-flex justify-content-center'>
+                                <button type='button' className='btn btn-success'>Publicar</button>
                             </Link>
                         </div>
                     </div>
@@ -156,13 +156,16 @@ const Profile = () => {
                             <CardUser
                                 key={item.id}
                                 announcementID={item.id}
-                                imgURL={item.images?.[0] || '/placeholder-image.jpg' /* Falta cambiar esta ruta*/}
+                                imgURL={item.images?.[0] || '../../img/placeholder-image.jpg'}
                                 price={item.price}
                                 size={item.size}
                                 address={item.location}
-                                imgOwner={item.user?.photo_profile || '/placeholder-profile.jpg'}
+                                imgOwner={item.user?.photo_profile || '../../img/placeholder-profile.jpg'}
                                 owner={item.user?.name || 'Usuario'}
+                                ownerPhoneNumber={item.user?.phone_number}
+                                ownerEmail={item.user?.email}
                                 info={item.description}
+                                title={item.title}
                             />
                         ))}
                     </div>

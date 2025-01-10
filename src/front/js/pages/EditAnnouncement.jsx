@@ -358,35 +358,36 @@ const EditAnnouncement = () => {
                                 </small>
                             </div>
 
-                            <div className='d-flex' style={{ height: '200px' }}><GoogleMaps location={{ lat: latitude, lng: longitude }} /></div>
+                            <div className='d-flex mb-3 border border-light-subtle border-3 rounded' style={{ height: '300px' }}><GoogleMaps location={{ lat: latitude, lng: longitude }} /></div>
 
-                            <div className='mb-3'>
-                                <label htmlFor='InputPrice' className='form-label'>Precio</label>
-                                <div className='input-group mb-3'>
-                                    <span className='input-group-text'>$</span>
-                                    <input
-                                        type='number'
-                                        min='1'
-                                        onChange={(e) => setPrice(e.target.value)}
-                                        className='form-control'
-                                        id='InputPrice'
-                                        value={price}
-                                    />
+                            <div className='d-flex flex-wrap row'>
+                                <div className='mb-3 col-md-6'>
+                                    <label htmlFor='InputPrice' className='form-label'>Precio</label>
+                                    <div className='input-group'>
+                                        <span className='input-group-text'>$</span>
+                                        <input
+                                            type='number'
+                                            min='1'
+                                            onChange={(e) => setPrice(e.target.value)}
+                                            className='form-control'
+                                            id='InputPrice'
+                                            value={price}
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div className='mb-3'>
-                                <label htmlFor='InputSize' className='form-label'>Tamaño</label>
-                                <div className='input-group mb-3'>
-                                    <input
-                                        type='number'
-                                        min='1'
-                                        onChange={(e) => setSize(e.target.value)}
-                                        className='form-control'
-                                        id='InputSize'
-                                        value={size}
-                                    />
-                                    <span className='input-group-text'>m<sup>2</sup></span>
+                                <div className='mb-3 col-md-6'>
+                                    <label htmlFor='InputSize' className='form-label'>Tamaño</label>
+                                    <div className='input-group'>
+                                        <input
+                                            type='number'
+                                            min='1'
+                                            onChange={(e) => setSize(e.target.value)}
+                                            className='form-control'
+                                            id='InputSize'
+                                            value={size}
+                                        />
+                                        <span className='input-group-text'>m<sup>2</sup></span>
+                                    </div>
                                 </div>
                             </div>
 
