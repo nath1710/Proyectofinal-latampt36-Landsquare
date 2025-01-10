@@ -10,10 +10,30 @@ export const Navbar = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const [isScrolled, setIsScrolled] = useState(false);
+	const [isAdmin, setIsAdmin] = useState(false)
 
 	const shouldShowPrivateButtons = store.token;
 
 	const shouldBeAbsolute = location.pathname != "/";
+
+	const fetchIsAdmin = async () => {
+		try {
+			const response = await fetch(`${process.env.BACKEND_URL}/api/user`, {
+				headers: {
+					Authorization: `Bearer ${store.token}`
+				},
+			});
+			if (!response.ok) throw new Error("Error al cargar usuario");
+			const data = await response.json();
+			setIsAdmin(data.role === "Admin");
+		} catch (error) {
+			console.error("Error al cargar los usuario:", error);
+		}
+	};
+
+	useEffect(() => {
+		if (store.token) fetchIsAdmin()
+	}, [store.token])
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -34,9 +54,12 @@ export const Navbar = () => {
 				</Link>
 				<div className="ml-auto d-flex justify-content-around align-items-baseline">
 					<div className="sections">
-						<Link className="nav-link rounded" to="/lands">Buy Land </Link>
-						<Link className="nav-link rounded" to="/">Find an Agent</Link>
-						<Link className="nav-link rounded" to="/aboutUs">About us</Link>
+						{isAdmin ?
+							(<Link className="nav-link rounded" to="/private">Admin dashboard </Link>)
+							: (<><Link className="nav-link rounded" to="/lands">Buy Land </Link>
+								<Link className="nav-link rounded" to="/">Find an Agent</Link>
+								<Link className="nav-link rounded" to="/aboutUs">About us</Link></>)}
+
 						{!store.token && (
 							<Link className="nav-link" to="/login">
 								Log in
@@ -80,6 +103,7 @@ export const Navbar = () => {
 													className="dropdown-item"
 													onClick={() => {
 														actions.clearToken();
+														setIsAdmin(false)
 														navigate("/");
 													}}
 												>

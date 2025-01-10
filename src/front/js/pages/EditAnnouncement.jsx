@@ -48,6 +48,11 @@ const EditAnnouncement = () => {
                 throw new Error('Error al cargar la publicación');
             }
 
+            if (store.user?.id !== body.user?.id) {
+                navigate('/unauthorized');
+                return;
+            }
+
             const body = await response.json();
             setDescription(body.description)
             //setImages(body.images)
@@ -125,6 +130,12 @@ const EditAnnouncement = () => {
                     images: allImages
                 })
             });
+
+            if (response.status === 403) {
+                setError('No tienes permisos para editar este anuncio.');
+                navigate('/unauthorized');
+                return;
+            }
 
             if (!response.ok) throw new Error('Error al actualizar el anuncio');
 
@@ -255,6 +266,7 @@ const EditAnnouncement = () => {
         loadExistingImages()
         getAnnouncement()
     }, [])
+
 
     return (
         <main className='img-post py-5 auth-background d-flex flex-column gap-3 align-items-center justify-content-center text-dark' style={{ backgroundImage: `url(${postPhoto}` }}>

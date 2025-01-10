@@ -18,6 +18,7 @@ class User(db.Model):
     phone_number = db.Column(db.String(30), nullable=True, default="")
     address = db.Column(db.String(250), nullable=False)
     is_active = db.Column(db.Boolean(), default=True, nullable=False)
+    role = db.Column(db.String(50), default="User")
 
     announcements = db.relationship('Announcement', back_populates='user')
     favorite = db.relationship('Favorite', back_populates='user')
@@ -30,6 +31,7 @@ class User(db.Model):
         self.address = address
         self.phone_number = phone_number
         self.photo_profile = photo_profile or self.photo_profile
+        self.role
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -43,7 +45,8 @@ class User(db.Model):
             'address': self.address,
             'photo_profile': self.photo_profile,
             'phone_number': self.phone_number,
-            'announcements': [announcement.serialize() for announcement in self.announcements]
+            'announcements': [announcement.serialize() for announcement in self.announcements],
+            'role': self.role
         }
 
 

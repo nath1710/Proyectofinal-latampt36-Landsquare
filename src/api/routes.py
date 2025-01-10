@@ -104,14 +104,17 @@ def login():
             return jsonify({'message': 'Invalid email or password'}), 401
 
         # Generación de token
-        token = create_access_token(identity=user.email)
+        additional_claims = {"role": user.role}
+        token = create_access_token(
+            identity=user.email, additional_claims=additional_claims)
 
         return jsonify({
             'token': token,
             'user': {
                 'id': user.id,
                 'email': user.email,
-                'name': user.name
+                'name': user.name,
+                'role': user.role
             }
         }), 200
     except SQLAlchemyError as db_error:
@@ -663,7 +666,10 @@ def delete_announcement(announcement_id):
 @api.route('/land-settings/<int:announcement_id>', methods=['PUT'])
 @jwt_required()
 def update_announcement(announcement_id):
+    # Obtén el email del usuario autenticado desde el token.
     current_user_email = get_jwt_identity()
+
+    # Obtén al usuario autenticado desde la base de datos.
     user = db.session.execute(
         db.select(User).filter_by(email=current_user_email)
     ).scalar_one_or_none()
@@ -671,21 +677,23 @@ def update_announcement(announcement_id):
     if not user:
         return jsonify({"error": "User not found"}), 404
 
+    # Buscar el anuncio y asegurarse de que pertenezca al usuario autenticado.
+    announcement = db.session.execute(
+        db.select(Announcement).filter_by(
+            id=announcement_id,
+            # Verificar que el user_id coincida con el usuario autenticado.
+            user_id=user.id
+        )
+    ).scalar_one_or_none()
+
+    if not announcement:
+        # Cambiar el código a 403 si no es autorizado.
+        return jsonify({"error": "Announcement not found or unauthorized"}), 403
+
     try:
-        # Buscar el anuncio y verificar que pertenezca al usuario
-        announcement = db.session.execute(
-            db.select(Announcement).filter_by(
-                id=announcement_id,
-                user_id=user.id
-            )
-        ).scalar_one_or_none()
+        data = request.get_json()
 
-        if not announcement:
-            return jsonify({"error": "Announcement not found or unauthorized"}), 404
-
-        data = request.json
-
-        # Validar los datos recibidos
+        # Validaciones de datos
         if data.get('price') is not None and (not isinstance(data['price'], (int, float)) or data['price'] <= 0):
             return jsonify({"error": "Price must be a number greater than 0"}), 400
 
@@ -695,13 +703,13 @@ def update_announcement(announcement_id):
         if data.get('images') is not None and len(data['images']) > 5:
             return jsonify({"error": "The number of images cannot exceed 5"}), 400
 
-        if data.get('latitude') is not None and (not isinstance(data['latitude'], (int, float))):
+        if data.get('latitude') is not None and not isinstance(data['latitude'], (int, float)):
             return jsonify({"error": "Latitude must be a number"}), 400
 
-        if data.get('longitude') is not None and (not isinstance(data['longitude'], (int, float))):
+        if data.get('longitude') is not None and not isinstance(data['longitude'], (int, float)):
             return jsonify({"error": "Longitude must be a number"}), 400
 
-        # Actualizar los campos si están presentes en la solicitud
+        # Actualizar solo los campos que están presentes en la solicitud.
         if 'title' in data:
             announcement.title = data['title']
         if 'images' in data:
@@ -723,13 +731,14 @@ def update_announcement(announcement_id):
 
         return jsonify({
             "message": "Announcement updated successfully",
+            # Asegúrate de tener un método serialize en tu modelo.
             "announcement": announcement.serialize()
         }), 200
 
     except SQLAlchemyError as db_error:
         db.session.rollback()
         print(f"Database error: {str(db_error)}")
-        return jsonify({'message': 'Database error occurred', 'error': str(db_error)}), 500
+        return jsonify({'error': 'Database error occurred', 'details': str(db_error)}), 500
     except Exception as e:
         print(f"Unexpected error: {str(e)}")
-        return jsonify({'message': 'An unexpected error occurred', 'error': str(e)}), 500
+        return jsonify({'error': 'An unexpected error occurred', 'details': str(e)}), 500

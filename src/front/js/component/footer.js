@@ -29,8 +29,8 @@ export const Footer = ({ overrideHide }) => {
 					</div>
 					<div className="d-flex justify-content-center gap-1">
 						<span>Nataly Hernandez</span>
-						<a href="https://github.com/nath1710" style={{ textDecoration: "none", color: "white" }}> <FontAwesomeIcon icon={faLinkedin} style={{ fontSize: "25px" }} /> </a>
-						<a href="https://www.linkedin.com/in/nath1710/" style={{ textDecoration: "none", color: "white" }}> <FontAwesomeIcon icon={faSquareGithub} style={{ fontSize: "25px" }} /> </a>
+						<a href="https://www.linkedin.com/in/nath1710/" style={{ textDecoration: "none", color: "white" }}> <FontAwesomeIcon icon={faLinkedin} style={{ fontSize: "25px" }} /> </a>
+						<a href="https://github.com/nath1710 " style={{ textDecoration: "none", color: "white" }}> <FontAwesomeIcon icon={faSquareGithub} style={{ fontSize: "25px" }} /> </a>
 					</div>
 				</div>
 			</footer >}
