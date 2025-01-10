@@ -174,9 +174,10 @@ const CardUser = (props) => {
                             <span className='text-overflow-ellipsis'>{props.info}</span>
                         </div>
                     </div>
+                    {/* Creo que esto no es necesario 
                     <div className='d-flex justify-content-center align-items-center fs-5 ms-2'>
                         <i className='fa-regular fa-envelope'></i>
-                    </div>
+                    </div>*/}
                 </div>
             </div>
         </div>
