@@ -28,9 +28,16 @@ const EditAnnouncement = () => {
     const navigate = useNavigate();
     const MAX_FILES = 5;
 
+    const [alerts, setAlerts] = useState({
+        form: null,
+        images: null,
+        location: null,
+        upload: null
+    });
+
     const isFormValid = () => {
         if (!title || !description || !price || !location || !size || !images) {
-            setFormStatus({ loading: false, ready: false, message: 'All fields are required.' });
+            showAlert('form', 'All fields are required.')
             return false;
         }
         return true;
@@ -48,14 +55,12 @@ const EditAnnouncement = () => {
                 throw new Error('Error al cargar la publicación');
             }
 
+            const body = await response.json();
             if (store.user?.id !== body.user?.id) {
                 navigate('/unauthorized');
                 return;
             }
-
-            const body = await response.json();
             setDescription(body.description)
-            //setImages(body.images)
             setLocation(body.location)
             setLongitude(body.longitude)
             setLatitude(body.latitude)
@@ -95,7 +100,6 @@ const EditAnnouncement = () => {
         }
     };
 
-    // Función para actualizar el anuncio
     const updateAnnouncement = async (e) => {
         e.preventDefault();
         if (!isFormValid()) return;
@@ -171,42 +175,41 @@ const EditAnnouncement = () => {
 
     // Manejador de archivos nuevos
     const handleFileChange = (event) => {
-        const files = Array.from(event.target.files);
+        const files = Array.from(event.target.files)
 
         if (images.length + files.length > MAX_FILES) {
-            setError(`Solo puedes tener un máximo de ${MAX_FILES} imágenes`);
-            return;
+            showAlert('images', `Solo puedes tener un máximo de ${MAX_FILES} imágenes`)
+            return
         }
 
         files.forEach(file => {
             if (!file.type.startsWith('image/')) {
-                setError('Por favor selecciona archivos de imagen válidos');
-                return;
+                showAlert('images', 'Por favor selecciona archivos de imagen válidos')
+                return
             }
 
             if (file.size > 5 * 1024 * 1024) {
-                setError('Cada imagen no debe superar los 5MB');
-                return;
+                showAlert('images', 'Cada imagen no debe superar los 5MB')
+                return
             }
 
-            const reader = new FileReader();
+            const reader = new FileReader()
             reader.onloadend = () => {
                 const newImage = {
                     id: Date.now() + Math.random(),
                     url: reader.result,
                     file: file,
                     isExisting: false
-                };
+                }
 
-                setNewImages(prev => [...prev, newImage]);
-                setImages(prev => [...prev, newImage]);
-                setError('');
+                setNewImages(prev => [...prev, newImage])
+                setImages(prev => [...prev, newImage])
             };
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(file)
         });
 
-        event.target.value = '';
-    };
+        event.target.value = ''
+    }
 
     // Manejador de eliminación de imágenes
     const handleDelete = (idToDelete) => {
@@ -255,6 +258,35 @@ const EditAnnouncement = () => {
         }
     };
 
+    const clearAlert = (type) => {
+        setTimeout(() => {
+            setAlerts(prev => ({ ...prev, [type]: null }))
+        }, 5000)
+    }
+
+    const showAlert = (type, message, isError = true) => {
+        setAlerts(prev => ({
+            ...prev,
+            [type]: { message, isError }
+        }));
+        clearAlert(type)
+    }
+
+    //Componente para las alertas
+    const AlertMessage = ({ type }) => {
+        const alert = alerts[type];
+        if (!alert) return null;
+
+        return (
+            <div
+                className={`alert ${alert.isError ? 'alert-danger' : 'alert-success'} mt-2`}
+                role="alert"
+            >
+                {alert.message}
+            </div>
+        );
+    };
+
     useEffect(() => {
         if (formStatus.ready) {
             const timer = setTimeout(() => navigate('/announcement/' + params.id), 1000);
@@ -263,8 +295,8 @@ const EditAnnouncement = () => {
     }, [formStatus.ready, navigate]);
 
     useEffect(() => {
-        loadExistingImages()
         getAnnouncement()
+        loadExistingImages()
     }, [])
 
 
@@ -276,6 +308,7 @@ const EditAnnouncement = () => {
                         <div className='w-100'>
                             <h1>Editar Publicación</h1>
                             <p className='text-secondary fw-semibold'>Los campos marcados con <span style={{ color: 'rgba(178,35,35,255)' }}>*</span> son obligatorios</p>
+
                             <div className='mb-3'>
                                 <label htmlFor='InputTitle' className='form-label'>Título &nbsp;
                                     <span style={{ color: 'rgba(178,35,35,255)', fontWeight: 'bold' }} >*</span> </label>
@@ -296,16 +329,15 @@ const EditAnnouncement = () => {
                                         className='form-control'
                                         accept='image/*'
                                         onChange={(e) => {
-                                            handleFileChange(e)
+                                            handleFileChange(e) //Verificar (e) o ()
                                         }}
                                         multiple
                                     />
                                 </div>
-                                {error && (
-                                    <div className='alert alert-danger' role='alert'>
-                                        {error}
-                                    </div>
-                                )}
+
+                                {/* Images Alert */}
+                                <AlertMessage type="images" />
+
                                 {images.length > 0 && (
                                     <div className='mt-3 text-nowrap d-flex gap-3' style={{ overflowX: 'auto' }}>
                                         {images.map(preview => (
@@ -325,9 +357,11 @@ const EditAnnouncement = () => {
                                                         ×
                                                     </button>
                                                 </div>
+                                                {/*
                                                 <small className='text-muted d-block mt-1 visually-hidden'>
                                                     {preview.isExisting ? 'Imagen existente' : 'Nueva imagen'}
                                                 </small>
+                                                */}
                                             </div>
                                         ))}
                                     </div>
@@ -353,9 +387,14 @@ const EditAnnouncement = () => {
                                         Validar Dirección
                                     </button>
                                 </div>
+
+                                {/* Location Alert */}
+                                <AlertMessage type="location" />
+                                {/*
                                 <small className='form-text text-muted'>
                                     Ingresa una dirección y presiona 'Validar Dirección' para obtener las coordenadas.
                                 </small>
+                                */}
                             </div>
 
                             <div className='d-flex mb-3 border border-light-subtle border-3 rounded' style={{ height: '300px' }}><GoogleMaps location={{ lat: latitude, lng: longitude }} /></div>
@@ -391,6 +430,7 @@ const EditAnnouncement = () => {
                                 </div>
                             </div>
 
+                            {/* Nuevas alertas */}
                             <div className='mb-3'>
                                 <label htmlFor='InputDescription' className='form-label'>Descripción del Terreno &nbsp;
                                     <span style={{ color: 'rgba(178,35,35,255)', fontWeight: 'bold' }} >*</span> </label>
@@ -403,35 +443,36 @@ const EditAnnouncement = () => {
                                 >
                                 </textarea>
                             </div>
-                            {(formStatus.loading || isUploading) ? (
-                                <div className='d-flex align-items-center gap-2'>
+
+                            {/* Form Alert */}
+                            <AlertMessage type='form' />
+
+                            <div className='d-flex justify-content-evenly mt-4'>
+                                <Link to='/Profile'>
+                                    <button className='cancel-button btn btn-danger'>Cancelar</button>
+                                </Link>
+                                <button
+                                    type='submit'
+                                    className='signup-button btn btn-primary'
+                                    disabled={images.length === 0 || isUploading}
+                                >
+                                    {isUploading ? 'Subiendo...' : 'Enviar'}
+                                </button>
+                            </div>
+
+                            {/* Upload Progress Alert */}
+                            {isUploading && (
+                                <div className='d-flex align-items-center gap-2 mt-3 justify-content-center'>
                                     <div className='spinner-border text-primary' role='status'>
                                         <span className='visually-hidden'>Loading...</span>
                                     </div>
-                                    <span>{isUploading ? 'Subiendo imágenes...' : 'Creando publicación...'}</span>
-                                </div>
-                            ) : (
-                                <div className='d-flex justify-content-evenly'>
-                                    <Link to='/Profile'>
-                                        <button className='cancel-button btn btn-danger'>Cancelar</button>
-                                    </Link>
-                                    <button
-                                        type='submit'
-                                        className='signup-button btn btn-primary'
-                                        disabled={images.length === 0}
-                                    >
-                                        Enviar
-                                    </button>
+                                    <span>Subiendo imágenes...</span>
                                 </div>
                             )}
-                            {formStatus.message && (
-                                <div
-                                    className={`mt-3 alert ${formStatus.message.includes('successfull') ? 'alert-danger' : 'alert-success'}`}
-                                    role='alert'
-                                >
-                                    {formStatus.message}
-                                </div>
-                            )}
+
+                            {/* Upload Alert */}
+                            <AlertMessage type="upload" />
+
                         </div>
                     </div >
                 </form >
