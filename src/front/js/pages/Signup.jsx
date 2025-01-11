@@ -67,11 +67,10 @@ const Signup = () => {
             <form onSubmit={registerUser}>
                 <div className="box-register">
                     <div className="left-form">
-                        <img src={logoLS} />
-                        <h1>Sign up</h1>
-                        <p style={{ color: "rgba(178,35,35,255)", fontWeight: "bold" }}>Fields marked with an * are mandatory</p>
+                        <h1>Regístrate</h1>
+                        <p className='text-secondary fw-semibold'>Los campos marcados con <span style={{ color: 'rgba(178,35,35,255)' }}>*</span> son obligatorios</p>
                         <div className="mb-2">
-                            <label htmlFor="InputEmail1" className="form-label">Email address &nbsp;
+                            <label htmlFor="InputEmail1" className="form-label">Correo Electrónico &nbsp;
                                 <span style={{ color: "rgba(178,35,35,255)", fontWeight: "bold" }} >*</span></label>
                             <input
                                 type="email"
@@ -83,7 +82,7 @@ const Signup = () => {
                             />
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="InputPassword1" className="form-label">Password &nbsp;
+                            <label htmlFor="InputPassword1" className="form-label">Contraseña &nbsp;
                                 <span style={{ color: "rgba(178,35,35,255)", fontWeight: "bold" }} >*</span> </label>
                             <input
                                 type="password"
@@ -94,7 +93,7 @@ const Signup = () => {
                             />
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="InputName" className="form-label">Name &nbsp;
+                            <label htmlFor="InputName" className="form-label">Nombre Completo &nbsp;
                                 <span style={{ color: "rgba(178,35,35,255)", fontWeight: "bold" }} >*</span> </label>
                             <input
                                 type="text"
@@ -105,7 +104,7 @@ const Signup = () => {
                             />
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="countries" className="form-label">Country &nbsp;
+                            <label htmlFor="countries" className="form-label">País &nbsp;
                                 <span style={{ color: "rgba(178,35,35,255)", fontWeight: "bold" }} >*</span> </label>
                             <select
                                 id="countries"
@@ -122,7 +121,7 @@ const Signup = () => {
                             </select>
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="InputAddress" className="form-label">Address</label>
+                            <label htmlFor="InputAddress" className="form-label">Dirección</label>
                             <input
                                 type="text"
                                 value={address}
@@ -130,16 +129,18 @@ const Signup = () => {
                                 className="form-control"
                                 id="exampleInputAddress1"
                             />
-                            <Link to="/login" className="p-1">
-                                <p>Already have an account? Sign in</p>
+                            <Link to="/login" className="p-0">
+                                <p>¿Ya tienes una cuenta? Inicia Sesión</p>
                             </Link>
                         </div>
                         {formStatus.loading ? (
                             <div className="spinner-border text-primary" role="status">
-                                <span className="visually-hidden">Loading...</span>
+                                <span className="visually-hidden">Cargando...</span>
                             </div>
                         ) : (
-                            <button type="submit" className="signup-button btn btn-primary">Submit</button>
+                            <div className="text-center">
+                                <button type="submit" className="signup-button btn btn-primary">Registrarte</button>
+                            </div>
                         )}
                         {formStatus.message && (
                             <div

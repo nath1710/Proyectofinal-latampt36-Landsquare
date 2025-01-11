@@ -18,6 +18,9 @@ const Card = (props) => {
     const [emailOwner, setEmailOwner] = useState(props.ownerEmail)
     const [phoneNumber, setPhoneNumber] = useState('')
     const [message, setMessage] = useState(`Hola ${props.owner}, he encontrado '${props.title}' en Landsquare.com y me gustaría obtener más información al respecto. Gracias.`)
+    const [isLoading, setIsLoading] = useState(false);
+
+    const randomId = crypto.randomUUID()
 
     const navigate = useNavigate();
 
@@ -87,8 +90,6 @@ const Card = (props) => {
             removeFavorite();
         }
     };
-
-    const [isLoading, setIsLoading] = useState(false);
 
     const initializeEmailJS = () => {
         // Inicializa EmailJS con tu Public Key
@@ -218,12 +219,12 @@ const Card = (props) => {
                         <i
                             className='fa-regular fa-envelope'
                             data-bs-toggle='modal'
-                            data-bs-target='#sendEmailModal'
+                            data-bs-target={`#sendEmailModal${randomId}`}
                             style={{ cursor: 'pointer' }}
                         >
                         </i>
                         {/*<!-- Modal -->*/}
-                        <div className='modal fade' id='sendEmailModal' tabindex='-1' aria-labelledby='sendEmailModalLabel' aria-hidden='true'>
+                        <div className='modal fade' id={`sendEmailModal${randomId}`} tabindex='-1' aria-labelledby='sendEmailModalLabel' aria-hidden='true'>
                             <div className='modal-dialog modal-dialog-scrollable'>
                                 <div className='modal-content'>
                                     <div className='modal-header'>

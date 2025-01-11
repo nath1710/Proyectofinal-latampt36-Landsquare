@@ -94,7 +94,7 @@ const Profile = () => {
                     </div>
                     <div className='col-md-4 d-flex flex-column justify-content-center align-items-center'>
                         <h5 className=''>{userData.name}</h5>
-                        <h6 className=''>+{userData.phoneNumber}</h6>
+                        <h6 className=''>{userData.phoneNumber}</h6>
                         <h6 className=''><small className='text-body-secondary'>{userData.country}</small></h6>
                         <h6 className=''><small className='text-body-secondary'>{userData.address}</small></h6>
                     </div>
@@ -112,9 +112,10 @@ const Profile = () => {
                 <div className='d-flex flex-wrap gap-2 align-items-center justify-content-center bg-white py-3'>
                     <div className='card' style={{ width: '18rem', height: '21rem' }}>
                         <div className='card-body d-flex flex-column align-items-center justify-content-center'>
-                            <h5 className='card-title text-center text-secondary'>Haz tu primera Publicación</h5>
+                            <h5 className='card-title text-center text-secondary'>Haz tu primera &nbsp;
+                                Publicación</h5>
                             <Link to='/publish-land' className='d-flex justify-content-center'>
-                                <button type='button' className='btn btn-success'>Publicar</button>
+                                <button type='button' className='btn btn-success'>Publicar <i className='fa-regular fa-square-plus'></i></button>
                             </Link>
                         </div>
                     </div>

@@ -54,7 +54,9 @@ const AboutUs = () => {
                         </div>
                         <div className="profile-card-content">
                             <h2 className="name-card">Yarom Vargas</h2>
-                            <p className="description-card">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem, quidem est. Fuga ab nesciunt nulla reprehenderit velit. Neque fuga ut assumenda pariatur soluta! Id molestiae laborum modi animi est obcaecati.</p>
+                            <p className="description-card">Desarrollador Full-Stack con formación intensiva en tecnologías modernas y experiencia práctica en la creación de aplicaciones web dinámicas. Enfocado en el aprendizaje constante y la mejora continua, me adapto con facilidad a nuevos entornos y desafíos tecnológicos. Buscando siempre contribuir al desarrollo de proyectos innovadores que generen un impacto positivo.
+                                <br />Tecnologías: HTML5, CSS3, Bootstrap, JavaScript, React, Node.js, PostgreSQL, Python, Flask, Git.
+                            </p>
                             <div className="d-flex justify-content-center gap-2">
                                 <a href="https://www.linkedin.com/in/yaromvp/" style={{ textDecoration: "none" }}> <FontAwesomeIcon icon={faLinkedin} style={{ fontSize: "25px", color: "white" }} /> </a>
                                 <a href="https://github.com/yaromvp" style={{ textDecoration: "none" }}> <FontAwesomeIcon icon={faSquareGithub} style={{ fontSize: "25px", color: "white" }} /> </a>

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Context } from '../store/appContext';
 import { Link } from "react-router-dom";
 import '../../styles/ImagePreview.css';
+import editProfilePhoto from '../../img/editprofile-photo.jpg';
 
 const EditProfile = () => {
     const { store, actions } = useContext(Context);
@@ -162,13 +163,12 @@ const EditProfile = () => {
     }, [])
 
     return (
-        <main className=' edit-section auth-background d-flex flex-column gap-3 align-items-center justify-content-center text-dark'>
-
+        <main className='img-post py-5 auth-background d-flex flex-column gap-3 align-items-center justify-content-center text-dark' style={{ backgroundImage: `url(${editProfilePhoto}` }}>
             <form onSubmit={editUser}>
                 <div className='edit-form d-flex flex-column'>
                     <h1>Editar Perfil</h1>
                     <div className='w-100'>
-                        <p style={{ color: 'rgba(178,35,35,255)', fontWeight: 'bold' }}>Los campos marcados con un * son obligatorios</p>
+                        <p className='text-secondary fw-semibold'>Los campos marcados con <span style={{ color: 'rgba(178,35,35,255)' }}>*</span> son obligatorios</p>
                         <div className='mb-3'>
                             <label htmlFor='InputName' className='form-label'>Nombre &nbsp;
                                 <span style={{ color: 'rgba(178,35,35,255)', fontWeight: 'bold' }} >*</span> </label>

@@ -244,7 +244,7 @@ const Post = () => {
                     <div className='box-post'>
                         <div className='w-100'>
                             <h1>Publicar un Terreno</h1>
-                            <p style={{ color: 'rgba(178,35,35,255)', fontWeight: 'bold' }}>Los campos marcados con un * son obligatorios</p>
+                            <p className='text-secondary fw-semibold'>Los campos marcados con <span style={{ color: 'rgba(178,35,35,255)' }}>*</span> son obligatorios</p>
                             <div className='mb-3'>
                                 <label htmlFor='InputTitle' className='form-label'>Título &nbsp;
                                     <span style={{ color: 'rgba(178,35,35,255)', fontWeight: 'bold' }} >*</span> </label>

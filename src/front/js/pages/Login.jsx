@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import landsImage from '../../img/lands.jpg';
-import logoLS from '../../img/LandSquare-small.png';
 import formPhoto from '../../img/form-photo.jpg'
 //import GoogleLogin from "react-google-login";
 //import { gapi } from "gapi-script"
@@ -30,13 +29,13 @@ const Login = () => {
             const data = await response.json();
             actions.setToken(data.token)
             if (response.ok) {
-                setFormStatus({ loading: false, ready: true, message: "successful credentials!" });
+                setFormStatus({ loading: false, ready: true, message: "Successful credentials!" });
             } else {
-                setFormStatus({ loading: false, ready: false, message: data.message || "Error creating user" });
+                setFormStatus({ loading: false, ready: false, message: data.message || "Error al crear la cuenta." });
             }
         } catch (error) {
             console.error("Error creating user:", error);
-            setFormStatus({ loading: false, message: "Server error. Please try again later." });
+            setFormStatus({ loading: false, message: "Error en el servidor. Por favor inténtalo de nuevo en un momento." });
         }
     };
 
@@ -53,10 +52,9 @@ const Login = () => {
             <form onSubmit={loginUser}>
                 <div className="box-log">
                     <div className="left-form">
-                        <img src={logoLS} />
                         <h1>Log in</h1>
                         <div className="mb-3">
-                            <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
+                            <label htmlFor="exampleInputEmail1" className="form-label">Correo electrónico</label>
                             <input
                                 type="email"
                                 value={email}
@@ -67,7 +65,7 @@ const Login = () => {
                             />
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
+                            <label htmlFor="exampleInputPassword1" className="form-label">Contraseña</label>
                             <input
                                 type="password"
                                 value={password}
@@ -76,15 +74,17 @@ const Login = () => {
                                 id="exampleInputPassword1"
                             />
                             <Link to="/signup" className="p-1">
-                                <p>Don't have an account yet? Register</p>
+                                <p>¿Aún no tienes una cuenta? Regístrate</p>
                             </Link>
                         </div>
                         {formStatus.loading ? (
                             <div className="spinner-border text-primary" role="status">
-                                <span className="visually-hidden">Loading...</span>
+                                <span className="visually-hidden">Cargando...</span>
                             </div>
                         ) : (
-                            <button type="submit" className="login-button btn btn-primary">Submit</button>
+                            <div className='text-center'>
+                                <button type="submit" className="login-button btn btn-primary">Iniciar Sesión</button>
+                            </div>
                         )}
                         {formStatus.message && (
                             <div
