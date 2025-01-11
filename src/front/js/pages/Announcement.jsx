@@ -122,11 +122,11 @@ const Announcement = () => {
 
             {/* CAROUSEL */}
             <h2 className='text-center'>{announcementData.title}</h2>
-            <div id='announcementImages' className='carousel slide col-8' data-bs-ride='carousel'>
+            <div id='announcementImages' className='carousel slide vw-100' data-bs-ride='carousel' style={{ backgroundColor: '#164A41' }}>
                 <div className='carousel-inner'>
                     {announcementData.images.map((item, index) => (
                         <div key={index} className={`carousel-item ${index == 0 ? 'active' : null}`}>
-                            <img src={item} className='d-block w-100 rounded border border-light-subtle border-3 shadow' alt='...' style={{ maxHeight: '25rem', objectFit: 'contain' }} />
+                            <center><img src={item} className='rounded' alt='...' style={{ height: '25rem', objectFit: 'cover' }} /></center>
                         </div>
                     ))}
                 </div>
@@ -141,19 +141,32 @@ const Announcement = () => {
             </div>
 
             {/* DESCRIPCIÓN DEL TERRENO */}
-            <div className='row bg-white d-flex flex-wrap overflow-hidden vw-100' style={{ maxHeight: '100vh' }}>
+            <div className='row bg-white d-flex flex-wrap overflow-hidden vw-100 px-4' style={{ maxHeight: '100vh' }}>
                 <div className='col-md-6 p-4 bg-white text-dark d-flex flex-column' style={{ overflowY: "auto" }}>
+                    <h5 className=''>Datos del Terreno</h5>
                     <div className='d-flex flex-wrap row'>
-                        <h5 className='col-md-6'>Precio: ${announcementData.price}</h5>
-                        <h5 className='col-md-6'>Tamaño: {announcementData.size}m<sup>2</sup></h5>
+                        <h6 className='col-md-6'>Precio: ${announcementData.price}</h6>
+                        <h6 className='col-md-6'>Tamaño: {announcementData.size}m<sup>2</sup></h6>
                     </div>
-                    <h5 className='fst-normal text-secondary-emphasis'><small>{announcementData.location}</small></h5>
-                    <h6 className=''>Descripción:</h6>
-                    <p className=''>{announcementData.description}</p>
+                    <h6 className='fst-normal text-secondary-emphasis'>Dirección: <small>{announcementData.location}</small></h6>
+                    <h6 className=''>Descripción: <small>{announcementData.description}</small></h6>
+                    <br />
+                    <h5 className=''>Datos del Propietario</h5>
+                    <div className='d-flex col-md-12'>
+                        <div className='col-md-4 d-flex justify-content-center align-items-center'>
+                            <img src={announcementData.user.photo_profile} className='img-fluid rounded' alt='...' style={{ maxHeight: '100px' }} />
+                        </div>
+                        <div className='col-md-8 d-flex flex-column justify-content-start ps-3'>
+                            <h6 className=''>Nombre: <small>{announcementData.user.name}</small></h6>
+                            <h6 className=''>País: <small>{announcementData.user.country}</small></h6>
+                            <h6 className=''>Teléfono: <small>{announcementData.user.phone_number}</small></h6>
+                        </div>
+                    </div>
+
                 </div>
 
                 {/* GoogleMaps */}
-                <div className='d-flex col-md-6 p-0 m-0' style={{ height: '400px' }}><GoogleMaps /></div>
+                <div className='d-flex col-md-6 p-0 m-0' style={{ height: 'auto' }}><GoogleMaps /></div>
 
             </div>
 
