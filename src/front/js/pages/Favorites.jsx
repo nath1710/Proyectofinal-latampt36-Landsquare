@@ -24,16 +24,15 @@ const Favorites = () => {
             });
             if (!response.ok) throw new Error("Error al cargar favoritos");
             const data = await response.json();
-            console.log(data)
             const favAnnouncements = data.favorites.map(favorite => favorite.announcement)
             setFavAnnouncements(favAnnouncements)
             setFilteredFavAnnouncements(favAnnouncements)
-            console.log(favAnnouncements)
             setFavorites(data.favorites);
         } catch (error) {
             console.error(error);
         }
     };
+
     useEffect(() => {
         if (store.token === undefined && localStorage.getItem('token') == undefined) {
             navigate('/login')
@@ -43,35 +42,11 @@ const Favorites = () => {
         }
     }, [store.token, navigate])
 
-    const toggleFavorite = async (announcementId, isFavorite) => {
-        try {
-            const method = isFavorite ? "DELETE" : "POST";
-            const url = isFavorite
-                ? `/api/favorites/${announcementId}`
-                : "/api/favorites";
-
-            const response = await fetch(url, {
-                method,
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${store.token}`,
-                },
-                body: isFavorite ? null : JSON.stringify({ announcement_id: announcementId }),
-            });
-
-            if (!response.ok) {
-                console.error(`Error al ${isFavorite ? "eliminar" : "crear"} favorito`);
-                return;
-            }
-
-            setFavorites(prev =>
-                isFavorite
-                    ? prev.filter(id => id !== announcementId)
-                    : [...prev, announcementId]
-            );
-        } catch (error) {
-            console.error("Error en toggleFavorite:", error);
-        }
+    const updateFavorites = async (favoriteId) => {
+        const updatedFavorites = favorites.filter((fav) => fav.id !== favoriteId)
+        setFavorites(updatedFavorites)
+        const favAnnouncements = updatedFavorites.map(favorite => favorite.announcement)
+        setFilteredFavAnnouncements(favAnnouncements)
     };
 
     return (
@@ -90,8 +65,7 @@ const Favorites = () => {
                                     <LandCard
                                         key={land.id}
                                         land={land}
-                                        toggleFavorite={toggleFavorite}
-                                        isFavorite={true}
+                                        updateFavorites={updateFavorites}
                                     />
                                 ))
                         ) : (

@@ -377,7 +377,7 @@ const Post = () => {
                             {(formStatus.loading || isUploading) ? (
                                 <div className='d-flex align-items-center gap-2'>
                                     <div className='spinner-border text-primary' role='status'>
-                                        <span className='visually-hidden'>Loading...</span>
+                                        <span className='visually-hidden'>Cargando...</span>
                                     </div>
                                     <span>{isUploading ? 'Subiendo imágenes...' : 'Creando publicación...'}</span>
                                 </div>

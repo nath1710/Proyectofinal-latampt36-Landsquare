@@ -28,7 +28,7 @@ const AboutUs = () => {
                         </div>
                         <div className="profile-card-content">
                             <h2 className="name-card">Nataly Castañeda</h2>
-                            <p className="description-card">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem, quidem est. Fuga ab nesciunt nulla reprehenderit velit. Neque fuga ut assumenda pariatur soluta! Id molestiae laborum modi animi est obcaecati.</p>
+                            <p className="description-card">Desarrolladora Full-Stack con formación intensiva en tecnologías modernas, incluyendo HTML5, CSS3, JavaScript, React, Node.js, bases de datos relacionales (MySQL) y herramientas de control de versiones como Git. Experiencia práctica en el diseño e implementación de aplicaciones web dinámicas y funcionales, adquirida a través de proyectos académicos y prácticas supervisadas.</p>
                             <div className="d-flex justify-content-center gap-2" >
                                 <a href="https://github.com/nath1710" style={{ textDecoration: "none" }}> <FontAwesomeIcon icon={faLinkedin} style={{ fontSize: "25px", color: "white" }} /> </a>
                                 <a href="https://www.linkedin.com/in/nath1710/" style={{ textDecoration: "none" }}> <FontAwesomeIcon icon={faSquareGithub} style={{ fontSize: "25px", color: "white" }} /> </a>

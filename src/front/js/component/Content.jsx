@@ -9,6 +9,11 @@ const Content = () => {
 
     const navigate = useNavigate();
 
+    const handleButtonClick = () => {
+        navigate('/lands');
+        return;
+    }
+
     useEffect(() => {
 
     }, []);
@@ -26,7 +31,7 @@ const Content = () => {
                     <div className='card-img-overlay px-4 py-5'>
                         <h5 className='card-title pb-3'>Encuentra el Terreno Ideal</h5>
                         <p className='card-text pb-3'>Comprar y/o vender un terreno es un gran negocio. Comercialice de forma más inteligente con nuestro conjunto de herramientas mejoradas para que su propiedad sea vista y vendida rápidamente. O también permítanos ayudarle a encontrar el terreno perfecto para usted.</p>
-                        <button type='button' className='btn btn-outline-light'>¡Explorar!</button>
+                        <button type='button' className='btn btn-outline-light' onClick={handleButtonClick}>¡Explorar!</button>
                     </div>
                 </div>
             </div>

@@ -5,7 +5,7 @@ import { faHeart as faHeartFilled } from "@fortawesome/free-solid-svg-icons";
 import { Context } from "../store/appContext";
 import { useNavigate } from 'react-router-dom';
 
-const LandCard = ({ land }) => {
+const LandCard = ({ land, updateFavorites }) => {
     const [isFavorite, setIsFavorite] = useState(false);
     const [favorites, setFavorites] = useState([]);
     const { store } = useContext(Context);
@@ -60,6 +60,7 @@ const LandCard = ({ land }) => {
                 setFavorites((prevFavorites) =>
                     prevFavorites.filter((fav) => fav.id !== favorite.id)
                 );
+                if (updateFavorites) updateFavorites(favorite.id)
             }
         } catch (error) {
             console.error("Error al eliminar favorito:", error);
@@ -87,7 +88,7 @@ const LandCard = ({ land }) => {
 
     useEffect(() => {
         const favorite = favorites.find((fav) => fav.announcement_id === land.id);
-        console.log(favorites)
+        // console.log(favorites)
         setIsFavorite(!!favorite);
     }, [favorites, land.id]);
 
@@ -128,7 +129,7 @@ const LandCard = ({ land }) => {
                     data-bs-slide="prev"
                 >
                     <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span className="visually-hidden">Previous</span>
+                    <span className="visually-hidden">Anterior</span>
                 </button>
                 <button
                     className="carousel-control-next"
@@ -137,7 +138,7 @@ const LandCard = ({ land }) => {
                     data-bs-slide="next"
                 >
                     <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span className="visually-hidden">Next</span>
+                    <span className="visually-hidden">Siguiente</span>
                 </button>
             </div>
             <div className="d-flex justify-content-between pt-2">

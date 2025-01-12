@@ -8,7 +8,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			cloud_name: 'dgbakagwe',
 			favorites: [],
 			userId: null,
-			user: null
+			user: null,
+			isAdmin: false,
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -59,8 +60,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error('Error:', error)
 				}
 			},
+
 			clearToken: () => {
-				setStore({ token: undefined })
+				setStore({ token: undefined, isAdmin: false })
 				localStorage.removeItem('token')
 				getActions().clearUser()
 			},
@@ -136,6 +138,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const userData = JSON.parse(userStr)
 					setStore({ user: userData, userId: userData.id })
 				}
+			},
+
+
+			fetchIsAdmin: async () => {
+				const store = getStore();
+				if (!store.token) return;
+
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/user`, {
+						headers: {
+							Authorization: `Bearer ${store.token}`,
+						},
+					});
+					if (!response.ok) throw new Error("Error al cargar usuario");
+					const data = await response.json();
+					setStore({ isAdmin: data.role === "Admin" });
+				} catch (error) {
+					console.error("Error al cargar el rol del usuario:", error);
+				}
+			},
+
+			setToken: (token) => {
+				setStore({ token });
+				getActions().fetchIsAdmin();
 			},
 		}
 	}

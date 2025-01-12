@@ -464,7 +464,7 @@ const EditAnnouncement = () => {
                             {isUploading && (
                                 <div className='d-flex align-items-center gap-2 mt-3 justify-content-center'>
                                     <div className='spinner-border text-primary' role='status'>
-                                        <span className='visually-hidden'>Loading...</span>
+                                        <span className='visually-hidden'>Cargando...</span>
                                     </div>
                                     <span>Subiendo imágenes...</span>
                                 </div>

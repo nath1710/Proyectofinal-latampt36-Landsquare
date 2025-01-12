@@ -99,7 +99,7 @@ const Filters = ({ announcements, setFilteredAnnouncements, setFilteredFavorites
                 const min = Number(minPrice);
                 const max = Number(maxPrice);
 
-                console.log({ price, min, max });
+                // console.log({ price, min, max });
 
                 if (minPrice === "0" && maxPrice === "Any") {
                     setMinPrice('')
@@ -143,7 +143,7 @@ const Filters = ({ announcements, setFilteredAnnouncements, setFilteredFavorites
             setFilteredAnnouncements(filtered)
         }
 
-        console.log(filtered)
+        // console.log(filtered)
     }
     useEffect(() => {
         filterAnnouncements();
@@ -152,7 +152,7 @@ const Filters = ({ announcements, setFilteredAnnouncements, setFilteredFavorites
     return (
         <div className='d-flex bg-white'>
             <div className="input-group flex-nowrap p-1 w-25">
-                <input type="text" onKeyDown={filterAnnouncements} value={locationInput} onChange={(e) => setLocationInput(e.target.value)} className="form-control" placeholder="Enter a State, County, City, or ID" aria-label="Username" aria-describedby="addon-wrapping" />
+                <input type="text" onKeyDown={filterAnnouncements} value={locationInput} onChange={(e) => setLocationInput(e.target.value)} className="form-control" placeholder="Introduzca un Estado, Condado, Ciudad o ID" aria-label="Username" aria-describedby="addon-wrapping" />
                 <span className="input-group-text" id="addon-wrapping"
                     onClick={() => clearFilterLocation()}
                     style={{ cursor: "pointer" }}>
@@ -168,7 +168,7 @@ const Filters = ({ announcements, setFilteredAnnouncements, setFilteredFavorites
                 >
                     {minPrice || maxPrice
                         ? `${minPrice ? `$${formatToK(minPrice)}` : ''} - ${maxPrice ? maxPrice == "Any" ? "Any" : `$${formatToK(maxPrice)}` : ''}`
-                        : 'Price'} <FontAwesomeIcon style={{ color: "rgb(23, 75, 64)" }} icon={faChevronDown} />
+                        : 'Precio'} <FontAwesomeIcon style={{ color: "rgb(23, 75, 64)" }} icon={faChevronDown} />
                 </button>
                 <div
                     className={`dropdown-menu values-menu ${priceDropdownVisible ? 'show' : ''
@@ -181,7 +181,7 @@ const Filters = ({ announcements, setFilteredAnnouncements, setFilteredFavorites
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Min Price"
+                                placeholder="Precio mínimo"
                                 value={minPrice ? `$${formatNumber(minPrice)}` : ''}
                                 onChange={(e) => {
                                     const rawValue = e.target.value.replace(/[^\d]/g, '');
@@ -226,7 +226,7 @@ const Filters = ({ announcements, setFilteredAnnouncements, setFilteredFavorites
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Max Price"
+                                placeholder="Precio máximo"
                                 value={maxPrice ? maxPrice == "Any" ? "Any" : `$${formatNumber(maxPrice)}` : ''}
                                 onChange={(e) => {
                                     const rawValue = e.target.value.replace(/[^\d]/g, '');
@@ -387,7 +387,7 @@ const Filters = ({ announcements, setFilteredAnnouncements, setFilteredFavorites
                     style={{ cursor: "pointer", color: "rgb(23, 75, 64)" }}
                 >
                     <FontAwesomeIcon icon={faTrash} />
-                    Clear All Filters
+                    Borrar todos los filtros
                 </button>
             </div>
         </div>

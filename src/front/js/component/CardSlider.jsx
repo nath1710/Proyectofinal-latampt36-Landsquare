@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Card from "./Card.jsx";
+import Slider from "./Slider.jsx";
 /*
 const data2 = [
     {
@@ -113,7 +114,7 @@ const CardSlider = () => {
         return (
             <div className="cardslider d-flex justify-content-center align-items-center py-4">
                 <div className="spinner-border text-primary" role="status">
-                    <span className="visually-hidden">Loading...</span>
+                    <span className="visually-hidden">Cargando...</span>
                 </div>
             </div>
         );
@@ -132,9 +133,10 @@ const CardSlider = () => {
     return (
         <div className="cardslider d-flex flex-column gap-3 align-items-center justify-content-center bg-light text-dark py-4">
             <h2 className="mb-3">Terrenos en venta en Latam</h2>
-            {data.length === 0 ? (
+            {/* {data.length === 0 ? (
                 <p>No hay anuncios disponibles</p>
             ) : (
+
                 <div className="d-flex flex-wrap gap-2 align-items-center justify-content-center">
                     {data.map((item) => (
                         <Card
@@ -152,8 +154,10 @@ const CardSlider = () => {
                             title={item.title}
                         />
                     ))}
+
                 </div>
-            )}
+            )} */}
+            {data.length > 0 && <Slider slides={data} />}
         </div>
     );
 }

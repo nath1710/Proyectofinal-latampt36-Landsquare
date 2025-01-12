@@ -10,7 +10,7 @@ export const Footer = ({ overrideHide }) => {
 	const location = useLocation();
 
 	useEffect(() => {
-		setShouldShowFooter(location.pathname === "/lands" || location.pathname === "/favorites" || location.pathname === "/aboutUs" ? false : true);
+		setShouldShowFooter(location.pathname === "/lands" || location.pathname === "/favorites" || location.pathname === "/aboutUs" || location.pathname === "/panel" ? false : true);
 	}, [location.pathname])
 
 	return (
@@ -18,7 +18,7 @@ export const Footer = ({ overrideHide }) => {
 			{(shouldShowFooter || overrideHide) && <footer className="footer mt-auto py-3 text-center">
 				<hr />
 				<h5>
-					Made by
+					Hecho por
 				</h5>
 				<div className="d-flex justify-content-center align-item-center gap-5">
 					<div className="d-flex justify-content-center gap-1">

@@ -4,7 +4,7 @@ import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
 import { Home } from "./pages/home";
-import { Demo } from "./pages/demo";
+import Admin, { Demo } from "./pages/LoginAdmin.jsx";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
 
@@ -21,6 +21,8 @@ import Lands from "./pages/Lands.jsx";
 import Announcement from "./pages/Announcement.jsx";
 import EditAnnouncement from "./pages/EditAnnouncement.jsx";
 import AboutUs from "./pages/AboutUs.jsx";
+import LoginAdmin from "./pages/LoginAdmin.jsx";
+import Panel from "./pages/Panel.jsx";
 
 //create your first component
 const Layout = () => {
@@ -47,8 +49,8 @@ const Layout = () => {
                         <Route element={<Announcement />} path="/announcement/:id" />
                         <Route element={<AboutUs />} path="/aboutUs" />
                         <Route element={<EditAnnouncement />} path="/land-settings/:id" /> {/* pendiente de proteger */}
-                        <Route element={<Demo />} path="/demo" />
-                        <Route element={<Single />} path="/single/:theid" />
+                        <Route element={<LoginAdmin />} path="/LoginAdmin" />
+                        <Route element={<Panel />} path="/panel" />
                         <Route element={<Private />} path="/private" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>

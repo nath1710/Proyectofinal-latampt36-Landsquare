@@ -218,102 +218,11 @@ const Card = (props) => {
                     <div className='d-flex justify-content-center align-items-center fs-5 ms-2'>
                         <i
                             className='fa-regular fa-envelope'
-                            data-bs-toggle='modal'
-                            data-bs-target={`#sendEmailModal${randomId}`}
+                            data-bs-toggle="modal"
+                            data-bs-target={`#sendEmailModal${props.announcementID}`}
                             style={{ cursor: 'pointer' }}
                         >
                         </i>
-                        {/*<!-- Modal -->*/}
-                        <div className='modal fade' id={`sendEmailModal${randomId}`} tabindex='-1' aria-labelledby='sendEmailModalLabel' aria-hidden='true'>
-                            <div className='modal-dialog modal-dialog-scrollable'>
-                                <div className='modal-content'>
-                                    <div className='modal-header'>
-                                        <h1 className='modal-title text-center fs-5' id='sendEmailModalLabel'>{props.title}</h1>
-                                        <button type='button' className='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
-                                    </div>
-                                    <div className='modal-body fs-6'>
-                                        <div className='d-flex justify-content-center gap-3 mb-3'>
-                                            <img
-                                                className='rounded border border-light-subtle'
-                                                src={props.imgOwner}
-                                                alt=''
-                                                style={{ maxHeight: '100px' }} />
-                                            <div className='d-flex flex-column justify-content-center'>
-                                                <span className='fs-5'>{props.owner}</span>
-                                                <span className=''>{props.ownerPhoneNumber}</span>
-                                            </div>
-                                        </div>
-                                        <div className='mb-3'>
-                                            <label htmlFor='inputName' className='form-label'>Nombre Completo</label>
-                                            <input
-                                                type='text'
-                                                className='form-control'
-                                                id='inputName'
-                                                placeholder='Nombre Completo'
-                                                onChange={(e) => setName(e.target.value)}
-                                                value={name}
-                                            />
-                                        </div>
-                                        <div className='mb-3'>
-                                            <label htmlFor='inputEmail' className='form-label'>E-mail</label>
-                                            <input
-                                                type='email'
-                                                className='form-control'
-                                                id='inputEmail'
-                                                placeholder='E-mail'
-                                                onChange={(e) => setEmail(e.target.value)}
-                                                value={email}
-                                            />
-                                        </div>
-                                        <div className='mb-3 inputNumberUpDownRemoved'>
-                                            <label htmlFor='inputPhoneNumber' className='form-label'>Número de Teléfono</label>
-                                            <input
-                                                type='number'
-                                                className='form-control'
-                                                id='inputPhoneNumber'
-                                                placeholder='Número de Teléfono'
-                                                onChange={(e) => setPhoneNumber(e.target.value)}
-                                                value={phoneNumber}
-                                            />
-                                        </div>
-                                        <div className='mb-3'>
-                                            <label htmlFor='inputMessage' className='form-label'>Mensaje</label>
-                                            <textarea
-                                                className='form-control'
-                                                id='inputMessage'
-                                                rows='3'
-                                                onChange={(e) => setMessage(e.target.value)}
-                                                value={message}
-                                            >
-                                            </textarea>
-                                        </div>
-                                    </div>
-                                    <div className='modal-footer'>
-                                        <button
-                                            type='button'
-                                            className='btn btn-secondary'
-                                            data-bs-dismiss='modal'
-                                            disabled={isLoading}
-                                        >
-                                            Cancelar
-                                        </button>
-                                        <button
-                                            type='button'
-                                            className='btn btn-success'
-                                            onClick={handleSendEmail}
-                                            disabled={isLoading}
-                                        >
-                                            {isLoading ? (
-                                                <>
-                                                    <span className='spinner-border spinner-border-sm me-2' role='status' aria-hidden='true'></span>
-                                                    Enviando...
-                                                </>
-                                            ) : 'Enviar'}
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

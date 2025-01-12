@@ -7,7 +7,7 @@ const ImagePreview = () => {
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
-        
+
         // Validar que se haya seleccionado un archivo
         if (!file) {
             setPreview('');
@@ -40,7 +40,7 @@ const ImagePreview = () => {
     return (
         <div className="mb-3">
             <div className="mb-3">
-                <input 
+                <input
                     type="file"
                     className="form-control"
                     accept="image/*"
@@ -56,9 +56,9 @@ const ImagePreview = () => {
 
             {preview && (
                 <div className="preview-container mt-3">
-                    <img 
-                        src={preview} 
-                        alt="Preview" 
+                    <img
+                        src={preview}
+                        alt="Preview"
                         className="img-preview"
                     />
                 </div>

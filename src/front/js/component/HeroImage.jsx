@@ -23,7 +23,7 @@ const HeroImage = () => {
                     src={logoLS}
                     alt='Logo'
                 />
-                <h2 className='text-center text-light'>The place where your dreams find their land</h2>
+                <h2 className='text-center text-light'>Haz que tus sueños toquen tierra</h2>
                 <Link to='/lands'>
                     <button type='button' className='login-button btn btn-primary btn-lg mt-3'>¡Explorar!</button>
                 </Link>

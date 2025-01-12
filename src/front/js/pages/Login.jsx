@@ -27,9 +27,17 @@ const Login = () => {
             });
 
             const data = await response.json();
-            actions.setToken(data.token)
             if (response.ok) {
-                setFormStatus({ loading: false, ready: true, message: "Successful credentials!" });
+                // Verificamos si el rol es "User"
+                if (data.user.role !== "User") {
+                    setFormStatus({ loading: false, ready: false, message: "Access denied: This is not your entry zone" });
+                } else {
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    localStorage.setItem('token', data.token);
+                    actions.setToken(data.token);
+                    actions.setUser(data.user);
+                    setFormStatus({ loading: false, ready: true, message: "Successful credentials!" });
+                }
             } else {
                 setFormStatus({ loading: false, ready: false, message: data.message || "Error al crear la cuenta." });
             }
@@ -52,7 +60,7 @@ const Login = () => {
             <form onSubmit={loginUser}>
                 <div className="box-log">
                     <div className="left-form">
-                        <h1>Log in</h1>
+                        <h1>Iniciar sesión</h1>
                         <div className="mb-3">
                             <label htmlFor="exampleInputEmail1" className="form-label">Correo electrónico</label>
                             <input
@@ -77,30 +85,34 @@ const Login = () => {
                                 <p>¿Aún no tienes una cuenta? Regístrate</p>
                             </Link>
                         </div>
-                        {formStatus.loading ? (
-                            <div className="spinner-border text-primary" role="status">
-                                <span className="visually-hidden">Cargando...</span>
-                            </div>
-                        ) : (
-                            <div className='text-center'>
-                                <button type="submit" className="login-button btn btn-primary">Iniciar Sesión</button>
-                            </div>
-                        )}
-                        {formStatus.message && (
-                            <div
-                                className={`alert mt-3 ${formStatus.message.includes("successfully") ? "alert-success" : "alert-danger"}`}
-                                role="alert"
-                            >
-                                {formStatus.message}
-                            </div>
-                        )}
-                    </div>
+                        {
+                            formStatus.loading ? (
+                                <div className="spinner-border text-primary" role="status">
+                                    <span className="visually-hidden">Cargando...</span>
+                                </div>
+                            ) : (
+                                <div className='text-center'>
+                                    <button type="submit" className="login-button btn btn-primary">Iniciar Sesión</button>
+                                </div>
+                            )
+                        }
+                        {
+                            formStatus.message && (
+                                <div
+                                    className={`alert mt-3 ${formStatus.message.includes("successfully") ? "alert-success" : "alert-danger"}`}
+                                    role="alert"
+                                >
+                                    {formStatus.message}
+                                </div>
+                            )
+                        }
+                    </div >
                     <div className="landsimage-container">
                         <img className="landsimage" src={landsImage} alt="lands" />
                     </div>
-                </div>
-            </form>
-        </main>
+                </div >
+            </form >
+        </main >
     );
 };
 

@@ -254,7 +254,7 @@ const EditProfile = () => {
 
                         {formStatus.loading ? (
                             <div className='spinner-border text-primary' role='status'>
-                                <span className='visually-hidden'>Loading...</span>
+                                <span className='visually-hidden'>Cargando...</span>
                             </div>
                         ) : (
                             <div className='d-flex justify-content-evenly'>
