@@ -6,9 +6,6 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 import '../../styles/Slider2.css';
-import slide_image_1 from "../../img/img_1.jpg"
-import slide_image_2 from "../../img/img_2.jpg"
-import slide_image_3 from "../../img/img_3.jpg"
 import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
 import Card from "./Card.jsx";
 import EmailModal from "./EmailModal.jsx";
