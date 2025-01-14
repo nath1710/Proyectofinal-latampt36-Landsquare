@@ -23,6 +23,7 @@ import EditAnnouncement from "./pages/EditAnnouncement.jsx";
 import AboutUs from "./pages/AboutUs.jsx";
 import LoginAdmin from "./pages/LoginAdmin.jsx";
 import Panel from "./pages/Panel.jsx";
+import AboutUs2 from "./pages/AboutUs2.jsx";
 
 //create your first component
 const Layout = () => {
@@ -47,7 +48,8 @@ const Layout = () => {
                         <Route element={<EditProfile />} path="/settings" />
                         <Route element={<Post />} path="/publish-land" />
                         <Route element={<Announcement />} path="/announcement/:id" />
-                        <Route element={<AboutUs />} path="/aboutUs" />
+                        {/*<Route element={<AboutUs />} path="/aboutUs" />*/}
+                        <Route element={<AboutUs2 />} path="/aboutUs" />
                         <Route element={<EditAnnouncement />} path="/land-settings/:id" /> {/* pendiente de proteger */}
                         <Route element={<LoginAdmin />} path="/LoginAdmin" />
                         <Route element={<Panel />} path="/panel" />

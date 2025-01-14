@@ -13,7 +13,7 @@ const AboutUs = () => {
 
     return (
         <main className="">
-            <div className="info w-25 border "
+            <div className="info w-25 border"
                 style={{ position: "absolute", zIndex: "9999", top: "20%", left: "20%" }}
             >
                 <div className="info-card">
@@ -35,10 +35,10 @@ const AboutUs = () => {
                                 <a href="https://nath1710.github.io/portfolio/" style={{ textDecoration: "none" }}> <FontAwesomeIcon icon={faGlobe} style={{ fontSize: "23px", color: "white" }} /> </a>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
+
             <div className="info w-25 border "
                 style={{ position: "absolute", zIndex: "9999", top: "20%", left: "55%" }}
             >
@@ -63,10 +63,10 @@ const AboutUs = () => {
                                 <a href="https://nath1710.github.io/portfolio/" style={{ textDecoration: "none" }}> <FontAwesomeIcon icon={faGlobe} style={{ fontSize: "23px", color: "white" }} /> </a>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
+
             <div className="section">
                 <div className="wave wave1" style={{ backgroundImage: `url(${waves})` }}></div>
                 <div className="wave wave2" style={{ backgroundImage: `url(${waves})` }}></div>
@@ -74,10 +74,12 @@ const AboutUs = () => {
                 <div className="wave wave4" style={{ backgroundImage: `url(${waves})` }}></div>
                 <div style={{ background: "white", width: "100%", height: "40%", position: "absolute", bottom: "0px" }}>
                     <div className="text-black w-100 d-flex justify-content-center" style={{ paddingTop: "125px" }}>
+                        {/*
                         <div style={{ backgroundImage: "linear-gradient(to right top, rgb(76, 118, 81), rgba(156, 201, 140, 1), rgb(23, 75, 64))", borderRadius: "25px 25px 25px 25px", width: "60%", height: "130px" }}>
-                            <h5 className="px-4 py-2 text-white d-flex justify-content-center" >Tecnologias y herramientas usadas</h5>
+                        */}
+                        <div style={{ backgroundImage: "linear-gradient(to right top, rgb(76, 118, 81), rgba(156, 201, 140, 1), rgb(23, 75, 64))", borderRadius: "25px 25px 25px 25px", width: "60%", height: "130px" }}>
+                            <h5 className="px-4 py-2 text-white d-flex justify-content-center" >Tecnologias y Herramientas utilizadas</h5>
                             <Techstack />
-
                         </div>
                     </div>
                 </div>

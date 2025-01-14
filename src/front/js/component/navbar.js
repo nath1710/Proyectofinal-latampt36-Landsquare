@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import logoLS from '../../img/LandSquare-small.png';
+import logoLSw from '../../img/LandSquare-small-white.png';
 import { Context } from "../store/appContext";
 import Search from "../component/Search.jsx";
 
@@ -41,7 +42,11 @@ export const Navbar = () => {
 			<nav className={`navbar ${isScrolled ? "down" : ""} ${shouldBeAbsolute ? "absolute" : ""}`}>
 				<div className="container">
 					<Link to="/">
-						<img className="logo" src={logoLS} alt="Logo" />
+						{location.pathname.includes('aboutUs') ?
+							<img className="" src={logoLSw} alt="Logo" />
+							:
+							<img className="logo" src={logoLS} alt="Logo" />
+						}
 					</Link>
 					<div className="ml-auto d-flex justify-content-around align-items-baseline">
 						<div className="sections">
