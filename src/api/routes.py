@@ -135,6 +135,16 @@ def get_private_data():
     return jsonify(user.serialize()), 200
 
 
+@api.route('/users', methods=['GET'])
+def get_users_data():
+    users = db.session.execute(
+        db.select(User)).scalars().all()
+
+    users_data = [user.serialize() for user in users]
+
+    return jsonify({"users": users_data}), 200
+
+
 @api.route('/lands-post', methods=['POST'])
 @jwt_required()
 def create_announcement():

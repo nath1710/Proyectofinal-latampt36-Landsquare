@@ -186,3 +186,7 @@ margin-right: 5px;
         display: none;
     } 
 };
+
+.Logo-admin{
+    filter: none !important;
+}

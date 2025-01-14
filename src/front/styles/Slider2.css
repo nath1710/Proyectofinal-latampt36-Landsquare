@@ -1,6 +1,5 @@
 .swiper {
     width: 100%;
-    padding-top: 50px;
     padding-bottom: 50px;
   }
   
@@ -19,4 +18,16 @@
   .swiper-slide-shadow-left,
   .swiper-slide-shadow-right {
     display: none;
+  }
+
+  /* .swiper-horizontal > .swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal {
+    bottom: var(--swiper-pagination-bottom, -18px) !important;
+  } */
+
+  .swiper-wrapper{
+    padding-bottom: 30px;
+}
+
+.swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction{
+    bottom: 0px !important;
   }

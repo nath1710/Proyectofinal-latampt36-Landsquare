@@ -1,19 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    BsCart3, BsGrid1X2Fill, BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill,
+    BsGrid1X2Fill, BsFillArchiveFill, BsPeopleFill,
     BsListCheck, BsMenuButtonWideFill, BsFillGearFill
 } from "react-icons/bs";
 import "../../styles/Panel.css";
 import logoLSwhite from '../../img/LandSquare-small-white.png';
 
-const Sidebar = ({ openSidebarToggle, OpenSidebar }) => {
+const Sidebar = ({ openSidebarToggle, OpenSidebar, handleUsersClick, handlePostsClick }) => {
     return (
         <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive" : ""}>
             <div className="sidebar-title">
                 <div className="sidebar-brand">
-                    <img className="logo" src={logoLSwhite} alt="Logo" />
+                    <img src={logoLSwhite} alt="Logo" style={{ width: "200px" }} />
                 </div>
                 <span className="icon close_icon" onClick={OpenSidebar}><FontAwesomeIcon icon={faXmark} /></span>
             </div>
@@ -23,24 +23,14 @@ const Sidebar = ({ openSidebarToggle, OpenSidebar }) => {
                         <BsGrid1X2Fill className="icon" /> Panel de control
                     </a>
                 </li>
-                <li className="sidebar-list-item">
+                <li className="sidebar-list-item" onClick={handlePostsClick}>
                     <a href="">
-                        <BsFillArchiveFill className="icon" /> Productos
+                        <BsFillArchiveFill className="icon" /> Anuncios
                     </a>
                 </li>
-                <li className="sidebar-list-item">
+                <li className="sidebar-list-item" onClick={handleUsersClick}>
                     <a href="">
-                        <BsFillGrid3X3GapFill className="icon" /> Categorías
-                    </a>
-                </li>
-                <li className="sidebar-list-item">
-                    <a href="">
-                        <BsPeopleFill className="icon" /> Clientes
-                    </a>
-                </li>
-                <li className="sidebar-list-item">
-                    <a href="">
-                        <BsListCheck className="icon" /> Inventario
+                        <BsPeopleFill className="icon" /> Usuarios
                     </a>
                 </li>
                 <li className="sidebar-list-item">
@@ -55,7 +45,7 @@ const Sidebar = ({ openSidebarToggle, OpenSidebar }) => {
                 </li>
             </ul>
         </aside>
-    )
-}
+    );
+};
 
 export default Sidebar;

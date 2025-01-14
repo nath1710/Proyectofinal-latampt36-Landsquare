@@ -64,7 +64,7 @@ export const LoginAdmin = () => {
 			<form onSubmit={loginUser}>
 				<div className="box-log">
 					<div className="left-form">
-						<img src={logoLS} />
+						<img className="Logo-admin" src={logoLS} />
 						<h1>Inicio de sesión de administrador</h1>
 						<div className="mb-3">
 							<label htmlFor="exampleInputEmail1" className="form-label">Correo electrónico</label>
@@ -96,7 +96,7 @@ export const LoginAdmin = () => {
 						)}
 						{formStatus.message && (
 							<div
-								className={`alert mt-3 ${formStatus.message.includes("successfully") ? "alert-success" : "alert-danger"}`}
+								className={`alert mt-3 ${formStatus.message.includes("successfully") ? "alert-danger" : "alert-success"}`}
 								role="alert"
 							>
 								{formStatus.message}

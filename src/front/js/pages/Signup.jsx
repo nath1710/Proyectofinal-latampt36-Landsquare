@@ -112,7 +112,7 @@ const Signup = () => {
                                 onChange={(e) => setCountry(e.target.value)}
                                 className="form-select"
                             >
-                                <option value="">Select a country</option>
+                                <option value="">Selecciona un país</option>
                                 {countries.map((c) => (
                                     <option key={c.code} value={c.code}>
                                         {c.name}

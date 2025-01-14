@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartEmpty } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as faHeartFilled } from "@fortawesome/free-solid-svg-icons";
 import { Context } from "../store/appContext";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LandCard = ({ land, updateFavorites }) => {
     const [isFavorite, setIsFavorite] = useState(false);
@@ -109,18 +109,20 @@ const LandCard = ({ land, updateFavorites }) => {
             </div>
             <p>{land.location}</p><div id={`carouselControls${land.id}`} className="carousel slide" data-bs-ride="carousel">
                 <div className="carousel-inner">
-                    {land.images.map((image, idx) => (
-                        <div
-                            key={`${land.id}-image-${idx}`}
-                            className={`carousel-item ${idx === 0 ? "active" : ""}`}
-                        >
-                            <img style={{ height: "400px" }}
-                                className="d-block w-100"
-                                src={image}
-                                alt={`Slide ${idx + 1}`}
-                            />
-                        </div>
-                    ))}
+                    <Link to={`/announcement/${land.id}`}>
+                        {land.images.map((image, idx) => (
+                            <div
+                                key={`${land.id}-image-${idx}`}
+                                className={`carousel-item ${idx === 0 ? "active" : ""}`}
+                            >
+                                <img style={{ height: "400px" }}
+                                    className="d-block w-100"
+                                    src={image}
+                                    alt={`Slide ${idx + 1}`}
+                                />
+                            </div>
+                        ))}
+                    </Link>
                 </div>
                 <button
                     className="carousel-control-prev"
