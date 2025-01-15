@@ -51,7 +51,7 @@ export const Navbar = () => {
 					<div className="ml-auto d-flex justify-content-around align-items-baseline">
 						<div className="sections">
 							{/* // Mostrar estos enlaces solo si no estamos en /LoginAdmin */}
-							{location.pathname !== "/LoginAdmin" && (
+							{location.pathname !== "/login-admin" && (
 								<>
 									<Link className="nav-link rounded" to="/lands">Terrenos</Link>
 									<Link className="nav-link rounded" to="/">Buscar un agente</Link>
@@ -60,7 +60,7 @@ export const Navbar = () => {
 							)}
 
 							{/* Mostrar el enlace de login si no hay token y no estamos en /LoginAdmin */}
-							{!store.token && location.pathname !== "/LoginAdmin" && (
+							{!store.token && location.pathname !== "/login-admin" && (
 								<Link className="nav-link" to="/login">Iniciar sesión</Link>
 							)}
 

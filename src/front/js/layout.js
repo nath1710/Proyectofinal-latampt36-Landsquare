@@ -51,7 +51,7 @@ const Layout = () => {
                         {/*<Route element={<AboutUs />} path="/aboutUs" />*/}
                         <Route element={<AboutUs2 />} path="/aboutUs" />
                         <Route element={<EditAnnouncement />} path="/land-settings/:id" /> {/* pendiente de proteger */}
-                        <Route element={<LoginAdmin />} path="/LoginAdmin" />
+                        <Route element={<LoginAdmin />} path="/login-admin" />
                         <Route element={<Panel />} path="/panel" />
                         <Route element={<Private />} path="/private" />
                         <Route element={<h1>Not found!</h1>} />

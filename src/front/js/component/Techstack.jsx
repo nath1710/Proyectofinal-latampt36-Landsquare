@@ -13,9 +13,7 @@ import {
     SiBootstrap,
     SiCloudinary,
     SiFlask,
-    SiGoogleauthenticator,
     SiGooglemaps,
-    SiMysql,
     SiPostgresql,
 } from "react-icons/si";
 
@@ -61,9 +59,6 @@ function Techstack() {
                 </div>
                 <div >
                     <SiCloudinary />
-                </div>
-                <div >
-                    <SiGoogleauthenticator />
                 </div>
             </div>
         </div>

@@ -75,7 +75,7 @@ const UsersAdmin = () => {
                             <tr key={user.id}>
                                 <td>{user.id}</td>
                                 <td>{user.email}</td>
-                                <td>{user.is_active ? "Sí" : "No"}</td>
+                                <td>{user.is_active ? "No" : "Sí"}</td>
                                 <td>{user.name}</td>
                                 <td>{user.country}</td>
                                 <td>{user.role}</td>
@@ -83,7 +83,7 @@ const UsersAdmin = () => {
                         ))}
                     </tbody>
                 </table>
-                <div className="pagination">
+                <div className="pagination gap-3">
                     {paginationButtons.map(pageNumber => (
                         <button
                             key={pageNumber}

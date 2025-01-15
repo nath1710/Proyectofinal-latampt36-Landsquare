@@ -100,7 +100,7 @@ const PostsAdmin = () => {
                         ))}
                     </tbody>
                 </table>
-                <div className="pagination">
+                <div className="pagination gap-2">
                     {paginationButtons.map((pageNumber) => (
                         <button
                             key={pageNumber}

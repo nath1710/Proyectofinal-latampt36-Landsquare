@@ -141,7 +141,7 @@ const Dashboard = () => {
                         <h3>ALERTAS</h3>
                         <BsFillBellFill className="card_icon" />
                     </div>
-                    <h1>42</h1>
+                    <h1>0</h1>
                 </div>
             </div>
             <div className="charts">
@@ -164,7 +164,6 @@ const Dashboard = () => {
                         <Tooltip />
                         <Legend />
                         <Bar dataKey="users" fill="#8884d8" />
-                        <Bar dataKey="announcements" fill="#82ca9d" />
                     </BarChart>
                 </ResponsiveContainer>
 

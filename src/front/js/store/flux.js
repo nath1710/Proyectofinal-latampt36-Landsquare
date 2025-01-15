@@ -38,26 +38,35 @@ const getState = ({ getStore, getActions, setStore }) => {
 				return country || { code: "", name: "Not found" };
 			},
 			setToken: async (token) => {
-				setStore({ token: token })
-				localStorage.setItem('token', token)
+				// Almacena el token en el estado y en localStorage
+				setStore({ token: token });
+				localStorage.setItem('token', token);
 
 				try {
-					const response = await fetch(process.env.BACKEND_URL + '/api/user', {
+					// Realiza la solicitud para obtener los datos del usuario
+					const response = await fetch(`${process.env.BACKEND_URL}/api/user`, {
 						method: 'GET',
 						headers: {
 							'Authorization': `Bearer ${token}`,
 							'Content-Type': 'application/json'
 						}
-					})
+					});
+
 					if (response.ok) {
-						const userData = await response.json()
-						console.log('user dataaaaaaaaaaaaaa', userData)
-						getActions().setUser(userData)
+						const userData = await response.json();
+						console.log('Datos del usuario:', userData);
+
+						// Guarda los datos del usuario en el estado
+						getActions().setUser(userData);
+
+						// Verifica si el usuario es administrador
+						const isAdmin = userData.role === "Admin";
+						setStore({ isAdmin });
 					} else {
-						console.error('Error fetching user data')
+						console.error('Error al obtener los datos del usuario');
 					}
 				} catch (error) {
-					console.error('Error:', error)
+					console.error('Error en setToken:', error);
 				}
 			},
 
@@ -157,11 +166,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.error("Error al cargar el rol del usuario:", error);
 				}
-			},
-
-			setToken: (token) => {
-				setStore({ token });
-				getActions().fetchIsAdmin();
 			},
 		}
 	}
