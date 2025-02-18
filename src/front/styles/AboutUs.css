@@ -1,0 +1,154 @@
+.section{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(to right top, rgb(76, 118, 81), rgba(156, 201, 140, 1), rgb(23, 75, 64));
+    overflow: hidden;
+}
+
+.section .wave {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    background-size: 1000px 150px;
+}
+
+.section .wave.wave1 {
+    animation: animate 30s linear infinite;
+    opacity: 1;
+    animation-delay: 0s;
+    top: 50%; 
+    transform: translateY(-50%); 
+}
+
+.section .wave.wave2 {
+    animation: animate2 15s linear infinite;
+    opacity: 0.5;
+    animation-delay: -5s;
+    top: 50%; 
+    transform: translateY(-50%); 
+}
+
+.section .wave.wave3 {
+    animation: animate 30s linear infinite;
+    opacity: 0.2;
+    animation-delay: -2s;
+    top: 50%; 
+    transform: translateY(-50%);
+}
+
+.section .wave.wave4 {
+    animation: animate2 5s linear infinite;
+    opacity: 0.7;
+    animation-delay: -5s;
+    top: 50%; 
+    transform: translateY(-50%); 
+}
+@keyframes animate 
+{
+    0%
+    { background-position-x: 0;}
+    100%
+    { background-position-x: 1000px;}
+}
+@keyframes animate2
+{
+    0%
+    { background-position-x: 0;}
+    100%
+    { background-position-x: -1000px;}
+}
+.info{
+    background-color: white; 
+    background:white;
+    border-radius: 25px 25px 25px 25px ;
+}
+.info-card{
+    /* margin: 0 40px; */
+}
+
+.image-content, 
+.profile-card-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 14px;
+    background: rgba(156, 201, 140, 1);
+    border-radius: 0px 0px 25px 25px;
+}
+
+.image-content{
+    row-gap: 5px;
+    position: relative;
+    padding: 25px 0;
+    border-radius: 25px;
+}
+.profile-card{
+    /* width: 320px; */
+    border-radius: 25px;
+    background-color:rgba(156, 201, 140, 1);
+}
+.overlay{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #FFF;
+    border-radius: 25px 25px 0 25px;
+}
+.overlay::before,
+.overlay::after{
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -40px;
+    height: 40px;
+    width: 40px;
+    background-color: #FFF;
+}
+.overlay::after{
+    border-radius: 0 25px 0 0;
+    background-color: rgba(156, 201, 140, 1);
+}
+.profile-card-image{
+    position: relative;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    background: rgb(22, 74, 65);
+    padding: 3px;
+
+}
+.profile-card-image .profile-card-img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover ;
+    border-radius: 50%;
+    border: 4px solid #FFF;
+    
+}
+.name-card{
+    font-size: 18px;
+    font-weight: 500;
+    color: white;
+}
+.description-card{
+    font-size: 14px;
+    color: white;
+    text-align: center;
+    width: 420px;
+    height: 120px;
+}
+
+.shadow-text {
+    text-shadow: 5px 5px 10px black;
+}
+
+.card-info{
+    /*display: flex;
+    align-items: center;*/
+    background-color: rgb(22, 74, 65);
+    border-radius: 0px 0px 30px 30px ;
+}

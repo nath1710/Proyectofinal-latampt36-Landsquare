@@ -53,7 +53,11 @@
 		"remote-origin-url": "^2.0.0",
 		"style-loader": "^3.3.1",
 		"webpack": "^5.65.0",
+<<<<<<< HEAD
 		"webpack-cli": "^4.9.1",
+=======
+		"webpack-cli": "^4.10.0",
+>>>>>>> master
 		"webpack-dev-server": "^4.6.0",
 		"webpack-merge": "^5.8.0"
 	},
@@ -73,10 +77,35 @@
 		]
 	},
 	"dependencies": {
+<<<<<<< HEAD
 		"prop-types": "^15.6.1",
 		"react": "^16.8.4",
 		"react-dom": "^16.8.4",
 		"react-polyfills": "0.0.1",
 		"react-router-dom": "^6.3.0"
+=======
+		"@emailjs/browser": "^4.4.1",
+		"@fortawesome/fontawesome-svg-core": "^6.7.2",
+		"@fortawesome/free-brands-svg-icons": "^6.7.2",
+		"@fortawesome/free-regular-svg-icons": "^6.7.2",
+		"@fortawesome/free-solid-svg-icons": "^6.7.2",
+		"@fortawesome/react-fontawesome": "^0.2.2",
+		"@react-google-maps/api": "^2.20.3",
+		"axios": "^1.7.9",
+		"cors": "^2.8.5",
+		"echarts": "^5.6.0",
+		"gapi-script": "^1.2.0",
+		"prop-types": "^15.6.1",
+		"react": "^16.8.4",
+		"react-dom": "^16.8.4",
+		"react-google-login": "^5.2.2",
+		"react-icons": "^5.4.0",
+		"react-polyfills": "0.0.1",
+		"react-router-dom": "^6.3.0",
+		"react-slick": "^0.30.2",
+		"recharts": "^2.15.0",
+		"slick-carousel": "^1.8.1",
+		"swiper": "^11.2.1"
+>>>>>>> master
 	}
 }
