@@ -1,7 +1,7 @@
 {
 	"name": "react-hello-webapp",
 	"engines": {
-		"node": "16.x"
+		"node": "22.x"
 	},
 	"version": "1.0.1",
 	"description": "",
@@ -53,11 +53,7 @@
 		"remote-origin-url": "^2.0.0",
 		"style-loader": "^3.3.1",
 		"webpack": "^5.65.0",
-<<<<<<< HEAD
-		"webpack-cli": "^4.9.1",
-=======
 		"webpack-cli": "^4.10.0",
->>>>>>> master
 		"webpack-dev-server": "^4.6.0",
 		"webpack-merge": "^5.8.0"
 	},
@@ -77,13 +73,6 @@
 		]
 	},
 	"dependencies": {
-<<<<<<< HEAD
-		"prop-types": "^15.6.1",
-		"react": "^16.8.4",
-		"react-dom": "^16.8.4",
-		"react-polyfills": "0.0.1",
-		"react-router-dom": "^6.3.0"
-=======
 		"@emailjs/browser": "^4.4.1",
 		"@fortawesome/fontawesome-svg-core": "^6.7.2",
 		"@fortawesome/free-brands-svg-icons": "^6.7.2",
@@ -106,6 +95,5 @@
 		"recharts": "^2.15.0",
 		"slick-carousel": "^1.8.1",
 		"swiper": "^11.2.1"
->>>>>>> master
 	}
 }
