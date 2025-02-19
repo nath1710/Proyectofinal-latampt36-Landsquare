@@ -9,4 +9,3 @@ pipenv install
 
 pipenv run upgrade
 
-flask db upgrade
