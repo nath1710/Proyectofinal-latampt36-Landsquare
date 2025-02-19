@@ -23,7 +23,7 @@ class User(db.Model):
     announcements = db.relationship('Announcement', back_populates='user')
     favorite = db.relationship('Favorite', back_populates='user')
 
-    def __init__(self, email, password, name, country, address, phone_number="", photo_profile=None):
+    def __init__(self, email, password, name, country, address, phone_number="", photo_profile=None, role="User"):
         self.email = email
         self.password = password
         self.name = name
@@ -31,7 +31,7 @@ class User(db.Model):
         self.address = address
         self.phone_number = phone_number
         self.photo_profile = photo_profile or self.photo_profile
-        self.role
+        self.role = role
 
     def __repr__(self):
         return f'<User {self.email}>'
