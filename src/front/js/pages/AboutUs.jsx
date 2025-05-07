@@ -74,7 +74,7 @@ const AboutUs = () => {
                 <div className="wave wave2" style={{ backgroundImage: `url(${waves})` }}></div>
                 <div className="wave wave3" style={{ backgroundImage: `url(${waves})` }}></div>
                 <div className="wave wave4" style={{ backgroundImage: `url(${waves})` }}></div>
-                <div style={{ background: "white", width: "100%", height: "40%", position: "absolute", bottom: "0px" }}>
+                <div style={{ background: "white", width: "100%", height: "43%", position: "absolute", bottom: "0px" }}>
                     <div className="text-black w-100 d-flex justify-content-center" style={{ padding: "125px 0px 0px 65px" }}>
                         {/*
                         <div style={{ backgroundImage: "linear-gradient(to right top, rgb(76, 118, 81), rgba(156, 201, 140, 1), rgb(23, 75, 64))", borderRadius: "25px 25px 25px 25px", width: "60%", height: "130px" }}>
